@@ -2,7 +2,7 @@
 
 . ./Makeconf
 
-PREFIX=/Users/vincent/emacs-modified/trunk/$NAME-$VERSION/Emacs.app/Contents
+PREFIX=$VOLUME/$NAME-$VERSION/Emacs.app/Contents
 
 cd ess-*
 
@@ -24,5 +24,6 @@ sed -i "" '/^all/s/dvi //' doc/Makefile
 sed -i "" '/$(INSTALL)/{s/ess.dvi //;s/readme.dvi //;}' doc/Makefile
 
 ## Build and install
+make clean
 make all
 make install

@@ -1,0 +1,15 @@
+=== Modified version of GNU Emacs for Mac OS X ===
+
+Version 23.0.60.1-modified-1 (14 January 2009)
+==============================================
+
+Initial release compiled from CVS sources of GNU Emacs. Included
+packages:
+
+o ESS 5.3.10
+o AUCTeX 11.85
+o Aspell 0.61-20071105
+o English (version 6.0-0), French (version 0.50-3) and German (version
+  20030222-1) dictionnaries for Aspell
+o psvn.el
+o site-start.el
