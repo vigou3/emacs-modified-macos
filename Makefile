@@ -26,7 +26,7 @@ all: $(MASTER_DMG)
 $(TEMPLATE_DMG): $(TEMPLATE_DMG).bz2
 	bunzip2 -k $<
 
-$(TEMPLATE_DMG).bz2: 
+$(TEMPLATE_DMG).bz2:
 	@echo
 	@echo Generating empty template...
 	mkdir template
@@ -59,11 +59,14 @@ clean:
 	-rm -rf $(TEMPLATE_DMG) $(MASTER_DMG) $(WC_DMG)
 
 
-PREFIX=Emacs.app/Contents/Resources
+PREFIX=$VOLUME/$NAME-$VERSION/Emacs.app/Contents
 
+cp -p README.txt $VOLUME/$NAME-$VERSION
+cp -p NEWS $VOLUME/$NAME-$VERSION
+cp -R Applications $VOLUME/$NAME-$VERSION
+cp -p site-start.el ${PREFIX}/Resources/site-lisp
+cp -p psvn.el ${PREFIX}/Resources/site-lisp
 ess_install.sh
 auctex_install.sh
 aspell_install.sh
 dict_install.sh
-cp site-start.el ${PREFIX}/site-lisp
-cat README-modified.txt README.txt > 

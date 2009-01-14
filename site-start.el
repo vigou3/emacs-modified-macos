@@ -90,7 +90,11 @@
 ;;;
 ;;; Fix path
 ;;;
-;; Due to a bug in the OS X build, Emacs does not properly catch the
-;; system and user paths at launch. The little utility 'mac-fix-env',
-;; provided with Emacs, fixes this.
-(call-process "mac-fix-env" nil nil)
+;; Emacs does not properly catch the system and user paths at launch
+;; on OS X. There are ways to solve this provided with Emacs.app
+;; (mac-fix-env and ns-grabenv), but I have not been very successful
+;; in using them so far. For the time being, I rely on code lifted
+;; from Aquamacs.
+;; (if window-system (ns-grabenv "/bin/bash"
+;; 			      "source ~/.bashrc"))
+(require 'fixpath)

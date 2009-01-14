@@ -7,6 +7,7 @@
 # This file is part of GNU Emacs.app Modified
 # http://vgoulet.act.ulaval.ca/emacs
 
-NAME=Emacs_NS-9.0rc3-modified
+VOLUME=/Volumes
+NAME=Emacs-23.0.60.1-modified
 VERSION=1
 SOURCE_FILES="Emacs.app README.txt"
