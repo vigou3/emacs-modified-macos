@@ -30,6 +30,7 @@
 (global-font-lock-mode t)		; syntax highlighting
 (transient-mark-mode t)			; sane select (mark) mode
 (delete-selection-mode t)		; entry deletes marked text
+(show-paren-mode t)			; match parentheses
 (add-hook 'text-mode-hook 'turn-on-auto-fill) ; wrap long lines in text mode
 
 
