@@ -13,60 +13,93 @@
 
 include ./Makeconf
 
-# DMG building. No editing should be needed beyond this point
+TMPDIR=${CURDIR}/tmpdir
+TMPDMG=${CURDIR}/tmpdmg.dmg
+EMACSDIR=${TMPDIR}/Emacs.app
+PREFIX=${EMACSDIR}/Contents
 
-MASTER_DMG=$(NAME)-$(VERSION).dmg
-TEMPLATE_DMG=template.dmg
-WC_DMG=wc.dmg
-WC_DIR=wc
+ESS=`ls -d ess-*`
+AUCTEX=`ls -d auctex-*`
 
-.PHONY: all
-all: $(MASTER_DMG)
+all : emacs.app emacs ess auctex dmg
 
-$(TEMPLATE_DMG): $(TEMPLATE_DMG).bz2
-	bunzip2 -k $<
+.PHONY : emacs.app emacs dir ess auctex dmg clean
 
-$(TEMPLATE_DMG).bz2:
-	@echo
-	@echo Generating empty template...
-	mkdir template
-	hdiutil create -size 160m "$(TEMPLATE_DMG)" -srcfolder template -format UDRW -volname "$(NAME)" -quiet
-	rmdir template
-	bzip2 "$(TEMPLATE_DMG)"
-	@echo
+emacs.app :
+	cd emacs-${EMACSVERSION} && ./configure --with-ns
+	LC_ALL=C LANG=C CFLAGS="-arch ppc -arch i386" ${MAKE} \
+		-C emacs-${EMACSVERSION} install
 
-$(WC_DMG): $(TEMPLATE_DMG)
-	cp $< $@
+emacs : dir ess auctex dmg
 
-$(MASTER_DMG): $(WC_DMG) $(SOURCE_FILES)
-	@echo
-	@echo Creating Disk Image...
-	mkdir -p $(WC_DIR)
-	hdiutil attach "$(WC_DMG)" -noautoopen -quiet -mountpoint "$(WC_DIR)"
-	for i in $(SOURCE_FILES); do  \
-		rm -rf "$(WC_DIR)/$$i"; \
-		ditto -rsrc "$(SOURCE_DIR)/$$i" "$(WC_DIR)/$$i"; \
-	done
-	WC_DEV=`hdiutil info | grep "$(WC_DIR)" | grep "Apple_HFS" | awk '{print $$1}'` && \
-	hdiutil detach $$WC_DEV -quiet -force
-	rm -f "$(MASTER_DMG)"
-	hdiutil convert "$(WC_DMG)" -quiet -format UDZO -imagekey zlib-level=9 -o "$@"
-	rm -rf $(WC_DIR)
-	@echo
+dir :
+	if [ -d ${TMPDIR} ]; then rm -rf ${TMPDIR}; fi
+	mkdir ${TMPDIR}
+	ditto -rsrc ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/ \
+		${EMACSDIR}
+	cp -p site-start.el ${PREFIX}/Resources/site-lisp/
+	cp -p psvn.el ${PREFIX}/Resources/site-lisp/
+	cp -p fixpath.el ${PREFIX}/Resources/site-lisp/
+	cp -p Emacs.icns ${PREFIX}/Resources/
+	cp -p emacs-document.icns ${PREFIX}/Resources/
 
-.PHONY: clean
-clean:
-	-rm -rf $(TEMPLATE_DMG) $(MASTER_DMG) $(WC_DMG)
+ess : 
+	@echo ----- Making ESS...
+	@echo ${ESS}
+	cp -p ${ESS}/Makeconf ${ESS}/Makeconf.orig
+	sed -i "" '/^DESTDIR/s|/usr/local|'${PREFIX}'/Resources|' \
+		${ESS}/Makeconf
+	sed -i "" '/^EMACS/s|emacs|'${PREFIX}'/MacOS/Emacs|' ${ESS}/Makeconf
+	sed -i "" '/^LISPDIR/s/share\/emacs\/site-lisp/site-lisp\/ess/' \
+		${ESS}/Makeconf
+	sed -i "" '/^ETCDIR/s/share\/emacs\///'  ${ESS}/Makeconf
+	sed -i "" '/^DOCDIR/s/share\///' ${ESS}/Makeconf
+	${MAKE} -C ${ESS} all 
+	${MAKE} -C ${ESS} install
+	@echo ----- Done making ESS
 
+auctex :
+	@echo ----- Making AUCTeX...
+	cd ${AUCTEX} && ./configure --datarootdir=${PREFIX}/Resources \
+		--without-texmf-dir \
+		--with-lispdir=${PREFIX}/Resources/site-lisp \
+		--with-emacs=${PREFIX}/MacOS/Emacs
+	make -C ${AUCTEX}
+	make -C ${AUCTEX} install
+	@echo ----- Done making AUCTeX
 
-PREFIX=$VOLUME/$NAME-$VERSION/Emacs.app/Contents
+dmg : 
+	@echo ----- Creating disk image...
+	if [ -e ${TMPDMG} ]; then rm ${TMPDMG}; fi
+	hdiutil create ${TMPDMG} \
+		-size 120m \
+	 	-format UDRW \
+		-fs HFS+ \
+		-srcfolder ${TMPDIR} \
+		-volname ${DISTNAME} \
+		-quiet
 
-cp -p README.txt $VOLUME/$NAME-$VERSION
-cp -p NEWS $VOLUME/$NAME-$VERSION
-cp -R Applications $VOLUME/$NAME-$VERSION
-cp -p site-start.el ${PREFIX}/Resources/site-lisp
-cp -p psvn.el ${PREFIX}/Resources/site-lisp
-ess_install.sh
-auctex_install.sh
-aspell_install.sh
-dict_install.sh
+	@echo ----- Mounting disk image...
+	hdiutil attach ${TMPDMG} -noautoopen -quiet
+
+	@echo ----- Populating top level image directory...
+	cp -p README.txt ${VOLUME}/${DISTNAME}/
+	cp -p NEWS ${VOLUME}/${DISTNAME}/
+	cp -R Applications ${VOLUME}/${DISTNAME}/
+
+	@echo ----- Unmounting and compressing disk image...
+	hdiutil detach ${VOLUME}/${DISTNAME} -quiet
+	if [ -e ${DISTNAME}.dmg ]; then rm ${DISTNAME}.dmg; fi
+	hdiutil convert ${TMPDMG} \
+		-format UDZO \
+		-imagekey zlib-level=9 \
+		-o ${DISTNAME}.dmg -quiet
+
+	rm -rf ${TMPDIR} ${TMPDMG}
+	@echo ----- Done building the disk image
+
+clean :
+	rm ${DISTNAME}.dmg
+	cd emacs-${EMACSVERSION} && ${MAKE} clean
+	cd ${ESS} && ${MAKE} clean
+	cd ${AUCTEX} && ${MAKE} clean

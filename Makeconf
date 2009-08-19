@@ -1,4 +1,4 @@
-# Makeconf file used by Makefile and all *_install.sh scripts
+# Makeconf file used by Makefile
 
 # Copyright (C) 2009 Vincent Goulet
 
@@ -7,7 +7,8 @@
 # This file is part of GNU Emacs.app Modified
 # http://vgoulet.act.ulaval.ca/emacs
 
-VOLUME=/Volumes
-NAME=Emacs-23.0.60.1-modified
+EMACSVERSION=23.1
 VERSION=1
-SOURCE_FILES="Emacs.app README.txt"
+EMACSNAME=Emacs-${EMACSVERSION}-modified
+DISTNAME=${EMACSNAME}-${VERSION}
+VOLUME=/Volumes
