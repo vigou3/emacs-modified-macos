@@ -1,3 +1,6 @@
+Copyright (C) 2008, 2009 Free Software Foundation, Inc.
+Copyright (C) 2009 Vincent Goulet for the modifications
+See below for GNU Emacs license conditions.
 
 Emacs.app Modified
 ==================
@@ -5,28 +8,30 @@ Emacs.app Modified
 This is the the NeXTstep-based port of GNU Emacs, known as Emacs.app,
 modified to include the following add-on packages:
 
-* ESS 5.3.10;
+* ESS 5.4;
 * AUCTeX 11.85;
-* Aspell 0.61-20071105, a spell checker well integrated to Emacs;
-* English (version 6.0-0), French (version 0.50-3) and German (version
-  20030222-1) dictionnaries for Aspell. See http://aspell.net to
-  install other dictionnaries;
 * psvn.el, to work with Subversion repositories from within Emacs;
 * site-start.el, to make everything work.
 
 Please direct questions or comments on this modified version of
 Emacs.app to Vincent Goulet <vincent.goulet@act.ulaval.ca>.
 
+GNU Emacs Modified is free software: you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
 
 Emacs.app
 =========
 
-[The following is taken from the nextstep/README in the GNU Emacs
-sources.]
+[The following are excerpts from the file nextstep/README in the GNU
+Emacs sources.]
 
 The Nextstep support code works on many POSIX systems (and possibly
 W32) using the GNUstep libraries, and on MacOS X systems using the
-Cocoa libraries.
+Cocoa libraries.  As of the Emacs 23.1 release, it is usable but not
+as stable as other platforms; we will improve it in future releases.
 
 Those primarily responsible for the port were, in chronological order:
 Michael Brouwer, Carl Edman, Christian Limpach, Scott Bender,
@@ -84,7 +89,7 @@ meantime.
 Release History
 ---------------
 
-1990-1992	1.0-3.0 (?)	Michael Brouwer's socket/terminal communication
+1990-1992	1.0-3.0 (?)	Michael Brouwer's socket/terminal communication 
 				based version (GUI ran as a separate process.)
 
 1993/10/25	3.0.1		Last (?) release of Brouwer version.  Supports
@@ -192,7 +197,7 @@ Release History
 				handling now added.  Transparency (e.g., M-x
 				set-background-color ARGB88FFFFFF) improved:
 				only the background is made transparent.
-				Cursor drawing glitches fixed.  Preferences
+				Cursor drawing glitches fixed.  Preferences 
 				handling improved.  Fixed some portability
 				problems on Tiger and Puma.
 
@@ -231,7 +236,7 @@ Release History
 				rendering, pasting, Color panel.  Added function
 				ns-set-background-alpha to work around
 				inability to customize with numeric colors.
-
+				
 2006/12/24	9.0-rc1		Reworked font handling and text rendering to
 				use Kenichi Handa's new font back-end system.
 				Font sets are now supported and automatically
@@ -278,16 +283,10 @@ Release History
 
 2008/07/15	(none)		Merge to GNU Emacs CVS trunk.
 
-
-Copyright (C) 2008, 2009 Free Software Foundation, Inc.
-Copyright (C) 2009 Vincent Goulet for the modifications
-
-This file is part of GNU Emacs Modified.
-
-GNU Emacs Modified is free software: you can redistribute it and/or
-modify it under the terms of the GNU General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
+GNU Emacs is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
 GNU Emacs is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
