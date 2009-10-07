@@ -33,8 +33,8 @@ emacs.app :
 emacs : dir ess auctex dmg
 
 dir :
+	@echo ----- Creating build directory...
 	if [ -d ${TMPDIR} ]; then rm -rf ${TMPDIR}; fi
-	mkdir ${TMPDIR}
 	ditto -rsrc ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/ \
 		${EMACSDIR}
 	cp -p site-start.el ${PREFIX}/Resources/site-lisp/
@@ -45,7 +45,6 @@ dir :
 
 ess : 
 	@echo ----- Making ESS...
-	@echo ${ESS}
 	cp -p ${ESS}/Makeconf ${ESS}/Makeconf.orig
 	sed -i "" '/^DESTDIR/s|/usr/local|'${PREFIX}'/Resources|' \
 		${ESS}/Makeconf
