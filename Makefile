@@ -26,6 +26,7 @@ all : emacs.app emacs ess auctex dmg
 .PHONY : emacs.app emacs dir ess auctex dmg clean
 
 emacs.app :
+	@echo ----- Building Emacs.app...
 	cd emacs-${EMACSVERSION} && ./configure --with-ns
 	LC_ALL=C LANG=C CFLAGS="-arch ppc -arch i386" ${MAKE} \
 		-C emacs-${EMACSVERSION} install
@@ -33,7 +34,7 @@ emacs.app :
 emacs : dir ess auctex dmg
 
 dir :
-	@echo ----- Creating build directory...
+	@echo ----- Creating the application in temporary directory...
 	if [ -d ${TMPDIR} ]; then rm -rf ${TMPDIR}; fi
 	ditto -rsrc ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/ \
 		${EMACSDIR}

@@ -1,5 +1,5 @@
 Copyright (C) 2008, 2009 Free Software Foundation, Inc.
-Copyright (C) 2009 Vincent Goulet for the modifications
+Copyright (C) 2009, 2010 Vincent Goulet for the modifications
 See below for GNU Emacs license conditions.
 
 Emacs.app Modified
@@ -8,8 +8,8 @@ Emacs.app Modified
 This is the the NeXTstep-based port of GNU Emacs, known as Emacs.app,
 modified to include the following add-on packages:
 
-* ESS 5.5;
-* AUCTeX 11.85;
+* ESS;
+* AUCTeX;
 * psvn.el, to work with Subversion repositories from within Emacs;
 * site-start.el, to make everything work.
 
