@@ -7,8 +7,8 @@
 # This file is part of GNU Emacs.app Modified
 # http://vgoulet.act.ulaval.ca/emacs
 
-EMACSVERSION=23.1.90
-VERSION=2
+EMACSVERSION=23.1.93
+VERSION=1
 EMACSNAME=Emacs-${EMACSVERSION}-modified
 DISTNAME=${EMACSNAME}-${VERSION}
 VOLUME=/Volumes
