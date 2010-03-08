@@ -1,5 +1,18 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
+Version 23.1.93-modified-1 (8 March 2010)
+=========================================
+
+Release compiled from Emacs Bazaar sources restoring building on Snow
+Leopard. This is a 32-bit application that should run on older OS X
+releases.
+
+UPDATES
+
+o ESS 5.8
+o AUCTeX 11.86
+
+
 Version 23.1.90-modified-1 (3 January 2010)
 ===========================================
 
