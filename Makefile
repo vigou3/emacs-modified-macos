@@ -18,6 +18,9 @@ TMPDMG=${CURDIR}/tmpdmg.dmg
 EMACSDIR=${TMPDIR}/Emacs.app
 PREFIX=${EMACSDIR}/Contents
 
+CFLAGS="-arch i386"
+LDFLAGS="-arch i386"
+
 ESS=`ls -d ess-*`
 AUCTEX=`ls -d auctex-*`
 
@@ -27,9 +30,11 @@ all : emacs.app emacs ess auctex dmg
 
 emacs.app :
 	@echo ----- Building Emacs.app...
-	cd emacs-${EMACSVERSION} && ./configure --with-ns
-	LC_ALL=C LANG=C CFLAGS="-arch ppc -arch i386" ${MAKE} \
-		-C emacs-${EMACSVERSION} install
+	cd emacs-${EMACSVERSION} && \
+		env LC_ALL=C LANG=C CFLAGS=${CFLAGS} LDFLAGS=${LDFLAGS} \
+		./configure --with-ns
+	${MAKE} -C emacs-${EMACSVERSION} clean
+	${MAKE} -C emacs-${EMACSVERSION} install
 
 emacs : dir ess auctex dmg
 
