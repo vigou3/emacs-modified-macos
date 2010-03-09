@@ -1,5 +1,14 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
+Version 23.1.93-modified-2 (9 March 2010)
+=========================================
+
+BUG FIX
+
+o The previous version was a 64-bit application. This version is a
+  32-bit Intel application that should run on older OS X releases.
+
+
 Version 23.1.93-modified-1 (8 March 2010)
 =========================================
 
