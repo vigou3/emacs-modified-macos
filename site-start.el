@@ -1,6 +1,6 @@
 ;;; site-start.el --- Site configuration for GNU Emacs on OS X
 
-;; Copyright (C) 2009 Vincent Goulet
+;; Copyright (C) 2010 Vincent Goulet
 
 ;; Author: Vincent Goulet
 
@@ -65,11 +65,16 @@
 ;; Until Preview learns to refresh automatically on file updates, Skim
 ;; (http://skim-app.sourceforge.net) is a nice PDF viewer.
 (setq TeX-PDF-mode t)
-(setq TeX-output-view-style
-      '(("^dvi$" "^xdvi$" "xdvi %dS %d")
-	("^dvi$" "." "open %dS %d")
-	("^pdf$" "." "open %o")
-	("^html?$" "." "open %o")))
+(setq TeX-view-program-selection
+      '(((output-dvi style-pstricks)
+	 "dvips and PDF Viewer")
+	(output-dvi "PDF Viewer")
+	(output-pdf "PDF Viewer")
+	(output-html "Safari")))
+(setq TeX-view-program-list
+      '(("dvips and PDF Viewer" "%(o?)dvips %d -o && open %f")
+	("PDF Viewer" "open %o")
+	("Safari" "open %o")))
 
 ;; Add standard Sweave file extensions to the list of files recognized
 ;; by AUCTeX.

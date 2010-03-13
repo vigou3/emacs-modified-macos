@@ -1,5 +1,15 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
+Version 23.1.93-modified-3 (13 March 2010)
+==========================================
+
+USER VISIBLE CHANGE
+
+o Fixed the default PDF viewer invocation on OS X. Customization
+  changed with AUCTeX 11.86 and site-start.el was not adpated
+  accordingly.
+
+
 Version 23.1.93-modified-2 (9 March 2010)
 =========================================
 
