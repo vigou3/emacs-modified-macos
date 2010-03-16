@@ -1,5 +1,20 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
+Version 23.1.93-modified-4-i386 (16 March 2010)
+===============================================
+
+NEW FEATURE
+
+o Introduced the architecture in the distribution name for clarity. 
+
+BUG FIX
+
+o I am learning how to compile on OS X... This binary should work on
+  10.4 (Tiger) and 10.5 (Leopard) system as well as on 10.6 (Snow
+  Leopard). Thanks to Nick Bell <nick.bell@ed.ac.uk> for the heads up
+  and testing.
+
+
 Version 23.1.93-modified-3 (13 March 2010)
 ==========================================
 
