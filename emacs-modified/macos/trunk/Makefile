@@ -18,6 +18,7 @@ TMPDMG=${CURDIR}/tmpdmg.dmg
 EMACSDIR=${TMPDIR}/Emacs.app
 PREFIX=${EMACSDIR}/Contents
 
+TARGET="10.4"
 CFLAGS="-arch i386"
 LDFLAGS="-arch i386"
 
@@ -32,9 +33,11 @@ emacs.app :
 	@echo ----- Building Emacs.app...
 	cd emacs-${EMACSVERSION} && \
 		env LC_ALL=C LANG=C CFLAGS=${CFLAGS} LDFLAGS=${LDFLAGS} \
+		MACOSX_DEPLOYMENT_TARGET=${TARGET} \
 		./configure --with-ns
 	${MAKE} -C emacs-${EMACSVERSION} clean
-	${MAKE} -C emacs-${EMACSVERSION} install
+	env MACOSX_DEPLOYMENT_TARGET=${TARGET} \
+		${MAKE} -C emacs-${EMACSVERSION} install
 
 emacs : dir ess auctex dmg
 
