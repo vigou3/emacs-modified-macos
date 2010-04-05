@@ -18,9 +18,14 @@ TMPDMG=${CURDIR}/tmpdmg.dmg
 EMACSDIR=${TMPDIR}/Emacs.app
 PREFIX=${EMACSDIR}/Contents
 
+BINARIES=`find ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/Contents/MacOS \
+	-type f | xargs file | grep Mach-O | cut -d : -f 1 | cut -d / -f 11-12`
+SYMLINKS=`find ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/Contents/MacOS/bin \
+	-type l | cut -d / -f 11-12`
+
 TARGET="10.4"
-CFLAGS="-arch i386"
-LDFLAGS="-arch i386"
+CFLAGS="-arch ${ARCH}"
+LDFLAGS="-arch ${ARCH}"
 
 ESS=`ls -d ess-*`
 AUCTEX=`ls -d auctex-*`
@@ -46,6 +51,17 @@ dir :
 	if [ -d ${TMPDIR} ]; then rm -rf ${TMPDIR}; fi
 	ditto -rsrc ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/ \
 		${EMACSDIR}
+	ditto -rsrc ${CURDIR}/Emacs.app-${OTHERARCH}/Contents/MacOS/ \
+		${PREFIX}/MacOS-${OTHERARCH}
+	mv ${PREFIX}/MacOS ${PREFIX}/MacOS-${ARCH}
+	mkdir -p ${PREFIX}/MacOS/bin ${PREFIX}/MacOS/libexec
+	cd ${PREFIX} && echo ${BINARIES} | xargs -n1 -I % \
+		lipo -create MacOS-${ARCH}/%              \
+		             MacOS-${OTHERARCH}/%         \
+		     -output MacOS/%
+	cd ${PREFIX} && echo ${SYMLINKS} | xargs -n1 -I % \
+		cp -pR MacOS-i386/% MacOS/%
+	rm -rf ${PREFIX}/MacOS-*
 	cp -p site-start.el ${PREFIX}/Resources/site-lisp/
 	cp -p psvn.el ${PREFIX}/Resources/site-lisp/
 	cp -p fixpath.el ${PREFIX}/Resources/site-lisp/
@@ -80,7 +96,7 @@ dmg :
 	@echo ----- Creating disk image...
 	if [ -e ${TMPDMG} ]; then rm ${TMPDMG}; fi
 	hdiutil create ${TMPDMG} \
-		-size 120m \
+		-size 130m \
 	 	-format UDRW \
 		-fs HFS+ \
 		-srcfolder ${TMPDIR} \
