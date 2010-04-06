@@ -1,13 +1,14 @@
 # Makefile for GNU Emacs.app Modified
 
-# Copyright (C) 2009 Vincent Goulet
+# Copyright (C) 2010 Vincent Goulet
 
 # Author: Vincent Goulet
 
 # This file is part of GNU Emacs.app Modified
 # http://vgoulet.act.ulaval.ca/emacs
 
-# This Makefile will create a disk image to distribute the software.
+# This Makefile will create a disk image to distribute a universal
+# version of the software based on two separate builds (i386 and ppc).
 # The code is based on a Makefile created by Remko Troncon
 # (http://el-tramo.be/about).
 
@@ -18,17 +19,22 @@ TMPDMG=${CURDIR}/tmpdmg.dmg
 EMACSDIR=${TMPDIR}/Emacs.app
 PREFIX=${EMACSDIR}/Contents
 
-BINARIES=`find ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/Contents/MacOS \
-	-type f | xargs file | grep Mach-O | cut -d : -f 1 | cut -d / -f 11-12`
-SYMLINKS=`find ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/Contents/MacOS/bin \
-	-type l | cut -d / -f 11-12`
-
 TARGET="10.4"
 CFLAGS="-arch ${ARCH}"
 LDFLAGS="-arch ${ARCH}"
 
 ESS=`ls -d ess-*`
 AUCTEX=`ls -d auctex-*`
+
+# The MacOS, MacOS/bin/ and MacOS/libexec/ contain binary files,
+# scripts and symlinks. The binaries need to go through lipo, whereas
+# the scripts and symlinks need only to be copied.
+BINARIES=`find ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/Contents/MacOS \
+	-type f | xargs file | grep Mach-O | cut -d : -f 1 | cut -d / -f 11-12`
+SCRIPTS=`find ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/Contents/MacOS \
+	-type f | xargs file | grep script | cut -d : -f 1 | cut -d / -f 11-12`
+SYMLINKS=`find ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/Contents/MacOS/bin \
+	-type l | cut -d / -f 11-12`
 
 all : emacs.app emacs ess auctex dmg
 
@@ -59,8 +65,10 @@ dir :
 		lipo -create MacOS-${ARCH}/%              \
 		             MacOS-${OTHERARCH}/%         \
 		     -output MacOS/%
+	cd ${PREFIX} && echo ${SCRIPTS} | xargs -n1 -I % \
+		cp -p MacOS-i386/% MacOS/%
 	cd ${PREFIX} && echo ${SYMLINKS} | xargs -n1 -I % \
-		cp -pR MacOS-i386/% MacOS/%
+		cp -R MacOS-i386/% MacOS/%
 	rm -rf ${PREFIX}/MacOS-*
 	cp -p site-start.el ${PREFIX}/Resources/site-lisp/
 	cp -p psvn.el ${PREFIX}/Resources/site-lisp/
