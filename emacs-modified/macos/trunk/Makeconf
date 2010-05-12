@@ -7,9 +7,24 @@
 # This file is part of GNU Emacs.app Modified
 # http://vgoulet.act.ulaval.ca/emacs
 
-EMACSVERSION=23.1.93
-VERSION=4
+# GNU and this distribution version number
+EMACSVERSION=23.2
+VERSION=1
+
+# Main and secondary architectures
 ARCH=i386
+OTHERARCH=ppc
+
+# Whether to build universal binary or not
+UNIVERSAL=0
+
+# Version strings
 EMACSNAME=Emacs-${EMACSVERSION}-modified
-DISTNAME=${EMACSNAME}-${VERSION}-${ARCH}
+ifeq (${UNIVERSAL},1)
+	DISTNAME=${EMACSNAME}-${VERSION}
+else 
+	DISTNAME=${EMACSNAME}-${VERSION}-${ARCH}
+endif
+
+# DMG mount point
 VOLUME=/Volumes

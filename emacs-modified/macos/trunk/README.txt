@@ -1,4 +1,4 @@
-Copyright (C) 2008, 2009 Free Software Foundation, Inc.
+Copyright (C) 2008, 2009, 2010 Free Software Foundation, Inc.
 Copyright (C) 2009, 2010 Vincent Goulet for the modifications
 See below for GNU Emacs license conditions.
 
@@ -30,8 +30,7 @@ Emacs sources.]
 
 The Nextstep support code works on many POSIX systems (and possibly
 W32) using the GNUstep libraries, and on MacOS X systems using the
-Cocoa libraries.  As of the Emacs 23.1 release, it is usable but not
-as stable as other platforms; we will improve it in future releases.
+Cocoa libraries.
 
 Those primarily responsible for the port were, in chronological order:
 Michael Brouwer, Carl Edman, Christian Limpach, Scott Bender,

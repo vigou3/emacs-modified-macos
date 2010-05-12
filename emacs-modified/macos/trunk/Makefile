@@ -7,11 +7,14 @@
 # This file is part of GNU Emacs.app Modified
 # http://vgoulet.act.ulaval.ca/emacs
 
-# This Makefile will create a disk image to distribute a universal
-# version of the software based on two separate builds (i386 and ppc).
-# The code is based on a Makefile created by Remko Troncon
-# (http://el-tramo.be/about).
+# This Makefile will create a disk image to distribute a single
+# architecture or universal version of GNU Emacs. For a universal
+# build, two separate builds (i386 and ppc) are needed.
+#
+# The code of this Makefile is based on a file created by Remko
+# Troncon (http://el-tramo.be/about).
 
+# Set most variables in Makeconf
 include ./Makeconf
 
 TMPDIR=${CURDIR}/tmpdir
@@ -28,7 +31,8 @@ AUCTEX=`ls -d auctex-*`
 
 # The MacOS, MacOS/bin/ and MacOS/libexec/ contain binary files,
 # scripts and symlinks. The binaries need to go through lipo, whereas
-# the scripts and symlinks need only to be copied.
+# the scripts and symlinks need only to be copied. (Needed for
+# universal builds only.)
 BINARIES=`find ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/Contents/MacOS \
 	-type f | xargs file | grep Mach-O | cut -d : -f 1 | cut -d / -f 11-12`
 SCRIPTS=`find ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/Contents/MacOS \
@@ -57,19 +61,21 @@ dir :
 	if [ -d ${TMPDIR} ]; then rm -rf ${TMPDIR}; fi
 	ditto -rsrc ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/ \
 		${EMACSDIR}
+ifeq (${UNIVERSAL},1)
 	ditto -rsrc ${CURDIR}/Emacs.app-${OTHERARCH}/Contents/MacOS/ \
 		${PREFIX}/MacOS-${OTHERARCH}
 	mv ${PREFIX}/MacOS ${PREFIX}/MacOS-${ARCH}
 	mkdir -p ${PREFIX}/MacOS/bin ${PREFIX}/MacOS/libexec
 	cd ${PREFIX} && echo ${BINARIES} | xargs -n1 -I % \
 		lipo -create MacOS-${ARCH}/%              \
-		             MacOS-${OTHERARCH}/%         \
+	        	     MacOS-${OTHERARCH}/%         \
 		     -output MacOS/%
 	cd ${PREFIX} && echo ${SCRIPTS} | xargs -n1 -I % \
 		cp -p MacOS-i386/% MacOS/%
 	cd ${PREFIX} && echo ${SYMLINKS} | xargs -n1 -I % \
 		cp -R MacOS-i386/% MacOS/%
 	rm -rf ${PREFIX}/MacOS-*
+endif
 	cp -p site-start.el ${PREFIX}/Resources/site-lisp/
 	cp -p psvn.el ${PREFIX}/Resources/site-lisp/
 	cp -p fixpath.el ${PREFIX}/Resources/site-lisp/
@@ -117,7 +123,7 @@ dmg :
 	@echo ----- Populating top level image directory...
 	cp -p README.txt ${VOLUME}/${DISTNAME}/
 	cp -p NEWS ${VOLUME}/${DISTNAME}/
-	cp -R Applications ${VOLUME}/${DISTNAME}/
+	ln -s /Applications ${VOLUME}/${DISTNAME}/Applications
 
 	@echo ----- Unmounting and compressing disk image...
 	hdiutil detach ${VOLUME}/${DISTNAME} -quiet
