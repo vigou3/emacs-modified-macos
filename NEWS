@@ -1,5 +1,16 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
+Version 23.2-modified-1-i386 (11 May 2010)
+==========================================
+
+UPDATE
+
+o GNU Emacs 23.2, released May 8, 2010. This is a 32-bit Intel binary
+  that should work on OS X 10.4 and above. We now base the
+  distribution on the latest stable release of Emacs since it builds
+  on Snow Leopard.
+
+
 Version 23.1.93-modified-4-i386 (16 March 2010)
 ===============================================
 
