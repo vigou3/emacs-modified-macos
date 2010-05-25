@@ -9,7 +9,7 @@
 
 # GNU and this distribution version number
 EMACSVERSION=23.2
-VERSION=1
+VERSION=2
 
 # Main and secondary architectures
 ARCH=i386

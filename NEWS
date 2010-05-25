@@ -1,5 +1,19 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
+Version 23.2-modified-2-i386 (25 May 2010)
+==========================================
+
+UPDATE
+
+o ESS 5.9.1
+
+NEW FEATURE
+
+o New code in site-start.el to defensively find latex in case the PATH
+  environment variable was not correctly altered at TeX Live
+  installation. Contributed by Rodney Sparapani <rsparapa@mcw.edu>.
+
+
 Version 23.2-modified-1-i386 (11 May 2010)
 ==========================================
 

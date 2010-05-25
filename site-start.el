@@ -59,6 +59,14 @@
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
 
+;; Defensive hack to find latex in case the PATH environment variable
+;; was not correctly altered at TeX Live installation. Contributed by
+;; Rodney Sparapani <rsparapa@mcw.edu>.
+(require 'executable)
+(if (and (not (executable-find "latex")) (file-exists-p "/usr/texbin"))
+    (setq LaTeX-command-style
+	  '(("" "/usr/texbin/%(PDF)%(latex) %S%(PDFout)"))))
+
 ;; Minimal OS X-friendly configuration of AUCTeX. Since there is no
 ;; DVI viewer for the platform, use pdftex/pdflatex by default for
 ;; compilation. Furthermore, use 'open' to view the resulting PDF.
@@ -96,11 +104,7 @@
 ;;;
 ;;; Fix path
 ;;;
-;; Emacs does not properly catch the system and user paths at launch
-;; on OS X. There are ways to solve this provided with Emacs.app
-;; (mac-fix-env and ns-grabenv), but I have not been very successful
-;; in using them so far. For the time being, I rely on code lifted
-;; from Aquamacs.
-;; (if window-system (ns-grabenv "/bin/bash"
-;; 			      "source ~/.bashrc"))
+;; Emacs does not always properly catch the system and user paths at
+;; launch on OS X. I rely on code lifted from Aquamacs to fix this.
+;; Cost: 1 second at launch time.
 (require 'fixpath)
