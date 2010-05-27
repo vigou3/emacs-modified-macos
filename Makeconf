@@ -9,7 +9,7 @@
 
 # GNU and this distribution version number
 EMACSVERSION=23.2
-VERSION=2
+DISTVERSION=3
 
 # Main and secondary architectures
 ARCH=i386
@@ -21,9 +21,9 @@ UNIVERSAL=0
 # Version strings
 EMACSNAME=Emacs-${EMACSVERSION}-modified
 ifeq (${UNIVERSAL},1)
-	DISTNAME=${EMACSNAME}-${VERSION}
-else 
-	DISTNAME=${EMACSNAME}-${VERSION}-${ARCH}
+	DISTNAME=${EMACSNAME}-${DISTVERSION}
+else
+	DISTNAME=${EMACSNAME}-${DISTVERSION}-${ARCH}
 endif
 
 # DMG mount point
