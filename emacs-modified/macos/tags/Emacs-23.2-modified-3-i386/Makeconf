@@ -1,0 +1,30 @@
+# Makeconf file used by Makefile
+
+# Copyright (C) 2009, 2010 Vincent Goulet
+
+# Author: Vincent Goulet
+
+# This file is part of GNU Emacs.app Modified
+# http://vgoulet.act.ulaval.ca/emacs
+
+# GNU and this distribution version number
+EMACSVERSION=23.2
+VERSION=2
+
+# Main and secondary architectures
+ARCH=i386
+OTHERARCH=ppc
+
+# Whether to build universal binary or not
+UNIVERSAL=0
+
+# Version strings
+EMACSNAME=Emacs-${EMACSVERSION}-modified
+ifeq (${UNIVERSAL},1)
+	DISTNAME=${EMACSNAME}-${VERSION}
+else 
+	DISTNAME=${EMACSNAME}-${VERSION}-${ARCH}
+endif
+
+# DMG mount point
+VOLUME=/Volumes
