@@ -46,6 +46,7 @@ all : emacs.app emacs ess auctex dmg
 
 emacs.app :
 	@echo ----- Building Emacs.app...
+	if [ ! -d ${TMPDIR} ]; then mkdir ${TMPDIR}; fi
 	cd emacs-${EMACSVERSION} && \
 		env LC_ALL=C LANG=C CFLAGS=${CFLAGS} LDFLAGS=${LDFLAGS} \
 		MACOSX_DEPLOYMENT_TARGET=${TARGET} \
@@ -82,7 +83,7 @@ endif
 	cp -p Emacs.icns ${PREFIX}/Resources/
 	cp -p emacs-document.icns ${PREFIX}/Resources/
 
-ess : 
+ess :
 	@echo ----- Making ESS...
 	cp -p ${ESS}/Makeconf ${ESS}/Makeconf.orig
 	sed -i "" '/^DESTDIR/s|/usr/local|'${PREFIX}'/Resources|' \
@@ -92,7 +93,7 @@ ess :
 		${ESS}/Makeconf
 	sed -i "" '/^ETCDIR/s/share\/emacs\///'  ${ESS}/Makeconf
 	sed -i "" '/^DOCDIR/s/share\///' ${ESS}/Makeconf
-	${MAKE} -C ${ESS} all 
+	${MAKE} -C ${ESS} all
 	${MAKE} -C ${ESS} install
 	@echo ----- Done making ESS
 
@@ -106,7 +107,7 @@ auctex :
 	make -C ${AUCTEX} install
 	@echo ----- Done making AUCTeX
 
-dmg : 
+dmg :
 	@echo ----- Creating disk image...
 	if [ -e ${TMPDMG} ]; then rm ${TMPDMG}; fi
 	hdiutil create ${TMPDMG} \

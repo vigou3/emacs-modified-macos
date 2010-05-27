@@ -1,5 +1,14 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
+Version 23.2-modified-3-i386 (27 May 2010)
+==========================================
+
+UPDATE
+
+o Activate ess-nuke-trailing-whitespace in site-start.el to
+  automagically delete trailing whitespace when saving R script files.
+
+
 Version 23.2-modified-2-i386 (25 May 2010)
 ==========================================
 
@@ -30,7 +39,7 @@ Version 23.1.93-modified-4-i386 (16 March 2010)
 
 NEW FEATURE
 
-o Introduced the architecture in the distribution name for clarity. 
+o Introduced the architecture in the distribution name for clarity.
 
 BUG FIX
 
