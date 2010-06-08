@@ -9,7 +9,11 @@
 
 # GNU and this distribution version number
 EMACSVERSION=23.2
-DISTVERSION=3
+DISTVERSION=4
+
+# Extensions version numbers
+ESSVERSION=5.10
+AUCTEXVERSION=11.86
 
 # Main and secondary architectures
 ARCH=i386
