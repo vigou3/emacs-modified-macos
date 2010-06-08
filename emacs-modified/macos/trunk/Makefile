@@ -21,13 +21,20 @@ TMPDIR=${CURDIR}/tmpdir
 TMPDMG=${CURDIR}/tmpdmg.dmg
 EMACSDIR=${TMPDIR}/Emacs.app
 PREFIX=${EMACSDIR}/Contents
+EMACS=${PREFIX}/MacOS/Emacs
 
 TARGET="10.4"
 CFLAGS="-arch ${ARCH}"
 LDFLAGS="-arch ${ARCH}"
 
-ESS=`ls -d ess-*`
-AUCTEX=`ls -d auctex-*`
+# To override ESS variables defined in Makeconf
+DESTDIR=${PREFIX}/Resources
+LISPDIR=${DESTDIR}/site-lisp/ess
+ETCDIR=${DESTDIR}/etc/ess
+DOCDIR=${DESTDIR}/doc/ess
+
+ESS=ess-${ESSVERSION}
+AUCTEX=auctex-${AUCTEXVERSION}
 
 # The MacOS, MacOS/bin/ and MacOS/libexec/ contain binary files,
 # scripts and symlinks. The binaries need to go through lipo, whereas
@@ -83,29 +90,22 @@ endif
 	cp -p Emacs.icns ${PREFIX}/Resources/
 	cp -p emacs-document.icns ${PREFIX}/Resources/
 
-ess :
-	@echo ----- Making ESS...
-	cp -p ${ESS}/Makeconf ${ESS}/Makeconf.orig
-	sed -i "" '/^DESTDIR/s|/usr/local|'${PREFIX}'/Resources|' \
-		${ESS}/Makeconf
-	sed -i "" '/^EMACS/s|emacs|'${PREFIX}'/MacOS/Emacs|' ${ESS}/Makeconf
-	sed -i "" '/^LISPDIR/s/share\/emacs\/site-lisp/site-lisp\/ess/' \
-		${ESS}/Makeconf
-	sed -i "" '/^ETCDIR/s/share\/emacs\///'  ${ESS}/Makeconf
-	sed -i "" '/^DOCDIR/s/share\///' ${ESS}/Makeconf
-	${MAKE} -C ${ESS} all
-	${MAKE} -C ${ESS} install
-	@echo ----- Done making ESS
-
 auctex :
 	@echo ----- Making AUCTeX...
 	cd ${AUCTEX} && ./configure --datarootdir=${PREFIX}/Resources \
 		--without-texmf-dir \
 		--with-lispdir=${PREFIX}/Resources/site-lisp \
-		--with-emacs=${PREFIX}/MacOS/Emacs
+		--with-emacs=${EMACS}
 	make -C ${AUCTEX}
 	make -C ${AUCTEX} install
 	@echo ----- Done making AUCTeX
+
+ess :
+	@echo ----- Making ESS...
+	${MAKE} EMACS=${EMACS} -C ${ESS} all 
+	${MAKE} DESTDIR=${DESTDIR} LISPDIR=${LISPDIR} \
+	        ETCDIR=${ETCDIR} DOCDIR=${DOCDIR} -C ${ESS} install
+	@echo ----- Done making ESS
 
 dmg :
 	@echo ----- Creating disk image...
