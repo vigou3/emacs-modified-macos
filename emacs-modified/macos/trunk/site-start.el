@@ -69,6 +69,13 @@
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
 
+;; Turn on RefTeX for LaTeX documents. Put further RefTeX
+;; customizations in your .emacs file.
+(add-hook 'LaTeX-mode-hook
+	  (lambda ()
+	    (turn-on-reftex)
+	    (setq reftex-plug-into-AUCTeX t)))
+
 ;; Defensive hack to find latex in case the PATH environment variable
 ;; was not correctly altered at TeX Live installation. Contributed by
 ;; Rodney Sparapani <rsparapa@mcw.edu>.
@@ -97,7 +104,7 @@
 ;; Add standard Sweave file extensions to the list of files recognized
 ;; by AUCTeX.
 (setq TeX-file-extensions
-      '("Snw" "Rnw" "snw" "rnw" "tex" "sty" "cls" "ltx" "texi" "texinfo" "dtx"))
+      '("Rnw" "rnw" "Snw" "snw" "tex" "sty" "cls" "ltx" "texi" "texinfo" "dtx"))
 
 
 ;;;
