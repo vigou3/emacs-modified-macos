@@ -1,12 +1,16 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
-Version <to be determined>
-=====================================
+Version 23.2-modified-5-i386 (14 July 2010)
+==========================================
 
 NEW FEATURE
 
 o RefTeX is now activated in the site-start.el file. Thanks to Miguel
   Ruiz <rbenit68@gmail.com> for the suggestion.
+
+UPDATE
+
+o ESS 5.11
 
 
 Version 23.2-modified-4-i386 (8 June 2010)
