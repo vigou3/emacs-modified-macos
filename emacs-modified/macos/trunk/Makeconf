@@ -9,10 +9,10 @@
 
 # GNU and this distribution version number
 EMACSVERSION=23.2
-DISTVERSION=5
+DISTVERSION=6
 
 # Extensions version numbers
-ESSVERSION=5.11
+ESSVERSION=5.12
 AUCTEXVERSION=11.86
 
 # Main and secondary architectures
