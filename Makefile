@@ -87,6 +87,7 @@ endif
 	cp -p site-start.el ${PREFIX}/Resources/site-lisp/
 	cp -p psvn.el ${PREFIX}/Resources/site-lisp/
 	cp -p fixpath.el ${PREFIX}/Resources/site-lisp/
+	cp -p framepop.el ${PREFIX}/Resources/site-lisp/
 	cp -p Emacs.icns ${PREFIX}/Resources/
 	cp -p emacs-document.icns ${PREFIX}/Resources/
 
