@@ -1,5 +1,19 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
+Version 23.2-modified-7-i386 (10 February 2010)
+===============================================
+
+NEW FEATURE
+
+o framepop.el is now included in the distribution. This is a package
+  to open temporary buffers (such as *Completions*) in a separate
+  frame. Thanks to Paul Johnson <pauljohn@ku.edu> for the suggestion.
+
+UPDATE
+
+o ESS 5.13
+
+
 Version 23.2-modified-6-i386 (9 November 2010)
 ==============================================
 
