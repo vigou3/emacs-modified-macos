@@ -23,6 +23,8 @@ EMACSDIR=${TMPDIR}/Emacs.app
 PREFIX=${EMACSDIR}/Contents
 EMACS=${PREFIX}/MacOS/Emacs
 
+RSYNC=rsync -n -avu --exclude="*~"
+
 TARGET="10.4"
 CFLAGS="-arch ${ARCH}"
 LDFLAGS="-arch ${ARCH}"
@@ -49,7 +51,7 @@ SYMLINKS=`find ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/Contents/MacOS
 
 all : emacs.app emacs ess auctex dmg
 
-.PHONY : emacs.app emacs dir ess auctex dmg clean
+.PHONY : emacs.app emacs dir ess auctex dmg www clean
 
 emacs.app :
 	@echo ----- Building Emacs.app...
@@ -103,7 +105,7 @@ auctex :
 
 ess :
 	@echo ----- Making ESS...
-	${MAKE} EMACS=${EMACS} -C ${ESS} all 
+	${MAKE} EMACS=${EMACS} -C ${ESS} all
 	${MAKE} DESTDIR=${DESTDIR} LISPDIR=${LISPDIR} \
 	        ETCDIR=${ETCDIR} DOCDIR=${DOCDIR} -C ${ESS} install
 	@echo ----- Done making ESS
@@ -123,6 +125,9 @@ dmg :
 	hdiutil attach ${TMPDMG} -noautoopen -quiet
 
 	@echo ----- Populating top level image directory...
+	sed -e '/^* ESS/s/<ESSVERSION>/${ESSVERSION}/'          \
+	    -e '/^* AUCTeX/s/<AUCTEXVERSION>/${AUCTEXVERSION}/' \
+	    README.txt.in > README.txt
 	cp -p README.txt ${VOLUME}/${DISTNAME}/
 	cp -p NEWS ${VOLUME}/${DISTNAME}/
 	ln -s /Applications ${VOLUME}/${DISTNAME}/Applications
@@ -137,6 +142,31 @@ dmg :
 
 	rm -rf ${TMPDIR} ${TMPDMG}
 	@echo ----- Done building the disk image
+
+www :
+	@echo ----- Updating web site...
+	cp -p ${DISTNAME}.dmg ${WWWLIVE}/htdocs/pub/emacs/
+	cp -p NEWS ${WWWLIVE}/htdocs/pub/emacs/NEWS-mac
+	cd ${WWWSRC} && svn update
+	cd ${WWWSRC}/htdocs/s/emacs/ &&                       \
+		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
+		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
+		    -e 's/<VERSION>/${VERSION}/g'             \
+		    -e 's/<DISTNAME>/${DISTNAME}/g'           \
+		    mac.html.in > mac.html
+	cp -p ${WWWSRC}/htdocs/s/emacs/mac.html ${WWWLIVE}/htdocs/s/emacs/
+	cd ${WWWSRC}/htdocs/en/s/emacs/ &&                    \
+		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
+		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
+		    -e 's/<VERSION>/${VERSION}/g'             \
+		    -e 's/<DISTNAME>/${DISTNAME}/g'           \
+		    mac.html.in > mac.html
+	cp -p ${WWWSRC}/htdocs/en/s/emacs/mac.html ${WWWLIVE}/htdocs/en/s/emacs/
+	cd ${WWWLIVE} && ls -lRa > ${WWWSRC}/ls-lRa
+	cd ${WWWSRC} && svn ci -m "Update for Emacs Modified for OS X version ${VERSION}"
+	svn ci -m "Version ${VERSION}"
+	svn cp ${REPOS}/trunk ${REPOS}/tags/${DISTNAME} -m "Tag version ${VERSION}"
+	@echo ----- Done updating web site
 
 clean :
 	rm ${DISTNAME}.dmg

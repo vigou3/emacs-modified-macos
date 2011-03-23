@@ -8,8 +8,8 @@
 # http://vgoulet.act.ulaval.ca/emacs
 
 # GNU and this distribution version number
-EMACSVERSION=23.2
-DISTVERSION=7
+EMACSVERSION=23.3
+DISTVERSION=1
 
 # Extensions version numbers
 ESSVERSION=5.13
@@ -23,12 +23,19 @@ OTHERARCH=ppc
 UNIVERSAL=0
 
 # Version strings
-EMACSNAME=Emacs-${EMACSVERSION}-modified
+VERSION=${EMACSVERSION}-modified-${DISTVERSION}
 ifeq (${UNIVERSAL},1)
-	DISTNAME=${EMACSNAME}-${DISTVERSION}
+	DISTNAME=Emacs-${VERSION}
 else
-	DISTNAME=${EMACSNAME}-${DISTVERSION}-${ARCH}
+	DISTNAME=Emacs-${VERSION}-${ARCH}
 endif
 
 # DMG mount point
 VOLUME=/Volumes
+
+# WWW site sources and live share mount point
+WWWSRC=~/Sites
+WWWLIVE=${VOLUME}/act-vgoulet
+
+# Subversion repository
+REPOS=https://svn.fsg.ulaval.ca/svn/vgoulet/emacs-modified/macos
