@@ -8,8 +8,8 @@ Emacs.app Modified
 This is the the NeXTstep-based port of GNU Emacs, known as Emacs.app,
 modified to include the following add-on packages:
 
-* ESS 5.13;
-* AUCTeX 11.86;
+* ESS <ESSVERSION>;
+* AUCTeX <AUCTEXVERSION>;
 * psvn.el, to work with Subversion repositories from within Emacs;
 * site-start.el, to make everything work.
 
