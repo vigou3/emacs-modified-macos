@@ -9,26 +9,15 @@
 
 # GNU and this distribution version number
 EMACSVERSION=23.3
-DISTVERSION=1
+DISTVERSION=2
 
 # Extensions version numbers
-ESSVERSION=5.13
-AUCTEXVERSION=11.86
-
-# Main and secondary architectures
-ARCH=i386
-OTHERARCH=ppc
-
-# Whether to build universal binary or not
-UNIVERSAL=0
+ESSVERSION=5.14
+AUCTEXVERSION=11.86patched
 
 # Version strings
 VERSION=${EMACSVERSION}-modified-${DISTVERSION}
-ifeq (${UNIVERSAL},1)
-	DISTNAME=Emacs-${VERSION}
-else
-	DISTNAME=Emacs-${VERSION}-${ARCH}
-endif
+DISTNAME=Emacs-${VERSION}
 
 # DMG mount point
 VOLUME=/Volumes

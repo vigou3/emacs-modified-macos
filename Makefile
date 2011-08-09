@@ -1,6 +1,6 @@
 # Makefile for GNU Emacs.app Modified
 
-# Copyright (C) 2010 Vincent Goulet
+# Copyright (C) 2011 Vincent Goulet
 
 # Author: Vincent Goulet
 
@@ -19,15 +19,12 @@ include ./Makeconf
 
 TMPDIR=${CURDIR}/tmpdir
 TMPDMG=${CURDIR}/tmpdmg.dmg
+DMGFILE=Emacs-${EMACSVERSION}-universal-10.6.6.dmg
 EMACSDIR=${TMPDIR}/Emacs.app
+
 PREFIX=${EMACSDIR}/Contents
 EMACS=${PREFIX}/MacOS/Emacs
-
 RSYNC=rsync -n -avu --exclude="*~"
-
-TARGET="10.4"
-CFLAGS="-arch ${ARCH}"
-LDFLAGS="-arch ${ARCH}"
 
 # To override ESS variables defined in Makeconf
 DESTDIR=${PREFIX}/Resources
@@ -38,60 +35,31 @@ DOCDIR=${DESTDIR}/doc/ess
 ESS=ess-${ESSVERSION}
 AUCTEX=auctex-${AUCTEXVERSION}
 
-# The MacOS, MacOS/bin/ and MacOS/libexec/ contain binary files,
-# scripts and symlinks. The binaries need to go through lipo, whereas
-# the scripts and symlinks need only to be copied. (Needed for
-# universal builds only.)
-BINARIES=`find ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/Contents/MacOS \
-	-type f | xargs file | grep Mach-O | cut -d : -f 1 | cut -d / -f 11-12`
-SCRIPTS=`find ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/Contents/MacOS \
-	-type f | xargs file | grep script | cut -d : -f 1 | cut -d / -f 11-12`
-SYMLINKS=`find ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/Contents/MacOS/bin \
-	-type l | cut -d / -f 11-12`
+all : emacs
 
-all : emacs.app emacs ess auctex dmg
-
-.PHONY : emacs.app emacs dir ess auctex dmg www clean
-
-emacs.app :
-	@echo ----- Building Emacs.app...
-	if [ ! -d ${TMPDIR} ]; then mkdir ${TMPDIR}; fi
-	cd emacs-${EMACSVERSION} && \
-		env LC_ALL=C LANG=C CFLAGS=${CFLAGS} LDFLAGS=${LDFLAGS} \
-		MACOSX_DEPLOYMENT_TARGET=${TARGET} \
-		./configure --with-ns
-	${MAKE} -C emacs-${EMACSVERSION} clean
-	env MACOSX_DEPLOYMENT_TARGET=${TARGET} \
-		${MAKE} -C emacs-${EMACSVERSION} install
+.PHONY : emacs dir ess auctex dmg www clean
 
 emacs : dir ess auctex dmg
 
 dir :
 	@echo ----- Creating the application in temporary directory...
 	if [ -d ${TMPDIR} ]; then rm -rf ${TMPDIR}; fi
-	ditto -rsrc ${CURDIR}/emacs-${EMACSVERSION}/nextstep/Emacs.app/ \
-		${EMACSDIR}
-ifeq (${UNIVERSAL},1)
-	ditto -rsrc ${CURDIR}/Emacs.app-${OTHERARCH}/Contents/MacOS/ \
-		${PREFIX}/MacOS-${OTHERARCH}
-	mv ${PREFIX}/MacOS ${PREFIX}/MacOS-${ARCH}
-	mkdir -p ${PREFIX}/MacOS/bin ${PREFIX}/MacOS/libexec
-	cd ${PREFIX} && echo ${BINARIES} | xargs -n1 -I % \
-		lipo -create MacOS-${ARCH}/%              \
-	        	     MacOS-${OTHERARCH}/%         \
-		     -output MacOS/%
-	cd ${PREFIX} && echo ${SCRIPTS} | xargs -n1 -I % \
-		cp -p MacOS-i386/% MacOS/%
-	cd ${PREFIX} && echo ${SYMLINKS} | xargs -n1 -I % \
-		cp -R MacOS-i386/% MacOS/%
-	rm -rf ${PREFIX}/MacOS-*
-endif
+	hdiutil attach ${DMGFILE} -noautoopen -quiet
+	ditto -rsrc ${VOLUME}/Emacs/Emacs.app ${EMACSDIR}
+	hdiutil detach ${VOLUME}/Emacs -quiet
 	cp -p site-start.el ${PREFIX}/Resources/site-lisp/
 	cp -p psvn.el ${PREFIX}/Resources/site-lisp/
 	cp -p fixpath.el ${PREFIX}/Resources/site-lisp/
 	cp -p framepop.el ${PREFIX}/Resources/site-lisp/
 	cp -p Emacs.icns ${PREFIX}/Resources/
 	cp -p emacs-document.icns ${PREFIX}/Resources/
+
+ess :
+	@echo ----- Making ESS...
+	${MAKE} EMACS=${EMACS} -C ${ESS} all
+	${MAKE} DESTDIR=${DESTDIR} LISPDIR=${LISPDIR} \
+	        ETCDIR=${ETCDIR} DOCDIR=${DOCDIR} -C ${ESS} install
+	@echo ----- Done making ESS
 
 auctex :
 	@echo ----- Making AUCTeX...
@@ -103,18 +71,11 @@ auctex :
 	make -C ${AUCTEX} install
 	@echo ----- Done making AUCTeX
 
-ess :
-	@echo ----- Making ESS...
-	${MAKE} EMACS=${EMACS} -C ${ESS} all
-	${MAKE} DESTDIR=${DESTDIR} LISPDIR=${LISPDIR} \
-	        ETCDIR=${ETCDIR} DOCDIR=${DOCDIR} -C ${ESS} install
-	@echo ----- Done making ESS
-
 dmg :
 	@echo ----- Creating disk image...
 	if [ -e ${TMPDMG} ]; then rm ${TMPDMG}; fi
 	hdiutil create ${TMPDMG} \
-		-size 130m \
+		-size 150m \
 	 	-format UDRW \
 		-fs HFS+ \
 		-srcfolder ${TMPDIR} \
