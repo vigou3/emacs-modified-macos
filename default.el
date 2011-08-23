@@ -1,6 +1,7 @@
-;;; site-start.el --- Site configuration for GNU Emacs on OS X
+;;; default.el --- Default configuration for GNU Emacs on OS X
+;;; (Loaded *after* any user and site configuration files)
 
-;; Copyright (C) 2010 Vincent Goulet
+;; Copyright (C) 2011 Vincent Goulet
 
 ;; Author: Vincent Goulet
 

@@ -47,7 +47,7 @@ dir :
 	hdiutil attach ${DMGFILE} -noautoopen -quiet
 	ditto -rsrc ${VOLUME}/Emacs/Emacs.app ${EMACSDIR}
 	hdiutil detach ${VOLUME}/Emacs -quiet
-	cp -p site-start.el ${PREFIX}/Resources/site-lisp/
+	cp -p default.el ${PREFIX}/Resources/site-lisp/
 	cp -p psvn.el ${PREFIX}/Resources/site-lisp/
 	cp -p fixpath.el ${PREFIX}/Resources/site-lisp/
 	cp -p framepop.el ${PREFIX}/Resources/site-lisp/
