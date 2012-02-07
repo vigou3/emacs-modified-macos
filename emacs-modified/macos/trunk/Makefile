@@ -19,7 +19,7 @@ include ./Makeconf
 
 TMPDIR=${CURDIR}/tmpdir
 TMPDMG=${CURDIR}/tmpdmg.dmg
-DMGFILE=Emacs-${EMACSVERSION}-universal-10.6.6.dmg
+DMGFILE=Emacs-${EMACSVERSION}-universal-${ARCH}.dmg
 EMACSDIR=${TMPDIR}/Emacs.app
 
 PREFIX=${EMACSDIR}/Contents
