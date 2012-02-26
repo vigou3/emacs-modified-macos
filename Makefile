@@ -28,18 +28,20 @@ RSYNC=rsync -n -avu --exclude="*~"
 
 # To override ESS variables defined in Makeconf
 DESTDIR=${PREFIX}/Resources
-LISPDIR=${DESTDIR}/site-lisp/ess
-ETCDIR=${DESTDIR}/etc/ess
-DOCDIR=${DESTDIR}/doc/ess
+LISPDIR=${DESTDIR}/site-lisp
+ETCDIR=${DESTDIR}/etc
+DOCDIR=${DESTDIR}/doc
+INFODIR=${DESTDIR}/info
 
 ESS=ess-${ESSVERSION}
 AUCTEX=auctex-${AUCTEXVERSION}
+ORG=org-${ORGVERSION}
 
 all : emacs
 
-.PHONY : emacs dir ess auctex dmg www clean
+.PHONY : emacs dir ess org auctex dmg www clean
 
-emacs : dir ess auctex dmg
+emacs : dir ess org auctex dmg
 
 dir :
 	@echo ----- Creating the application in temporary directory...
@@ -48,6 +50,7 @@ dir :
 	ditto -rsrc ${VOLUME}/Emacs/Emacs.app ${EMACSDIR}
 	hdiutil detach ${VOLUME}/Emacs -quiet
 	cp -p default.el ${PREFIX}/Resources/site-lisp/
+	cp -p site-start.el ${PREFIX}/Resources/site-lisp/
 	cp -p psvn.el ${PREFIX}/Resources/site-lisp/
 	cp -p fixpath.el ${PREFIX}/Resources/site-lisp/
 	cp -p framepop.el ${PREFIX}/Resources/site-lisp/
@@ -57,9 +60,18 @@ dir :
 ess :
 	@echo ----- Making ESS...
 	${MAKE} EMACS=${EMACS} -C ${ESS} all
-	${MAKE} DESTDIR=${DESTDIR} LISPDIR=${LISPDIR} \
-	        ETCDIR=${ETCDIR} DOCDIR=${DOCDIR} -C ${ESS} install
+	${MAKE} DESTDIR=${DESTDIR} LISPDIR=${LISPDIR}/ess \
+	        ETCDIR=${ETCDIR}/ess DOCDIR=${DOCDIR}/ess -C ${ESS} install
 	@echo ----- Done making ESS
+
+org :
+	@echo ----- Making org...
+	${MAKE} EMACS=${EMACS} -C ${ORG} all
+	${MAKE} EMACS=${EMACS} DESTDIR=${DESTDIR} lispdir=${LISPDIR}/org \
+	        datadir=${ETCDIR}/org -C ${ORG} install
+	${MAKE} infodir=${INFODIR} -C ${ORG} install-info
+	mkdir ${DOCDIR}/org && cp -p ${ORG}/doc/*.pdf ${DOCDIR}/org/
+	@echo ----- Done making org
 
 auctex :
 	@echo ----- Making AUCTeX...
@@ -75,7 +87,7 @@ dmg :
 	@echo ----- Creating disk image...
 	if [ -e ${TMPDMG} ]; then rm ${TMPDMG}; fi
 	hdiutil create ${TMPDMG} \
-		-size 150m \
+		-size 175m \
 	 	-format UDRW \
 		-fs HFS+ \
 		-srcfolder ${TMPDIR} \
@@ -88,6 +100,7 @@ dmg :
 	@echo ----- Populating top level image directory...
 	sed -e '/^* ESS/s/<ESSVERSION>/${ESSVERSION}/'          \
 	    -e '/^* AUCTeX/s/<AUCTEXVERSION>/${AUCTEXVERSION}/' \
+	    -e '/^* org-mode/s/<ORGVERSION>/${ORGVERSION}/' \
 	    README.txt.in > README.txt
 	cp -p README.txt ${VOLUME}/${DISTNAME}/
 	cp -p NEWS ${VOLUME}/${DISTNAME}/
@@ -112,6 +125,7 @@ www :
 	cd ${WWWSRC}/htdocs/s/emacs/ &&                       \
 		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
 		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
+		    -e 's/<ORGVERSION>/${ORGVERSION}/g'       \
 		    -e 's/<VERSION>/${VERSION}/g'             \
 		    -e 's/<DISTNAME>/${DISTNAME}/g'           \
 		    mac.html.in > mac.html
@@ -119,6 +133,7 @@ www :
 	cd ${WWWSRC}/htdocs/en/s/emacs/ &&                    \
 		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
 		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
+		    -e 's/<ORGVERSION>/${ORGVERSION}/g'       \
 		    -e 's/<VERSION>/${VERSION}/g'             \
 		    -e 's/<DISTNAME>/${DISTNAME}/g'           \
 		    mac.html.in > mac.html
@@ -133,4 +148,5 @@ clean :
 	rm ${DISTNAME}.dmg
 	cd emacs-${EMACSVERSION} && ${MAKE} clean
 	cd ${ESS} && ${MAKE} clean
+	cd ${ORG} && ${MAKE} clean
 	cd ${AUCTEX} && ${MAKE} clean

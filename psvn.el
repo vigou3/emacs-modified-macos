@@ -1,8 +1,9 @@
 ;;; psvn.el --- Subversion interface for emacs
-;; Copyright (C) 2002-2009 by Stefan Reichoer
+;; Copyright (C) 2002-2012 by Stefan Reichoer
 
 ;; Author: Stefan Reichoer <stefan@xsteve.at>
-;; $Id: psvn.el 40299 2009-10-29 19:38:54Z xsteve $
+;; Note: This version is currently not under svn control
+;; For the revision date see svn-psvn-revision below
 
 ;; psvn.el is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -242,6 +243,9 @@
 
 ;;; Code:
 
+(defconst svn-psvn-revision "2012-02-21, 21:48:53" "The revision date of psvn.")
+
+
 (require 'easymenu)
 
 (eval-when-compile (require 'dired))
@@ -256,8 +260,6 @@
       (require 'diff-mode))
   (error nil))
 
-(defconst svn-psvn-revision "$Id: psvn.el 40299 2009-10-29 19:38:54Z xsteve $"
-  "The revision number of psvn.")
 
 ;;; user setable variables
 (defcustom svn-status-verbose t
@@ -358,6 +360,11 @@ Possible values are: commit, revert."
 (defcustom svn-status-fancy-file-state-in-modeline t
   "*Show a color dot in the modeline that describes the state of the current file."
   :type 'boolean
+  :group 'psvn)
+
+(defcustom svn-status-indentation 2
+  "*Indenation per directory level in the `svn-status-buffer-name' buffer."
+  :type 'integer
   :group 'psvn)
 
 (defcustom svn-status-negate-meaning-of-arg-commands '()
@@ -1289,16 +1296,15 @@ The hook svn-pre-run-hook allows to monitor/modify the ARGLIST."
           (setq svn-pre-run-mode-line-process mode-line-process)
           (setq mode-line-process 'svn-status-mode-line-process))
         (setq svn-status-pre-run-svn-buffer (current-buffer))
-        (let* ((proc-buf (get-buffer-create svn-process-buffer-name))
+        (let* ((pre-run-buffer-default-directory default-directory)
+               (proc-buf (get-buffer-create svn-process-buffer-name))
                (svn-exe svn-status-svn-executable)
                (svn-proc))
           (when (listp (car arglist))
             (setq arglist (car arglist)))
           (save-excursion
             (set-buffer proc-buf)
-            (unless (file-executable-p default-directory)
-              (message "psvn: workaround in %s needed: %s no longer exists" (current-buffer) default-directory)
-              (cd (expand-file-name "~")))
+            (setq default-directory pre-run-buffer-default-directory)
             (setq buffer-read-only nil)
             (buffer-disable-undo)
             (fundamental-mode)
@@ -2884,8 +2890,8 @@ Symbolic links to directories count as directories (see `file-directory-p')."
                                dir-name))
                            'svn-status-directory-face)
                         ;; showing all files, so add indentation
-                        (make-string (* 2 (svn-status-count-/
-                                           (svn-status-line-info->filename line-info)))
+                        (make-string (* svn-status-indentation (svn-status-count-/
+                                                                (svn-status-line-info->filename line-info)))
                                      32))
                       ;;symlinks get a different face
                       (let ((target (svn-status-line-info->symlink-p line-info)))
@@ -3739,7 +3745,7 @@ The version number of the client is cached in `svn-client-version'."
           (with-current-buffer svn-status-last-output-buffer-name
             (goto-char (point-min))
             (setq svn-client-version
-                  (when (re-search-forward "svn, version \\([0-9\.]+\\) " nil t)
+                  (when (re-search-forward "svn, version \\([0-9\.]+\\)" nil t)
                     (mapcar 'string-to-number (split-string (match-string 1) "\\."))))
             (let ((buffer-read-only nil))
               (goto-char (point-min))
@@ -6519,5 +6525,6 @@ A variable will keep its value, if it is specified in `svn-prepare-for-reload-do
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil
+;; time-stamp-pattern: "300/(defconst svn-psvn-revision \"%:y-%02m-%02d, %02H:%02M:%02S\" \"The revision date of psvn.\")$"
 ;; End:
 ;;; psvn.el ends here

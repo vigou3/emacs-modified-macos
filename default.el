@@ -1,7 +1,8 @@
 ;;; default.el --- Default configuration for GNU Emacs on OS X
+;;; Used mainly to load custom extensions.
 ;;; (Loaded *after* any user and site configuration files)
 
-;; Copyright (C) 2011 Vincent Goulet
+;; Copyright (C) 2012 Vincent Goulet
 
 ;; Author: Vincent Goulet
 
@@ -23,18 +24,6 @@
 ;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
-
-;;;
-;;; Nice options to have On by default
-;;;
-(mouse-wheel-mode t)			; activate mouse scrolling
-(global-font-lock-mode t)		; syntax highlighting
-(transient-mark-mode t)			; sane select (mark) mode
-(delete-selection-mode t)		; entry deletes marked text
-(show-paren-mode t)			; match parentheses
-(add-hook 'text-mode-hook 'turn-on-auto-fill) ; wrap long lines in text mode
-
-
 ;;;
 ;;; ESS
 ;;;
@@ -43,24 +32,12 @@
 (require 'ess-site)
 (require 'ess-eldoc)
 
-;; Following the "source is real" philosophy put forward by ESS, one
-;; should not need the command history and should not save the
-;; workspace at the end of an R session. Hence, both options are
-;; disabled here.
-(setq-default inferior-R-args "--no-restore-history --no-save ")
 
-;; Set code indentation following the standard in R sources.
-(setq ess-default-style 'C++)
-
-;; Automagically delete trailing whitespace when saving R script
-;; files. One can add other commands in the ess-mode-hook below.
-(add-hook 'ess-mode-hook
-	  '(lambda()
-	     (add-hook 'write-file-functions
-		       (lambda ()
-                         (ess-nuke-trailing-whitespace)))
-	     (setq ess-nuke-trailing-whitespace-p t)))
-
+;;;
+;;; org
+;;;
+;; Load recent version of org-mode.
+(require 'org-install)
 
 
 ;;;
@@ -70,13 +47,6 @@
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
 
-;; Turn on RefTeX for LaTeX documents. Put further RefTeX
-;; customizations in your .emacs file.
-(add-hook 'LaTeX-mode-hook
-	  (lambda ()
-	    (turn-on-reftex)
-	    (setq reftex-plug-into-AUCTeX t)))
-
 ;; Defensive hack to find latex in case the PATH environment variable
 ;; was not correctly altered at TeX Live installation. Contributed by
 ;; Rodney Sparapani <rsparapa@mcw.edu>.
@@ -84,28 +54,6 @@
 (if (and (not (executable-find "latex")) (file-exists-p "/usr/texbin"))
     (setq LaTeX-command-style
 	  '(("" "/usr/texbin/%(PDF)%(latex) %S%(PDFout)"))))
-
-;; Minimal OS X-friendly configuration of AUCTeX. Since there is no
-;; DVI viewer for the platform, use pdftex/pdflatex by default for
-;; compilation. Furthermore, use 'open' to view the resulting PDF.
-;; Until Preview learns to refresh automatically on file updates, Skim
-;; (http://skim-app.sourceforge.net) is a nice PDF viewer.
-(setq TeX-PDF-mode t)
-(setq TeX-view-program-selection
-      '(((output-dvi style-pstricks)
-	 "dvips and PDF Viewer")
-	(output-dvi "PDF Viewer")
-	(output-pdf "PDF Viewer")
-	(output-html "Safari")))
-(setq TeX-view-program-list
-      '(("dvips and PDF Viewer" "%(o?)dvips %d -o && open %f")
-	("PDF Viewer" "open %o")
-	("Safari" "open %o")))
-
-;; Add standard Sweave file extensions to the list of files recognized
-;; by AUCTeX.
-(setq TeX-file-extensions
-      '("Rnw" "rnw" "Snw" "snw" "tex" "sty" "cls" "ltx" "texi" "texinfo" "dtx"))
 
 
 ;;;
