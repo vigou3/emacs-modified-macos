@@ -1,5 +1,13 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
+BUG FIX
+
+o org-mobile patched to fix bug in data export for mobile users, as
+  per http://thread.gmane.org/gmane.emacs.orgmode/51804. Thanks to
+  Munawar Cheema <mcheema@btinternet.com> for the heads up on this
+  issue.
+
+
 Version 23.4-modified-2 (26 February 2012)
 ==========================================
 
