@@ -64,7 +64,11 @@
 ;; commit changes, revert files, etc., all within Emacs.
 (add-to-list 'vc-handled-backends 'SVN)
 (require 'psvn)
-(add-hook 'svn-log-edit-mode-hook 'turn-off-auto-fill) ; useful option
+
+;; psvn currently does not work with Subversion 1.7. We can add
+;; support for Subversion 1.7 to the VC backend of Emacs 23 with the
+;; following.
+(require 'vc-svn17)
 
 
 ;;;
