@@ -52,7 +52,6 @@ dir :
 	cp -p default.el ${PREFIX}/Resources/site-lisp/
 	cp -p site-start.el ${PREFIX}/Resources/site-lisp/
 	cp -p psvn.el ${PREFIX}/Resources/site-lisp/
-	cp -p vc-svn17.el ${PREFIX}/Resources/site-lisp/
 	cp -p fixpath.el ${PREFIX}/Resources/site-lisp/
 	cp -p framepop.el ${PREFIX}/Resources/site-lisp/
 	cp -p Emacs.icns ${PREFIX}/Resources/
