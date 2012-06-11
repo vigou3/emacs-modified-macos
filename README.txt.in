@@ -12,7 +12,6 @@ modified to include the following add-on packages:
 * AUCTeX <AUCTEXVERSION>;
 * org-mode <ORGVERSION>;
 * psvn.el, to work with Subversion repositories from within Emacs;
-* vc-svn17.el, to provide support for Subversion 1.7 to VC;
 * site-start.el, to make everything work.
 
 Please direct questions or comments on this modified version of
