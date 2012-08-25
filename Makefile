@@ -61,7 +61,8 @@ ess :
 	@echo ----- Making ESS...
 	${MAKE} EMACS=${EMACS} -C ${ESS} all
 	${MAKE} DESTDIR=${DESTDIR} LISPDIR=${LISPDIR}/ess \
-	        ETCDIR=${ETCDIR}/ess DOCDIR=${DOCDIR}/ess -C ${ESS} install
+	        ETCDIR=${ETCDIR}/ess DOCDIR=${DOCDIR}/ess \
+	        INFODIR=${INFODIR} -C ${ESS} install
 	@echo ----- Done making ESS
 
 org :
