@@ -123,7 +123,8 @@ www :
 	cp -p NEWS ${WWWLIVE}/htdocs/pub/emacs/NEWS-mac
 	cd ${WWWSRC} && svn update
 	cd ${WWWSRC}/htdocs/s/emacs/ &&                       \
-		LANG=ISO-8859-1 sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
+		LANG=ISO-8859-1 \
+		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
 		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
 		    -e 's/<ORGVERSION>/${ORGVERSION}/g'       \
 		    -e 's/<VERSION>/${VERSION}/g'             \
@@ -131,7 +132,8 @@ www :
 		    mac.html.in > mac.html
 	cp -p ${WWWSRC}/htdocs/s/emacs/mac.html ${WWWLIVE}/htdocs/s/emacs/
 	cd ${WWWSRC}/htdocs/en/s/emacs/ &&                    \
-		LANG=ISO-8859-1 sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
+		LANG=ISO-8859-1 \
+		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
 		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
 		    -e 's/<ORGVERSION>/${ORGVERSION}/g'       \
 		    -e 's/<VERSION>/${VERSION}/g'             \
