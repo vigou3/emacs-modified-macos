@@ -10,7 +10,7 @@ modified to include the following add-on packages:
 
 * ESS 12.04-4;
 * AUCTeX 11.86patched;
-* org-mode 7.8.11;
+* org-mode 7.9.1;
 * psvn.el, to work with Subversion repositories from within Emacs;
 * site-start.el, to make everything work.
 
