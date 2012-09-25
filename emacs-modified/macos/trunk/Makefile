@@ -127,6 +127,7 @@ www :
 		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
 		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
 		    -e 's/<ORGVERSION>/${ORGVERSION}/g'       \
+		    -e 's/<PSVNVERSION>/${PSVNVERSION}/g'     \
 		    -e 's/<VERSION>/${VERSION}/g'             \
 		    -e 's/<DISTNAME>/${DISTNAME}/g'           \
 		    mac.html.in > mac.html
@@ -136,6 +137,7 @@ www :
 		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
 		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
 		    -e 's/<ORGVERSION>/${ORGVERSION}/g'       \
+		    -e 's/<PSVNVERSION>/${PSVNVERSION}/g'     \
 		    -e 's/<VERSION>/${VERSION}/g'             \
 		    -e 's/<DISTNAME>/${DISTNAME}/g'           \
 		    mac.html.in > mac.html
