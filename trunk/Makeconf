@@ -1,0 +1,33 @@
+# Makeconf file used by Makefile
+
+# Copyright (C) 2012 Vincent Goulet
+
+# Author: Vincent Goulet
+
+# This file is part of GNU Emacs.app Modified
+# http://vgoulet.act.ulaval.ca/emacs
+
+# GNU and this distribution version number
+EMACSVERSION=24.2
+DISTVERSION=2
+
+# Extensions version numbers
+ESSVERSION=12.09
+AUCTEXVERSION=11.86patched
+ORGVERSION=7.9.1
+PSVNVERSION=2012-03-26
+
+# Version strings
+VERSION=${EMACSVERSION}-modified-${DISTVERSION}
+DISTNAME=Emacs-${VERSION}
+ARCH=10.6.8
+
+# DMG mount point
+VOLUME=/Volumes
+
+# WWW site sources and live share mount point
+WWWSRC=~/Sites
+WWWLIVE=${VOLUME}/act-vgoulet
+
+# Subversion repository
+REPOS=https://svn.fsg.ulaval.ca/svn/vgoulet/emacs-modified/macos
