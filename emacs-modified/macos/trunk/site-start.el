@@ -24,6 +24,20 @@
 
 
 ;;;
+;;; Environment setting
+;;;
+;; By default, environment variables PATH, MANPATH and LANG are
+;; imported from the shell at startup. If needed, more variables may
+;; be imported by listing them in 'import-env-from-shell-variables'
+;; variable. You may also Customize this variable.
+;;
+;; Customizations should probably go in a user's .emacs file, so just
+;; consider the code below as an example of how to do it.
+;(setq load-path
+;      (nconc '("BIBINPUTS") import-env-from-shell-variables))
+
+
+;;;
 ;;; Nice options to have On by default
 ;;;
 (mouse-wheel-mode t)			; activate mouse scrolling

@@ -25,6 +25,17 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;;
+;;; Import the shell environment
+;;;
+;; Emacs does not always properly catch the system and user paths and
+;; other environment variable at launch on OS X. Forcibly import some
+;; environment variables here; see the import-env-from-shell-variables
+;; for the list. You can customize this variable in site-start.el or
+;; the user's config file.
+(require 'import-env-from-shell)
+
+
+;;;
 ;;; ESS
 ;;;
 ;; Load ESS and activate the nifty feature showing function arguments
@@ -64,12 +75,3 @@
 ;; commit changes, revert files, etc., all within Emacs.
 (add-to-list 'vc-handled-backends 'SVN)
 (require 'psvn)
-
-
-;;;
-;;; Fix path
-;;;
-;; Emacs does not always properly catch the system and user paths at
-;; launch on OS X. I rely on code lifted from Aquamacs to fix this.
-;; Cost: 1 second at launch time.
-(require 'fixpath)
