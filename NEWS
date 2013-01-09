@@ -9,6 +9,16 @@ o ESS 12.09-2
 
 o Org 7.9.3a   ***!!!***
 
+o psvn.el is now revision 1369093 of Subversion source code
+  repository. This version in some respect appears to actually be
+  *older* than Stefan Reichoer's version of 2012-03-26. Still, using
+  the Subversion sources version made it easier to apply Andre
+  Colomb's refinement of Koji Nakamaru's patch to support Subversion
+  1.7; see
+  http://mail-archives.apache.org/mod_mbox//subversion-dev/201208.mbox/%3C503B958F.6010906@schickhardt.org%3E
+  (Just to be clear: the patch *is* applied to the version of psvn.el
+  shipped with this distribution.)
+
 (MORE OR LESS) USER VISIBLE CHANGE
 
 Shell environment variables, most notably $PATH, are imported into
