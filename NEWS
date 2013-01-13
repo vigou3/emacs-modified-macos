@@ -1,23 +1,21 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
-Version 24.2-modified-5 ( 2013)
-==========================================
+Version 24.2-modified-5 (12 January 2013)
+=========================================
 
 UPDATES
 
 o ESS 12.09-2
 
-o Org 7.9.3a   ***!!!***
+o Org 7.9.3c
 
-o psvn.el is now revision 1369093 of Subversion source code
-  repository. This version in some respect appears to actually be
-  *older* than Stefan Reichoer's version of 2012-03-26. Still, using
-  the Subversion sources version made it easier to apply Andre
-  Colomb's refinement of Koji Nakamaru's patch to support Subversion
-  1.7; see
+o psvn.el is now revision 1369093 of Subversion source code repository
+  with Andre Colomb's and Koji Nakamaru's patches to support
+  Subversion 1.7; see
   http://mail-archives.apache.org/mod_mbox//subversion-dev/201208.mbox/%3C503B958F.6010906@schickhardt.org%3E
-  (Just to be clear: the patch *is* applied to the version of psvn.el
-  shipped with this distribution.)
+  The original file appears to actually be *older* than Stefan
+  Reichoer's version of 2012-03-26 in some respect, but using the
+  Subversion sources version made it easier to apply the patches.
 
 (MORE OR LESS) USER VISIBLE CHANGE
 
@@ -26,8 +24,9 @@ Emacs using a different, faster and apparently more reliable
 technique. 
 
 The previous code (lifted and adapted from Aquamacs) would start a
-shell and copy the whole environment (using 'printenv'). For some
-reason, this not seldomly failed. 
+shell and copy the whole environment using 'printenv'. For some
+reason, this not seldomly failed and 0 environment variables were
+imported.
 
 The new code (adapted from Steve Purcell's exec-path-from-shell.el
 <https://github.com/purcell/exec-path-from-shell>) instead copies only
