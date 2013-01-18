@@ -41,7 +41,7 @@ all : emacs
 
 .PHONY : emacs dir ess org auctex dmg www clean
 
-emacs : dir ess org auctex dmg
+emacs : dir ess auctex dmg
 
 dir :
 	@echo ----- Creating the application in temporary directory...
@@ -67,6 +67,7 @@ ess :
 
 org :
 	@echo ----- Making org...
+	${MAKE} EMACS=${EMACS} -C ${ORG} autoloads
 	${MAKE} EMACS=${EMACS} -C ${ORG} all
 	${MAKE} EMACS=${EMACS} DESTDIR="" lispdir=${LISPDIR}/org \
 	        datadir=${ETCDIR}/org infodir=${INFODIR} -C ${ORG} install
