@@ -101,7 +101,6 @@ dmg :
 	@echo ----- Populating top level image directory...
 	sed -e '/^* ESS/s/<ESSVERSION>/${ESSVERSION}/'          \
 	    -e '/^* AUCTeX/s/<AUCTEXVERSION>/${AUCTEXVERSION}/' \
-	    -e '/^* org-mode/s/<ORGVERSION>/${ORGVERSION}/' \
 	    README.txt.in > README.txt
 	cp -p README.txt ${VOLUME}/${DISTNAME}/
 	cp -p NEWS ${VOLUME}/${DISTNAME}/
@@ -127,7 +126,6 @@ www :
 		LANG=ISO-8859-1 \
 		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
 		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
-		    -e 's/<ORGVERSION>/${ORGVERSION}/g'       \
 		    -e 's/<PSVNVERSION>/${PSVNVERSION}/g'     \
 		    -e 's/<VERSION>/${VERSION}/g'             \
 		    -e 's/<DISTNAME>/${DISTNAME}/g'           \
@@ -137,7 +135,6 @@ www :
 		LANG=ISO-8859-1 \
 		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
 		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
-		    -e 's/<ORGVERSION>/${ORGVERSION}/g'       \
 		    -e 's/<PSVNVERSION>/${PSVNVERSION}/g'     \
 		    -e 's/<VERSION>/${VERSION}/g'             \
 		    -e 's/<DISTNAME>/${DISTNAME}/g'           \
@@ -153,5 +150,4 @@ clean :
 	rm ${DISTNAME}.dmg
 	cd emacs-${EMACSVERSION} && ${MAKE} clean
 	cd ${ESS} && ${MAKE} clean
-	cd ${ORG} && ${MAKE} clean
 	cd ${AUCTEX} && ${MAKE} clean
