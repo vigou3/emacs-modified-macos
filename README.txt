@@ -10,7 +10,7 @@ modified to include the following add-on packages:
 
 * ESS 12.09-2;
 * AUCTeX 11.87;
-* org-mode 7.9.3c;
+* org-mode <ORGVERSION>;
 * psvn.el r<PSVNVERSION> from Subversion sources, to work with
   Subversion repositories from within Emacs; 
 * default.el and site-start.el files to make everything work together.
