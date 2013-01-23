@@ -39,7 +39,7 @@ ORG=org-${ORGVERSION}
 
 all : emacs
 
-.PHONY : emacs dir ess org auctex dmg www clean
+.PHONY : emacs dir ess auctex dmg www clean
 
 emacs : dir ess auctex dmg
 

@@ -45,13 +45,6 @@
 
 
 ;;;
-;;; org
-;;;
-;; Load recent version of org-mode.
-(require 'org-install)
-
-
-;;;
 ;;; AUCTeX
 ;;;
 ;; Load AUCTeX and preview-latex.
