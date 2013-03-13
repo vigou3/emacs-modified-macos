@@ -1,4 +1,4 @@
-Copyright (C) 2008-2012 Free Software Foundation, Inc.
+Copyright (C) 2008-2013 Free Software Foundation, Inc.
 Copyright (C) 2009-2013 Vincent Goulet for the modifications
 See below for GNU Emacs license conditions.
 
@@ -10,9 +10,8 @@ modified to include the following add-on packages:
 
 * ESS <ESSVERSION>;
 * AUCTeX <AUCTEXVERSION>;
-* org-mode <ORGVERSION>;
 * psvn.el r<PSVNVERSION> from Subversion sources, to work with
-  Subversion repositories from within Emacs; 
+  Subversion repositories from within Emacs;
 * default.el and site-start.el files to make everything work together.
 
 Please direct questions or comments on this modified version of
