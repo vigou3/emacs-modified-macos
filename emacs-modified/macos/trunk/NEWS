@@ -1,5 +1,17 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
+Version 24.3-modified-1 (13 March 2013)
+=======================================
+
+UPDATES
+
+o GNU Emacs 24.3, released two days ago.
+
+o The application is now code signed. This will ease installation on
+  Moutain Lion systems. Thanks to David Caldwell for pointers on how
+  to do this.
+
+
 Version 24.2-modified-7 (23 January 2013)
 =========================================
 
@@ -43,7 +55,7 @@ o psvn.el is now revision 1369093 of Subversion source code repository
 
 Shell environment variables, most notably $PATH, are imported into
 Emacs using a different, faster and apparently more reliable
-technique. 
+technique.
 
 The previous code (lifted and adapted from Aquamacs) would start a
 shell and copy the whole environment using 'printenv'. For some
@@ -59,7 +71,7 @@ can Customize 'import-env-from-shell-variables', or else append to it
 in your .emacs file; see the site-start.el[*] file for an example of how
 to do so.
 
-* Typically, this is in 
+* Typically, this is in
   /Applications/Emacs.app/Contents/Resources/site-lisp/site-start.el
 
 

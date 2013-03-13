@@ -67,9 +67,8 @@ ess :
 
 org :
 	@echo ----- Making org...
-	${MAKE} EMACS=${EMACS} -C ${ORG} autoloads
 	${MAKE} EMACS=${EMACS} -C ${ORG} all
-	${MAKE} EMACS=${EMACS} DESTDIR="" lispdir=${LISPDIR}/org \
+	${MAKE} EMACS=${EMACS} lispdir=${LISPDIR}/org \
 	        datadir=${ETCDIR}/org infodir=${INFODIR} -C ${ORG} install
 	mkdir ${DOCDIR}/org && cp -p ${ORG}/doc/*.pdf ${DOCDIR}/org/
 	@echo ----- Done making org
@@ -85,6 +84,10 @@ auctex :
 	@echo ----- Done making AUCTeX
 
 dmg :
+	@echo ----- Signing the application...
+	codesign --force --sign "Developer ID Application: Vincent Goulet" \
+		${EMACSDIR}
+
 	@echo ----- Creating disk image...
 	if [ -e ${TMPDMG} ]; then rm ${TMPDMG}; fi
 	hdiutil create ${TMPDMG} \
@@ -119,7 +122,7 @@ dmg :
 
 www :
 	@echo ----- Updating web site...
-#	cp -p ${DISTNAME}.dmg ${WWWLIVE}/htdocs/pub/emacs/
+	cp -p ${DISTNAME}.dmg ${WWWLIVE}/htdocs/pub/emacs/
 	cp -p NEWS ${WWWLIVE}/htdocs/pub/emacs/NEWS-mac
 	cd ${WWWSRC} && svn update
 	cd ${WWWSRC}/htdocs/s/emacs/ &&                       \
@@ -148,6 +151,5 @@ www :
 
 clean :
 	rm ${DISTNAME}.dmg
-	cd emacs-${EMACSVERSION} && ${MAKE} clean
 	cd ${ESS} && ${MAKE} clean
 	cd ${AUCTEX} && ${MAKE} clean
