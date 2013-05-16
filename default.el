@@ -41,7 +41,6 @@
 ;; Load ESS and activate the nifty feature showing function arguments
 ;; in the minibuffer until the call is closed with ')'.
 (require 'ess-site)
-(require 'ess-eldoc)
 
 
 ;;;
