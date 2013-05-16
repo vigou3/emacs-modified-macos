@@ -104,6 +104,7 @@ dmg :
 	@echo ----- Populating top level image directory...
 	sed -e '/^* ESS/s/<ESSVERSION>/${ESSVERSION}/'          \
 	    -e '/^* AUCTeX/s/<AUCTEXVERSION>/${AUCTEXVERSION}/' \
+	    -e '/^* psvn/s/<PSVNVERSION>/${PSVNVERSION}/' \
 	    README.txt.in > README.txt
 	cp -p README.txt ${VOLUME}/${DISTNAME}/
 	cp -p NEWS ${VOLUME}/${DISTNAME}/
@@ -122,7 +123,7 @@ dmg :
 
 www :
 	@echo ----- Updating web site...
-	cp -p ${DISTNAME}.dmg ${WWWLIVE}/htdocs/pub/emacs/
+#	cp -p ${DISTNAME}.dmg ${WWWLIVE}/htdocs/pub/emacs/
 	cp -p NEWS ${WWWLIVE}/htdocs/pub/emacs/NEWS-mac
 	cd ${WWWSRC} && svn update
 	cd ${WWWSRC}/htdocs/s/emacs/ &&                       \

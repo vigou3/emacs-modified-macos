@@ -52,13 +52,9 @@
 ;;; ESS
 ;;;
 ;; Following the "source is real" philosophy put forward by ESS, one
-;; should not need the command history and should not save the
-;; workspace at the end of an R session. Hence, both options are
-;; disabled here.
-(setq-default inferior-R-args "--no-restore-history --no-save ")
-
-;; Set code indentation following the standard in R sources.
-(setq ess-default-style 'C++)
+;; should not save the workspace at the end of an R session. Hence,
+;; the option is disabled here.
+(setq-default inferior-R-args "--no-save ")
 
 ;; Automagically delete trailing whitespace when saving R script
 ;; files. One can add other commands in the ess-mode-hook below.
