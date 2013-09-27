@@ -123,7 +123,7 @@ dmg :
 
 www :
 	@echo ----- Updating web site...
-#	cp -p ${DISTNAME}.dmg ${WWWLIVE}/htdocs/pub/emacs/
+	cp -p ${DISTNAME}.dmg ${WWWLIVE}/htdocs/pub/emacs/
 	cp -p NEWS ${WWWLIVE}/htdocs/pub/emacs/NEWS-mac
 	cd ${WWWSRC} && svn update
 	cd ${WWWSRC}/htdocs/s/emacs/ &&                       \
