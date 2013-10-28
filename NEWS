@@ -1,5 +1,17 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
+Version xxx (yyy)
+==========================================
+
+NEW FEATURE
+
+o Function and variable 'emacs-modified-version' to display and hold
+  the distribution version number.
+
+UPDATES
+
+
+
 Version 24.3-modified-3 (27 September 2013)
 ===========================================
 

@@ -25,6 +25,13 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;;
+;;; Version number of Emacs Modified
+;;;
+;; Define variable and function 'emacs-modified-version'
+(require 'version-modified)
+
+
+;;;
 ;;; Import the shell environment
 ;;;
 ;; Emacs does not always properly catch the system and user paths and
