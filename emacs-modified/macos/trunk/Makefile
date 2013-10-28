@@ -49,6 +49,9 @@ dir :
 	hdiutil attach ${DMGFILE} -noautoopen -quiet
 	ditto -rsrc ${VOLUME}/Emacs/Emacs.app ${EMACSDIR}
 	hdiutil detach ${VOLUME}/Emacs -quiet
+	sed -e '/^(defconst/s/<DISTVERSION>/${DISTVERSION}/' \
+	    version-modified.el.in > version-modified.el
+	cp -p version-modified.el ${PREFIX}/Resources/site-lisp/
 	cp -p default.el ${PREFIX}/Resources/site-lisp/
 	cp -p site-start.el ${PREFIX}/Resources/site-lisp/
 	cp -p psvn.el ${PREFIX}/Resources/site-lisp/
