@@ -1,8 +1,8 @@
-;;; version-modified.el --- version number of Emacs Modified (based on Emacs' version.el)
+;;; version-modified.el --- version number of Emacs Modified
 
 ;; Copyright (C) 2013 Vincent Goulet
 
-;; Author: Vincent Goulet
+;; Author: Vincent Goulet (based on version.el from GNU Emacs sources)
 
 ;; This file is part of GNU Emacs.app Modified
 ;; http://vgoulet.act.ulaval.ca/emacs
