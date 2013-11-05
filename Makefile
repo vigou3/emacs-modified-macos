@@ -88,7 +88,7 @@ auctex :
 
 dmg :
 	@echo ----- Signing the application...
-	codesign --force --sign "Developer ID Application: Vincent Goulet" \
+	codesign --force --deep --sign "Developer ID Application: Vincent Goulet" \
 		${EMACSDIR}
 
 	@echo ----- Creating disk image...
