@@ -28,7 +28,8 @@ RSYNC=rsync -n -avu --exclude="*~"
 
 # To override ESS variables defined in Makeconf
 DESTDIR=${PREFIX}/Resources
-LISPDIR=${DESTDIR}/site-lisp
+SITELISP=${DESTDIR}/site-lisp
+#LISPDIR=${DESTDIR}/site-lisp
 ETCDIR=${DESTDIR}/etc
 DOCDIR=${DESTDIR}/doc
 INFODIR=${DESTDIR}/info
@@ -63,9 +64,10 @@ dir :
 ess :
 	@echo ----- Making ESS...
 	${MAKE} EMACS=${EMACS} -C ${ESS} all
-	${MAKE} DESTDIR=${DESTDIR} LISPDIR=${LISPDIR}/ess \
+	${MAKE} DESTDIR=${DESTDIR} SITELISP=${SITELISP} \
 	        ETCDIR=${ETCDIR}/ess DOCDIR=${DOCDIR}/ess \
 	        INFODIR=${INFODIR} -C ${ESS} install
+	if [ -f ${SITELISP}/ess-site.el ]; then rm ${SITELISP}/ess-site.el; fi
 	@echo ----- Done making ESS
 
 org :
