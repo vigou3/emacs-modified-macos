@@ -52,14 +52,14 @@ dir :
 	hdiutil detach ${VOLUME}/Emacs -quiet
 	sed -e '/^(defconst/s/<DISTVERSION>/${DISTVERSION}/' \
 	    version-modified.el.in > version-modified.el
-	cp -p version-modified.el ${PREFIX}/Resources/site-lisp/
-	cp -p default.el ${PREFIX}/Resources/site-lisp/
-	cp -p site-start.el ${PREFIX}/Resources/site-lisp/
-	cp -p psvn.el ${PREFIX}/Resources/site-lisp/
-	cp -p import-env-from-shell.el ${PREFIX}/Resources/site-lisp/
-	cp -p framepop.el ${PREFIX}/Resources/site-lisp/
-	cp -p Emacs.icns ${PREFIX}/Resources/
-	cp -p emacs-document.icns ${PREFIX}/Resources/
+	cp -p version-modified.el ${SITELISP}/
+	cp -p default.el ${SITELISP}/
+	cp -p site-start.el ${SITELISP}/
+	cp -p psvn.el ${SITELISP}/
+	cp -p import-env-from-shell.el ${SITELISP}/
+	cp -p framepop.el ${SITELISP}/
+	cp -p Emacs.icns ${DESTDIR}/
+	cp -p emacs-document.icns ${DESTDIR}/
 
 ess :
 	@echo ----- Making ESS...
@@ -80,9 +80,9 @@ org :
 
 auctex :
 	@echo ----- Making AUCTeX...
-	cd ${AUCTEX} && ./configure --datarootdir=${PREFIX}/Resources \
+	cd ${AUCTEX} && ./configure --datarootdir=${DESTDIR} \
 		--without-texmf-dir \
-		--with-lispdir=${PREFIX}/Resources/site-lisp \
+		--with-lispdir=${SITELISP} \
 		--with-emacs=${EMACS}
 	make -C ${AUCTEX}
 	make -C ${AUCTEX} install
