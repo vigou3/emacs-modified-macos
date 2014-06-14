@@ -36,6 +36,10 @@
 ;(setq load-path
 ;      (nconc '("BIBINPUTS") import-env-from-shell-variables))
 
+;; Mac apps sometimes open with cwd == '/'. That's not useful.
+(if (equal default-directory "/")
+    (setq default-directory "~/"))
+
 
 ;;;
 ;;; Nice options to have On by default
