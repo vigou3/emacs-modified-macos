@@ -36,7 +36,7 @@
 ;;;
 ;; Emacs does not always properly catch the system and user paths and
 ;; other environment variable at launch on OS X. Forcibly import some
-;; environment variables here; see the import-env-from-shell-variables
+;; environment variables here; see 'import-env-from-shell-variables'
 ;; for the list. You can customize this variable in site-start.el or
 ;; the user's config file.
 (require 'import-env-from-shell)
