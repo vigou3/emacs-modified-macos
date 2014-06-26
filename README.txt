@@ -1,5 +1,5 @@
 Copyright (C) 2008-2013 Free Software Foundation, Inc.
-Copyright (C) 2009-2013 Vincent Goulet for the modifications
+Copyright (C) 2009-2014 Vincent Goulet for the modifications
 See below for GNU Emacs license conditions.
 
 Emacs.app Modified
@@ -10,7 +10,8 @@ modified to include the following add-on packages:
 
 * ESS 13.09-1;
 * AUCTeX 11.87;
-* psvn.el r1369093 from Subversion sources, to work with
+* polymode <POLYMODEVERSION>;
+* psvn.el r1573006 from Subversion sources, to work with
   Subversion repositories from within Emacs;
 * default.el and site-start.el files to make everything work together.
 

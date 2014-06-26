@@ -24,6 +24,7 @@ EMACSDIR=${TMPDIR}/Emacs.app
 
 PREFIX=${EMACSDIR}/Contents
 EMACS=${PREFIX}/MacOS/Emacs
+EMACSBATCH = $(EMACS) -batch -no-site-file -no-init-file
 RSYNC=rsync -n -avu --exclude="*~"
 
 # To override ESS variables defined in Makeconf
@@ -36,13 +37,13 @@ INFODIR=${DESTDIR}/info
 
 ESS=ess-${ESSVERSION}
 AUCTEX=auctex-${AUCTEXVERSION}
-ORG=org-${ORGVERSION}
+#ORG=org-${ORGVERSION}
 
 all : emacs
 
-.PHONY : emacs dir ess auctex dmg www clean
+.PHONY : emacs dir ess auctex polymode dmg www clean
 
-emacs : dir ess auctex dmg
+emacs : dir ess auctex polymode dmg
 
 dir :
 	@echo ----- Creating the application in temporary directory...
@@ -50,14 +51,18 @@ dir :
 	hdiutil attach ${DMGFILE} -noautoopen -quiet
 	ditto -rsrc ${VOLUME}/Emacs/Emacs.app ${EMACSDIR}
 	hdiutil detach ${VOLUME}/Emacs -quiet
+	cp -p default.el ${SITELISP}/
+	cp -p site-start.el ${SITELISP}/
 	sed -e '/^(defconst/s/<DISTVERSION>/${DISTVERSION}/' \
 	    version-modified.el.in > version-modified.el
 	cp -p version-modified.el ${SITELISP}/
-	cp -p default.el ${SITELISP}/
-	cp -p site-start.el ${SITELISP}/
-	cp -p psvn.el ${SITELISP}/
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/version-modified.el
 	cp -p import-env-from-shell.el ${SITELISP}/
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/import-env-from-shell.el
+	cp -p psvn.el ${SITELISP}/
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/psvn.el
 	cp -p framepop.el ${SITELISP}/
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/framepop.el
 	cp -p Emacs.icns ${DESTDIR}/
 	cp -p emacs-document.icns ${DESTDIR}/
 
@@ -70,13 +75,13 @@ ess :
 	if [ -f ${SITELISP}/ess-site.el ]; then rm ${SITELISP}/ess-site.el; fi
 	@echo ----- Done making ESS
 
-org :
-	@echo ----- Making org...
-	${MAKE} EMACS=${EMACS} -C ${ORG} all
-	${MAKE} EMACS=${EMACS} lispdir=${LISPDIR}/org \
-	        datadir=${ETCDIR}/org infodir=${INFODIR} -C ${ORG} install
-	mkdir ${DOCDIR}/org && cp -p ${ORG}/doc/*.pdf ${DOCDIR}/org/
-	@echo ----- Done making org
+# org :
+# 	@echo ----- Making org...
+# 	${MAKE} EMACS=${EMACS} -C ${ORG} all
+# 	${MAKE} EMACS=${EMACS} lispdir=${LISPDIR}/org \
+# 	        datadir=${ETCDIR}/org infodir=${INFODIR} -C ${ORG} install
+# 	mkdir ${DOCDIR}/org && cp -p ${ORG}/doc/*.pdf ${DOCDIR}/org/
+# 	@echo ----- Done making org
 
 auctex :
 	@echo ----- Making AUCTeX...
@@ -87,6 +92,17 @@ auctex :
 	make -C ${AUCTEX}
 	make -C ${AUCTEX} install
 	@echo ----- Done making AUCTeX
+
+polymode :
+	@echo ----- copying markdown-mode and polymode files...
+	cp -p markdown-mode.el ${SITELISP}/
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/markdown-mode.el
+	mkdir -p ${SITELISP}/polymode
+	cp -p polymode/*.el ${SITELISP}/polymode
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/polymode/*.el
+	mkdir -p ${DOCDIR}/polymode
+	cp -p polymode/*.md ${DOCDIR}/polymode
+	@echo ----- Done installing polymode
 
 dmg :
 	@echo ----- Signing the application...
@@ -136,6 +152,8 @@ www :
 		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
 		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
 		    -e 's/<PSVNVERSION>/${PSVNVERSION}/g'     \
+		    -e 's/<POLYMODEVERSION>/${POLYMODEVERSION}/g' \
+		    -e 's/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/g' \
 		    -e 's/<VERSION>/${VERSION}/g'             \
 		    -e 's/<DISTNAME>/${DISTNAME}/g'           \
 		    mac.html.in > mac.html
@@ -145,6 +163,8 @@ www :
 		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
 		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
 		    -e 's/<PSVNVERSION>/${PSVNVERSION}/g'     \
+		    -e 's/<POLYMODEVERSION>/${POLYMODEVERSION}/g' \
+		    -e 's/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/g' \
 		    -e 's/<VERSION>/${VERSION}/g'             \
 		    -e 's/<DISTNAME>/${DISTNAME}/g'           \
 		    mac.html.in > mac.html
@@ -159,3 +179,21 @@ clean :
 	rm ${DISTNAME}.dmg
 	cd ${ESS} && ${MAKE} clean
 	cd ${AUCTEX} && ${MAKE} clean
+
+# Targets to byte-compile packages
+ELC = version-modified.elc import-env-from-shell.elc \
+	psvn.elc framepop.elc markdown-mode.elc
+
+version-modified.elc : version-modified.el.in version-modified.el
+	sed -e '/^(defconst/s/<DISTVERSION>/${DISTVERSION}/' \
+	    version-modified.el.in > version-modified.el
+	$(EMACSBATCH) -f batch-byte-compile version-modified.el
+
+import-env-from-shell.elc : import-env-from-shell.el
+
+psvn.elc : psvn.el
+
+framepop.elc : framepop.el
+
+markdown-mode.elc : markdown-mode.el
+
