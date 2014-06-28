@@ -10,7 +10,7 @@ modified to include the following add-on packages:
 
 * ESS 13.09-1;
 * AUCTeX 11.87;
-* polymode <POLYMODEVERSION>;
+* polymode <POLYMODEVERSION> and markdown-mode <MARKDOWNMODEVERSION>;
 * psvn.el r1573006 from Subversion sources, to work with
   Subversion repositories from within Emacs;
 * default.el and site-start.el files to make everything work together.

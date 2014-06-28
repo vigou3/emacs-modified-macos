@@ -2,7 +2,7 @@
 ;;; Used mainly to load custom extensions.
 ;;; (Loaded *after* any user and site configuration files)
 
-;; Copyright (C) 2012 Vincent Goulet
+;; Copyright (C) 2014 Vincent Goulet
 
 ;; Author: Vincent Goulet
 
@@ -64,6 +64,16 @@
 (if (and (not (executable-find "latex")) (file-exists-p "/usr/texbin"))
     (setq LaTeX-command-style
 	  '(("" "/usr/texbin/%(PDF)%(latex) %S%(PDFout)"))))
+
+
+;;;
+;;; polymode
+;;;
+;; Basic configuration of polymode and activation of the R and
+;; markdown specific bundles.
+(require 'polymode-configuration)
+(require 'poly-R)
+(require 'poly-markdown)
 
 
 ;;;
