@@ -125,6 +125,8 @@ dmg :
 	@echo ----- Populating top level image directory...
 	sed -e '/^* ESS/s/<ESSVERSION>/${ESSVERSION}/'          \
 	    -e '/^* AUCTeX/s/<AUCTEXVERSION>/${AUCTEXVERSION}/' \
+	    -e '/^* polymode/s/<POLYMODEVERSION>/${POLYMODEVERSION}/' \
+	    -e '/^* polymode/s/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/' \
 	    -e '/^* psvn/s/<PSVNVERSION>/${PSVNVERSION}/' \
 	    README.txt.in > README.txt
 	cp -p README.txt ${VOLUME}/${DISTNAME}/
