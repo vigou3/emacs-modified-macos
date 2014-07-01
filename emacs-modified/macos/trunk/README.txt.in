@@ -15,7 +15,7 @@ modified to include the following add-on packages:
   Subversion repositories from within Emacs;
 * default.el and site-start.el files to make everything work together.
 
-Note that polymode is made active for R and markdown modes by default.
+Note that polymode is made active for R mode by default.
 
 Please direct questions or comments on this modified version of
 Emacs.app to Vincent Goulet <vincent.goulet@act.ulaval.ca>.
