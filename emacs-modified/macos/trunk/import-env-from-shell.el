@@ -43,7 +43,7 @@ Execute $SHELL as interactive login shell, have it output the
 variable of NAME and return this output as string."
   (with-temp-buffer
     (call-process (getenv "SHELL") nil (current-buffer) nil
-                  "--login" "-i" "-c" (concat "echo __RESULT=$" name))
+                  "-l" "-i" "-c" (concat "echo __RESULT=$" name))
     (when (re-search-backward "__RESULT=\\(.*\\)" nil t)
       (match-string 1))))
 
