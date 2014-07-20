@@ -37,19 +37,20 @@ INFODIR=${DESTDIR}/info
 
 ESS=ess-${ESSVERSION}
 AUCTEX=auctex-${AUCTEXVERSION}
-#ORG=org-${ORGVERSION}
+ORG=org-${ORGVERSION}
 
 all : emacs
 
 .PHONY : emacs dir ess auctex polymode dmg www clean
 
-emacs : dir ess auctex polymode dmg
+emacs : dir ess auctex org polymode dmg
 
 dir :
 	@echo ----- Creating the application in temporary directory...
 	if [ -d ${TMPDIR} ]; then rm -rf ${TMPDIR}; fi
 	hdiutil attach ${DMGFILE} -noautoopen -quiet
 	ditto -rsrc ${VOLUME}/Emacs/Emacs.app ${EMACSDIR}
+#	ditto -rsrc Emacs.app ${EMACSDIR}
 	hdiutil detach ${VOLUME}/Emacs -quiet
 	cp -p default.el ${SITELISP}/
 	cp -p site-start.el ${SITELISP}/
@@ -75,14 +76,6 @@ ess :
 	if [ -f ${SITELISP}/ess-site.el ]; then rm ${SITELISP}/ess-site.el; fi
 	@echo ----- Done making ESS
 
-# org :
-# 	@echo ----- Making org...
-# 	${MAKE} EMACS=${EMACS} -C ${ORG} all
-# 	${MAKE} EMACS=${EMACS} lispdir=${LISPDIR}/org \
-# 	        datadir=${ETCDIR}/org infodir=${INFODIR} -C ${ORG} install
-# 	mkdir ${DOCDIR}/org && cp -p ${ORG}/doc/*.pdf ${DOCDIR}/org/
-# 	@echo ----- Done making org
-
 auctex :
 	@echo ----- Making AUCTeX...
 	cd ${AUCTEX} && ./configure --datarootdir=${DESTDIR} \
@@ -92,6 +85,14 @@ auctex :
 	make -C ${AUCTEX}
 	make -C ${AUCTEX} install
 	@echo ----- Done making AUCTeX
+
+org :
+	@echo ----- Making org...
+	${MAKE} EMACS=${EMACS} -C ${ORG} all
+	${MAKE} EMACS=${EMACS} lispdir=${SITELISP}/org \
+	        datadir=${ETCDIR}/org infodir=${INFODIR} -C ${ORG} install
+	mkdir -p ${DOCDIR}/org && cp -p ${ORG}/doc/*.pdf ${DOCDIR}/org/
+	@echo ----- Done making org
 
 polymode :
 	@echo ----- copying markdown-mode and polymode files...
