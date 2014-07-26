@@ -10,10 +10,12 @@ modified to include the following add-on packages:
 
 * ESS 13.09-1;
 * AUCTeX 11.87;
-* polymode <POLYMODEVERSION> and markdown-mode <MARKDOWNMODEVERSION>;
+* polymode 1.0 and markdown-mode 2.0;
 * psvn.el r1573006 from Subversion sources, to work with
   Subversion repositories from within Emacs;
 * default.el and site-start.el files to make everything work together.
+
+Note that polymode is made active for R mode by default.
 
 Please direct questions or comments on this modified version of
 Emacs.app to Vincent Goulet <vincent.goulet@act.ulaval.ca>.
