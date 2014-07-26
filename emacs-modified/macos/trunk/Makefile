@@ -41,7 +41,7 @@ ORG=org-${ORGVERSION}
 
 all : emacs
 
-.PHONY : emacs dir ess auctex polymode dmg www clean
+.PHONY : emacs dir ess auctex org polymode dmg www clean
 
 emacs : dir ess auctex org polymode dmg
 
@@ -126,6 +126,7 @@ dmg :
 	@echo ----- Populating top level image directory...
 	sed -e '/^* ESS/s/<ESSVERSION>/${ESSVERSION}/'          \
 	    -e '/^* AUCTeX/s/<AUCTEXVERSION>/${AUCTEXVERSION}/' \
+	    -e '/^* org/s/<ORGVERSION>/${ORGVERSION}/' \
 	    -e '/^* polymode/s/<POLYMODEVERSION>/${POLYMODEVERSION}/' \
 	    -e '/^* polymode/s/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/' \
 	    -e '/^* psvn/s/<PSVNVERSION>/${PSVNVERSION}/' \
