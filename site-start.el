@@ -39,7 +39,6 @@
 ;; Make sure "~/" is the default directory at startup.
 (setq command-line-default-directory "~/")
 
-
 ;;;
 ;;; Nice options to have On by default
 ;;;
@@ -49,7 +48,6 @@
 (delete-selection-mode t)		; entry deletes marked text
 (show-paren-mode t)			; match parentheses
 (add-hook 'text-mode-hook 'turn-on-auto-fill) ; wrap long lines in text mode
-
 
 ;;;
 ;;; ESS
@@ -67,7 +65,6 @@
 		       (lambda ()
                          (ess-nuke-trailing-whitespace)))
 	     (setq ess-nuke-trailing-whitespace-p t)))
-
 
 ;;;
 ;;; AUCTeX
@@ -100,7 +97,6 @@
 ;; by AUCTeX.
 (setq TeX-file-extensions
       '("Rnw" "rnw" "Snw" "snw" "tex" "sty" "cls" "ltx" "texi" "texinfo" "dtx"))
-
 
 ;;;
 ;;; SVN
