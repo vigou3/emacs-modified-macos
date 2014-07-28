@@ -30,7 +30,6 @@
 ;; Define variable and function 'emacs-modified-version'
 (require 'version-modified)
 
-
 ;;;
 ;;; Import the shell environment
 ;;;
@@ -41,14 +40,12 @@
 ;; the user's config file.
 (require 'import-env-from-shell)
 
-
 ;;;
 ;;; ESS
 ;;;
 ;; Load ESS and activate the nifty feature showing function arguments
 ;; in the minibuffer until the call is closed with ')'.
 (require 'ess-site)
-
 
 ;;;
 ;;; AUCTeX
@@ -65,7 +62,6 @@
     (setq LaTeX-command-style
 	  '(("" "/usr/texbin/%(PDF)%(latex) %S%(PDFout)"))))
 
-
 ;;;
 ;;; polymode
 ;;;
@@ -79,7 +75,6 @@
 (add-to-list 'auto-mode-alist '("\\.Rcpp" . poly-r+c++-mode))
 (add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode))
 (require 'poly-R)
-
 
 ;;;
 ;;; SVN
