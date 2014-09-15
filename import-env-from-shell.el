@@ -5,7 +5,7 @@
 ;; Author: Vincent Goulet
 
 ;; This file is a modified version of exec-path-from-shell.el by
-;; Steve Purcell <steve@sanityinc.com> 
+;; Steve Purcell <steve@sanityinc.com>
 ;; URL: https://github.com/purcell/exec-path-from-shell
 
 ;; This file is part of GNU Emacs.app Modified
@@ -43,7 +43,7 @@ Execute $SHELL as interactive login shell, have it output the
 variable of NAME and return this output as string."
   (with-temp-buffer
     (call-process (getenv "SHELL") nil (current-buffer) nil
-                  "-l" "-i" "-c" (concat "echo __RESULT=$" name))
+                  "-i" "-c" (concat "echo __RESULT=$" name))
     (when (re-search-backward "__RESULT=\\(.*\\)" nil t)
       (match-string 1))))
 

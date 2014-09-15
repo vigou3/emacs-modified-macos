@@ -20,6 +20,7 @@ include ./Makeconf
 TMPDIR=${CURDIR}/tmpdir
 TMPDMG=${CURDIR}/tmpdmg.dmg
 DMGFILE=Emacs-${EMACSVERSION}-universal-${ARCH}.dmg
+#DMGFILE=Emacs-${EMACSVERSION}-universal.dmg
 EMACSDIR=${TMPDIR}/Emacs.app
 
 PREFIX=${EMACSDIR}/Contents
@@ -50,7 +51,6 @@ dir :
 	if [ -d ${TMPDIR} ]; then rm -rf ${TMPDIR}; fi
 	hdiutil attach ${DMGFILE} -noautoopen -quiet
 	ditto -rsrc ${VOLUME}/Emacs/Emacs.app ${EMACSDIR}
-#	ditto -rsrc Emacs.app ${EMACSDIR}
 	hdiutil detach ${VOLUME}/Emacs -quiet
 	cp -p default.el ${SITELISP}/
 	cp -p site-start.el ${SITELISP}/
@@ -148,7 +148,7 @@ dmg :
 
 www :
 	@echo ----- Updating web site...
-	cp -p ${DISTNAME}.dmg ${WWWLIVE}/htdocs/pub/emacs/
+#	cp -p ${DISTNAME}.dmg ${WWWLIVE}/htdocs/pub/emacs/
 	cp -p NEWS ${WWWLIVE}/htdocs/pub/emacs/NEWS-mac
 	cd ${WWWSRC} && svn update
 	cd ${WWWSRC}/htdocs/s/emacs/ &&                       \
@@ -183,21 +183,3 @@ clean :
 	rm ${DISTNAME}.dmg
 	cd ${ESS} && ${MAKE} clean
 	cd ${AUCTEX} && ${MAKE} clean
-
-# Targets to byte-compile packages
-ELC = version-modified.elc import-env-from-shell.elc \
-	psvn.elc framepop.elc markdown-mode.elc
-
-version-modified.elc : version-modified.el.in version-modified.el
-	sed -e '/^(defconst/s/<DISTVERSION>/${DISTVERSION}/' \
-	    version-modified.el.in > version-modified.el
-	$(EMACSBATCH) -f batch-byte-compile version-modified.el
-
-import-env-from-shell.elc : import-env-from-shell.el
-
-psvn.elc : psvn.el
-
-framepop.elc : framepop.el
-
-markdown-mode.elc : markdown-mode.el
-

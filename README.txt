@@ -8,11 +8,13 @@ Emacs.app Modified
 This is the the NeXTstep-based port of GNU Emacs, known as Emacs.app,
 modified to include the following add-on packages:
 
-* ESS 13.09-1;
+* ESS 14.09;
 * AUCTeX 11.87;
+* org 8.2.7c;
 * polymode 1.0 and markdown-mode 2.0;
 * psvn.el r1573006 from Subversion sources, to work with
   Subversion repositories from within Emacs;
+* framepop.el, to obtain temporary buffers in separate frames;
 * default.el and site-start.el files to make everything work together.
 
 Note that polymode is made active for R mode by default.
