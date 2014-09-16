@@ -1,6 +1,6 @@
 # Makefile for GNU Emacs.app Modified
 
-# Copyright (C) 2011 Vincent Goulet
+# Copyright (C) 2014 Vincent Goulet
 
 # Author: Vincent Goulet
 
@@ -19,8 +19,8 @@ include ./Makeconf
 
 TMPDIR=${CURDIR}/tmpdir
 TMPDMG=${CURDIR}/tmpdmg.dmg
-DMGFILE=Emacs-${EMACSVERSION}-universal-${ARCH}.dmg
-#DMGFILE=Emacs-${EMACSVERSION}-universal.dmg
+#DMGFILE=Emacs-${EMACSVERSION}-universal-${ARCH}.dmg
+DMGFILE=Emacs-${EMACSVERSION}-universal.dmg
 EMACSDIR=${TMPDIR}/Emacs.app
 
 PREFIX=${EMACSDIR}/Contents
@@ -106,6 +106,12 @@ polymode :
 	@echo ----- Done installing polymode
 
 dmg :
+	@echo ----- Applying temporary fixes...
+	(cd ${PREFIX}/MacOS; for f in `ls Emacs-*`; do mv "$$f" "$${f//\./_}"; done)
+	(cd ${PREFIX}/MacOS; for f in `ls -d bin-*`; do mv "$$f" "$${f//\./_}"; done)
+	(cd ${PREFIX}/MacOS; for f in `ls -d libexec-*`; do mv "$$f" "$${f//\./_}"; done)
+	cp Emacs-script-fix ${PREFIX}/MacOS/Emacs
+
 	@echo ----- Signing the application...
 	codesign --force --deep --sign "Developer ID Application: Vincent Goulet" \
 		${EMACSDIR}
@@ -113,7 +119,7 @@ dmg :
 	@echo ----- Creating disk image...
 	if [ -e ${TMPDMG} ]; then rm ${TMPDMG}; fi
 	hdiutil create ${TMPDMG} \
-		-size 175m \
+		-size 180m \
 	 	-format UDRW \
 		-fs HFS+ \
 		-srcfolder ${TMPDIR} \
@@ -148,7 +154,7 @@ dmg :
 
 www :
 	@echo ----- Updating web site...
-#	cp -p ${DISTNAME}.dmg ${WWWLIVE}/htdocs/pub/emacs/
+	cp -p ${DISTNAME}.dmg ${WWWLIVE}/htdocs/pub/emacs/
 	cp -p NEWS ${WWWLIVE}/htdocs/pub/emacs/NEWS-mac
 	cd ${WWWSRC} && svn update
 	cd ${WWWSRC}/htdocs/s/emacs/ &&                       \
