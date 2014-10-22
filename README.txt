@@ -10,7 +10,7 @@ modified to include the following add-on packages:
 
 * ESS 14.09;
 * AUCTeX 11.87;
-* org 8.2.7c;
+* org 8.2.10;
 * polymode 1.0 and markdown-mode 2.0;
 * psvn.el r1573006 from Subversion sources, to work with
   Subversion repositories from within Emacs;
