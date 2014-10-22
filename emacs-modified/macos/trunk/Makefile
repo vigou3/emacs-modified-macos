@@ -40,11 +40,13 @@ ESS=ess-${ESSVERSION}
 AUCTEX=auctex-${AUCTEXVERSION}
 ORG=org-${ORGVERSION}
 
-all : emacs
+all : install emacs
 
-.PHONY : emacs dir ess auctex org polymode dmg www clean
+.PHONY : emacs setup dir ess auctex org polymode dmg www clean
 
 emacs : dir ess auctex org polymode dmg
+
+install : install-ess install-auctex install-org install-polymode
 
 dir :
 	@echo ----- Creating the application in temporary directory...
@@ -65,7 +67,6 @@ dir :
 	cp -p framepop.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/framepop.el
 	cp -p Emacs.icns ${DESTDIR}/
-	cp -p emacs-document.icns ${DESTDIR}/
 
 ess :
 	@echo ----- Making ESS...
@@ -106,12 +107,6 @@ polymode :
 	@echo ----- Done installing polymode
 
 dmg :
-	@echo ----- Applying temporary fixes...
-	(cd ${PREFIX}/MacOS; for f in `ls Emacs-*`; do mv "$$f" "$${f//\./_}"; done)
-	(cd ${PREFIX}/MacOS; for f in `ls -d bin-*`; do mv "$$f" "$${f//\./_}"; done)
-	(cd ${PREFIX}/MacOS; for f in `ls -d libexec-*`; do mv "$$f" "$${f//\./_}"; done)
-	cp Emacs-script-fix ${PREFIX}/MacOS/Emacs
-
 	@echo ----- Signing the application...
 	codesign --force --deep --sign "Developer ID Application: Vincent Goulet" \
 		${EMACSDIR}
@@ -184,6 +179,29 @@ www :
 	svn ci -m "Version ${VERSION}"
 	svn cp ${REPOS}/trunk ${REPOS}/tags/${DISTNAME} -m "Tag version ${VERSION}"
 	@echo ----- Done updating web site
+
+install-ess :
+	@echo ----- Fetching and unpacking ESS...
+	rm -rf ${ESS}
+	curl -O http://ess.r-project.org/downloads/ess/${ESS}.zip && unzip ${ESS}.zip
+
+install-auctex :
+	@echo ----- Fetching and unpacking AUCTeX...
+	rm -rf ${AUCTEX}
+	curl -O http://ftp.gnu.org/pub/gnu/auctex/${AUCTEX}.zip && unzip ${AUCTEX}.zip
+
+install-org :
+	@echo ----- Fetching and unpacking org...
+	rm -rf ${ORG}
+	curl -O http://orgmode.org/${ORG}.zip && unzip ${ORG}.zip
+
+install-polymode :
+	@echo ----- Preparing polymode
+	rm -rf polymode
+	cd ../polymode && git pull
+	mkdir polymode && \
+		cp -p ../polymode/*.el ../polymode/modes/*.el ../polymode/readme.md polymode && \
+		cp -p ../polymode/modes/readme.md polymode/developing.md
 
 clean :
 	rm ${DISTNAME}.dmg

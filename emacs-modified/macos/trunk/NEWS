@@ -1,12 +1,21 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
-Version -modified- ()
-==============================================
+Version 24.4-modified-1 (21 October 2014)
+=========================================
+
+UPDATES
+
+o GNU Emacs 24.4 released October 20, 2014.
+
+o 'import-env-from-shell' has been updated along Steve Purcell's
+  current code of for exec-path-from-shell.el. Should work better at
+  importing the environment for shells other than bash.
 
 USER VISIBLE CHANGES
 
 o New, more modern, icon by Thomas Kobber Panum lifted from the
-  emacs-mac-port project.
+  emacs-mac-port project. Particularly well suited to OS X Yosemite.
+  The 'Emacs document' icon is no longer included in the distribution.
 
 
 Version 24.3.93-modified-5 (15 September 2014)
