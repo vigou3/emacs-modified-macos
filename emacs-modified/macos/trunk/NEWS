@@ -7,8 +7,10 @@ UPDATES
 
 o GNU Emacs 24.4 released October 20, 2014.
 
+o org 8.2.10
+
 o 'import-env-from-shell' has been updated along Steve Purcell's
-  current code of for exec-path-from-shell.el. Should work better at
+  current code for exec-path-from-shell.el. Should work better at
   importing the environment for shells other than bash.
 
 USER VISIBLE CHANGES
