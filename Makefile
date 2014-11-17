@@ -46,7 +46,7 @@ all : install emacs
 
 emacs : dir ess auctex org polymode dmg
 
-install : install-ess install-auctex install-org install-polymode
+install-packages : install-ess install-auctex install-org install-polymode
 
 dir :
 	@echo ----- Creating the application in temporary directory...
