@@ -149,13 +149,14 @@ dmg :
 
 www :
 	@echo ----- Updating web site...
-#	cp -p ${DISTNAME}.dmg ${WWWLIVE}/htdocs/pub/emacs/
+	cp -p ${DISTNAME}.dmg ${WWWLIVE}/htdocs/pub/emacs/
 	cp -p NEWS ${WWWLIVE}/htdocs/pub/emacs/NEWS-mac
 	cd ${WWWSRC} && svn update
 	cd ${WWWSRC}/htdocs/s/emacs/ &&                       \
 		LANG=ISO-8859-1 \
 		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
 		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
+		    -e 's/<ORGVERSION>/${ORGVERSION}/g'     \
 		    -e 's/<PSVNVERSION>/${PSVNVERSION}/g'     \
 		    -e 's/<POLYMODEVERSION>/${POLYMODEVERSION}/g' \
 		    -e 's/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/g' \
@@ -167,6 +168,7 @@ www :
 		LANG=ISO-8859-1 \
 		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
 		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
+		    -e 's/<ORGVERSION>/${ORGVERSION}/g'     \
 		    -e 's/<PSVNVERSION>/${PSVNVERSION}/g'     \
 		    -e 's/<POLYMODEVERSION>/${POLYMODEVERSION}/g' \
 		    -e 's/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/g' \
