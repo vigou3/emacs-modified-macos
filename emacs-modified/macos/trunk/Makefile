@@ -125,12 +125,12 @@ dmg :
 	hdiutil attach ${TMPDMG} -noautoopen -quiet
 
 	@echo ----- Populating top level image directory...
-	sed -e '/^* ESS/s/<ESSVERSION>/${ESSVERSION}/'          \
-	    -e '/^* AUCTeX/s/<AUCTEXVERSION>/${AUCTEXVERSION}/' \
-	    -e '/^* org/s/<ORGVERSION>/${ORGVERSION}/' \
-	    -e '/^* polymode/s/<POLYMODEVERSION>/${POLYMODEVERSION}/' \
-	    -e '/^* polymode/s/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/' \
-	    -e '/^* psvn/s/<PSVNVERSION>/${PSVNVERSION}/' \
+	sed -e 's/<ESSVERSION>/${ESSVERSION}/'          \
+	    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/' \
+	    -e 's/<ORGVERSION>/${ORGVERSION}/' \
+	    -e 's/<POLYMODEVERSION>/${POLYMODEVERSION}/' \
+	    -e 's/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/' \
+	    -e 's/<PSVNVERSION>/${PSVNVERSION}/' \
 	    README.txt.in > README.txt
 	cp -p README.txt ${VOLUME}/${DISTNAME}/
 	cp -p NEWS ${VOLUME}/${DISTNAME}/
