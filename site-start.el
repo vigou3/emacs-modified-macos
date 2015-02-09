@@ -76,12 +76,10 @@
 	    (turn-on-reftex)
 	    (setq reftex-plug-into-AUCTeX t)))
 
-;; Minimal OS X-friendly configuration of AUCTeX. Since there is no
-;; DVI viewer for the platform, use pdftex/pdflatex by default for
-;; compilation. Furthermore, use 'open' to view the resulting PDF.
-;; Until Preview learns to refresh automatically on file updates, Skim
-;; (http://skim-app.sourceforge.net) is a nice PDF viewer.
-(setq TeX-PDF-mode t)
+;; Minimal OS X-friendly configuration of AUCTeX. Use 'open' to view
+;; the resulting PDF. Until Preview learns to refresh automatically on
+;; file updates, Skim (http://skim-app.sourceforge.net) is a nice PDF
+;; viewer.
 (setq TeX-view-program-selection
       '(((output-dvi style-pstricks)
 	 "dvips and PDF Viewer")
