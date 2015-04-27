@@ -1,6 +1,6 @@
 ;;; site-start.el --- Customizations for GNU Emacs on OS X
 
-;; Copyright (C) 2012 Vincent Goulet
+;; Copyright (C) 2015 Vincent Goulet
 
 ;; Author: Vincent Goulet
 
@@ -66,6 +66,9 @@
                          (ess-nuke-trailing-whitespace)))
 	     (setq ess-nuke-trailing-whitespace-p t)))
 
+;; Load ESS.
+(require 'ess-site)
+
 ;;;
 ;;; AUCTeX
 ;;;
@@ -96,10 +99,38 @@
 (setq TeX-file-extensions
       '("Rnw" "rnw" "Snw" "snw" "tex" "sty" "cls" "ltx" "texi" "texinfo" "dtx"))
 
+;; Defensive hack to find latex in case the PATH environment variable
+;; was not correctly altered at TeX Live installation. Contributed by
+;; Rodney Sparapani <rsparapa@mcw.edu>.
+(require 'executable)
+(if (and (not (executable-find "latex")) (file-exists-p "/usr/texbin"))
+    (setq LaTeX-command-style
+	  '(("" "/usr/texbin/%(PDF)%(latex) %S%(PDFout)"))))
+
+;; Load AUCTeX and preview-latex.
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
+
+;;;
+;;; polymode
+;;;
+;; Activation of the R specific bundle and basic configuration.
+(add-to-list 'auto-mode-alist '("\\.Snw" . poly-noweb+r-mode))
+(add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
+(add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
+(add-to-list 'auto-mode-alist '("\\.rapport" . poly-rapport-mode))
+(add-to-list 'auto-mode-alist '("\\.Rhtml" . poly-html+r-mode))
+(add-to-list 'auto-mode-alist '("\\.Rbrew" . poly-brew+r-mode))
+(add-to-list 'auto-mode-alist '("\\.Rcpp" . poly-r+c++-mode))
+(add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode))
+(require 'poly-R)
+
 ;;;
 ;;; SVN
 ;;;
 ;; Support for the Subversion version control system. Use 'M-x
 ;; svn-status RET' on a directory under version control to update,
 ;; commit changes, revert files, etc., all within Emacs.
+(add-to-list 'vc-handled-backends 'SVN)
 (add-hook 'svn-log-edit-mode-hook 'turn-off-auto-fill) ; useful option
+(require 'psvn)

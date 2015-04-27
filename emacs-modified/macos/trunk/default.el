@@ -2,7 +2,7 @@
 ;;; Used mainly to load custom extensions.
 ;;; (Loaded *after* any user and site configuration files)
 
-;; Copyright (C) 2014 Vincent Goulet
+;; Copyright (C) 2015 Vincent Goulet
 
 ;; Author: Vincent Goulet
 
@@ -39,48 +39,3 @@
 ;; for the list. You can customize this variable in site-start.el or
 ;; the user's config file.
 (require 'import-env-from-shell)
-
-;;;
-;;; ESS
-;;;
-;; Load ESS and activate the nifty feature showing function arguments
-;; in the minibuffer until the call is closed with ')'.
-(require 'ess-site)
-
-;;;
-;;; AUCTeX
-;;;
-;; Load AUCTeX and preview-latex.
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
-
-;; Defensive hack to find latex in case the PATH environment variable
-;; was not correctly altered at TeX Live installation. Contributed by
-;; Rodney Sparapani <rsparapa@mcw.edu>.
-(require 'executable)
-(if (and (not (executable-find "latex")) (file-exists-p "/usr/texbin"))
-    (setq LaTeX-command-style
-	  '(("" "/usr/texbin/%(PDF)%(latex) %S%(PDFout)"))))
-
-;;;
-;;; polymode
-;;;
-;; Activation of the R specific bundle and basic configuration.
-(add-to-list 'auto-mode-alist '("\\.Snw" . poly-noweb+r-mode))
-(add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
-(add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
-(add-to-list 'auto-mode-alist '("\\.rapport" . poly-rapport-mode))
-(add-to-list 'auto-mode-alist '("\\.Rhtml" . poly-html+r-mode))
-(add-to-list 'auto-mode-alist '("\\.Rbrew" . poly-brew+r-mode))
-(add-to-list 'auto-mode-alist '("\\.Rcpp" . poly-r+c++-mode))
-(add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode))
-(require 'poly-R)
-
-;;;
-;;; SVN
-;;;
-;; Support for the Subversion version control system. Use 'M-x
-;; svn-status RET' on a directory under version control to update,
-;; commit changes, revert files, etc., all within Emacs.
-(add-to-list 'vc-handled-backends 'SVN)
-(require 'psvn)
