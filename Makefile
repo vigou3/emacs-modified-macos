@@ -42,7 +42,7 @@ ORG=org-${ORGVERSION}
 
 all : get-packages emacs
 
-.PHONY : emacs setup dir ess auctex org polymode dmg www clean
+.PHONY : emacs dir ess auctex org polymode dmg www clean
 
 emacs : dir ess auctex org polymode dmg
 
@@ -108,7 +108,7 @@ polymode :
 
 dmg :
 	@echo ----- Signing the application...
-	codesign --force --deep --sign "Developer ID Application: Vincent Goulet" \
+	codesign --force --sign "Developer ID Application: Vincent Goulet" \
 		${EMACSDIR}
 
 	@echo ----- Creating disk image...
