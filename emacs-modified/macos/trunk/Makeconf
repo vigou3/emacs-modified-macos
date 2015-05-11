@@ -8,8 +8,8 @@
 # http://vgoulet.act.ulaval.ca/emacs
 
 # GNU and this distribution version number
-EMACSVERSION=24.4
-DISTVERSION=4
+EMACSVERSION=24.5-1
+DISTVERSION=1
 
 # Extensions version numbers
 ESSVERSION=15.03-1
