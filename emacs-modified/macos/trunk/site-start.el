@@ -36,9 +36,6 @@
 ;(setq load-path
 ;      (nconc '("BIBINPUTS") import-env-from-shell-variables))
 
-;; Make sure "~/" is the default directory at startup.
-(setq command-line-default-directory "~/")
-
 ;;;
 ;;; Nice options to have On by default
 ;;;

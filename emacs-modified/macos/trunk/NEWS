@@ -1,5 +1,18 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
+
+Version -modified- ()
+=======================================
+
+UPDATES
+
+o The invocation (setq command-line-default-directory "~/") has been
+  deleted from the site initialization file. It no longer seems to be
+  of any use and it interferes with opening a file from the command
+  line with Emacs in non-windowed mode (thanks to Ivo Welch
+  <ivo.welch@gmail.com> for this catch).
+
+
 Version 24.5-1-modified-1 (10 May 2015)
 =======================================
 
