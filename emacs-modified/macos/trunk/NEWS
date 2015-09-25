@@ -1,10 +1,12 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
 
-Version -modified- ()
-=======================================
+Version 24.5-1-modified-2 (24 September 2015)
+=============================================
 
 UPDATES
+
+o ESS 15.09
 
 o The invocation (setq command-line-default-directory "~/") has been
   deleted from the site initialization file. It no longer seems to be
