@@ -8,6 +8,8 @@ UPDATES
 
 o ESS 15.09
 
+o Org 8.3.1
+
 o The invocation (setq command-line-default-directory "~/") has been
   deleted from the site initialization file. It no longer seems to be
   of any use and it interferes with opening a file from the command
