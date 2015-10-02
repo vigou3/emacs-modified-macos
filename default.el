@@ -33,9 +33,11 @@
 ;;;
 ;;; Import the shell environment
 ;;;
-;; Emacs does not always properly catch the system and user paths and
-;; other environment variable at launch on OS X. Forcibly import some
-;; environment variables here; see 'import-env-from-shell-variables'
-;; for the list. You can customize this variable in site-start.el or
-;; the user's config file.
-(require 'import-env-from-shell)
+;; Import some shell environment variables into Emacs at launch. Steve
+;; Purcell's exec-path-from-shell imports $PATH and $MANPATH by
+;; default; $LANG is added here. You can customize
+;; 'exec-env-from-shell-variables' variable in site-start.el or the
+;; user's config file.
+(require 'exec-path-from-shell)
+(nconc exec-path-from-shell-variables '("LANG"))
+(exec-path-from-shell-initialize)

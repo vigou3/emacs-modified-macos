@@ -33,7 +33,7 @@
 ;;
 ;; Customizations should probably go in a user's .emacs file, so just
 ;; consider the code below as an example of how to do it.
-;(setq load-path
+;(setq import-env-from-shell-variables
 ;      (nconc '("BIBINPUTS") import-env-from-shell-variables))
 
 ;;;

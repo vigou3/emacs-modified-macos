@@ -46,7 +46,7 @@ all : get-packages emacs
 
 emacs : dir ess auctex org polymode dmg
 
-get-packages : get-ess get-auctex get-org get-polymode
+get-packages : get-ess get-auctex get-org get-polymode get-exec-path
 
 dir :
 	@echo ----- Creating the application in temporary directory...
@@ -60,8 +60,8 @@ dir :
 	    version-modified.el.in > version-modified.el
 	cp -p version-modified.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/version-modified.el
-	cp -p import-env-from-shell.el ${SITELISP}/
-	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/import-env-from-shell.el
+	cp -p exec-path-from-shell.el ${SITELISP}/
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/exec-path-from-shell.el
 	cp -p psvn.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/psvn.el
 	cp -p framepop.el ${SITELISP}/
@@ -210,6 +210,11 @@ get-polymode :
 	mkdir polymode && \
 		cp -p ../polymode/*.el ../polymode/modes/*.el ../polymode/readme.md polymode && \
 		cp -p ../polymode/modes/readme.md polymode/developing.md
+
+get-exec-path :
+	@echo ----- Preparing exec-path-from-shell
+	cd ../exec-path-from-shell && git pull
+	cp -p ../exec-path-from-shell/exec-path-from-shell.el .
 
 clean :
 	rm ${DISTNAME}.dmg
