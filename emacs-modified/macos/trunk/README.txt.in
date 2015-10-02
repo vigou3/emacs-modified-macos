@@ -15,13 +15,13 @@ modified to include the following add-on packages:
 * psvn.el r<PSVNVERSION> from Subversion sources, to work with
   Subversion repositories from within Emacs;
 * framepop.el, to obtain temporary buffers in separate frames;
-* custom package import-env-from-shell.el to import the user's
+* exec-path-from-shell.el to import the user's
   environment (by default PATH, MANPATH and LANG) at Emacs startup;
 * default.el and site-start.el files to make everything work together.
 
 Note that polymode is made active for R mode by default.
 
-You may want to customize 'import-env-from-shell-variables'.
+You may want to customize exec-path-from-shell-variables'.
 
 Please direct questions or comments on this modified version of
 Emacs.app to Vincent Goulet <vincent.goulet@act.ulaval.ca>.

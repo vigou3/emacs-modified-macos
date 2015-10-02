@@ -1,5 +1,16 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
+Version 24.5-1-modified-3 ()
+=============================================
+
+(POSSIBLY) USER VISIBLE CHANGE
+
+o import-env-from-shell.el has been replaced by Steve Purcell's
+  original exec-path-from-shell.el (on which the latter was based).
+  This should have no visible impact except if one has customized
+  'import-env-from-shell-variables': one now rather customize
+  'exec-path-from-shell-variables'.
+
 
 Version 24.5-1-modified-2 (24 September 2015)
 =============================================
