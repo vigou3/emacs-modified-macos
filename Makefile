@@ -42,11 +42,11 @@ ORG=org-${ORGVERSION}
 
 all : get-packages emacs
 
-.PHONY : emacs dir ess auctex org polymode dmg www clean
+.PHONY : emacs dir ess auctex org polymode psvn dmg www clean
 
-emacs : dir ess auctex org polymode dmg
+emacs : dir ess auctex org polymode markdownmode execpath psvn dmg
 
-get-packages : get-ess get-auctex get-org get-polymode get-exec-path
+get-packages : get-ess get-auctex get-org get-polymode get-markdownmode get-execpath get-psvn
 
 dir :
 	@echo ----- Creating the application in temporary directory...
@@ -60,10 +60,6 @@ dir :
 	    version-modified.el.in > version-modified.el
 	cp -p version-modified.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/version-modified.el
-	cp -p exec-path-from-shell.el ${SITELISP}/
-	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/exec-path-from-shell.el
-	cp -p psvn.el ${SITELISP}/
-	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/psvn.el
 	cp -p framepop.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/framepop.el
 	cp -p Emacs.icns ${DESTDIR}/
@@ -96,15 +92,31 @@ org :
 	@echo ----- Done making org
 
 polymode :
-	@echo ----- copying markdown-mode and polymode files...
-	cp -p markdown-mode.el ${SITELISP}/
-	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/markdown-mode.el
+	@echo ----- Copying polymode files...
 	mkdir -p ${SITELISP}/polymode
 	cp -p polymode/*.el ${SITELISP}/polymode
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/polymode/*.el
 	mkdir -p ${DOCDIR}/polymode
 	cp -p polymode/*.md ${DOCDIR}/polymode
 	@echo ----- Done installing polymode
+
+markdownmode :
+	@echo ----- Copying markdown-mode.el...
+	cp -p markdown-mode.el ${SITELISP}/
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/markdown-mode.el
+	@echo ----- Done installing markdown-mode.el
+
+execpath :
+	@echo ----- Copying exec-path-from-shell.el...
+	cp -p exec-path-from-shell.el ${SITELISP}/
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/exec-path-from-shell.el
+	@echo ----- Done installing exec-path-from-shell.el
+
+psvn :
+	@echo ----- Copying psvn.el...
+	cp -p psvn.el ${SITELISP}/
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/psvn.el
+	@echo ----- Done copying installing psvn.el
 
 dmg :
 	@echo ----- Signing the application...
@@ -130,6 +142,7 @@ dmg :
 	    -e 's/<ORGVERSION>/${ORGVERSION}/' \
 	    -e 's/<POLYMODEVERSION>/${POLYMODEVERSION}/' \
 	    -e 's/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/' \
+	    -e 's/<EXECPATHVERSION>/${EXECPATHVERSION}/' \
 	    -e 's/<PSVNVERSION>/${PSVNVERSION}/' \
 	    README.txt.in > README.txt
 	cp -p README.txt ${VOLUME}/${DISTNAME}/
@@ -160,25 +173,27 @@ www-pages :
 	cd ${WWWSRC} && svn update
 	cd ${WWWSRC}/htdocs/s/emacs/ &&                       \
 		LANG=ISO-8859-1 \
-		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
-		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
-		    -e 's/<ORGVERSION>/${ORGVERSION}/g'     \
-		    -e 's/<PSVNVERSION>/${PSVNVERSION}/g'     \
-		    -e 's/<POLYMODEVERSION>/${POLYMODEVERSION}/g' \
-		    -e 's/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/g' \
-		    -e 's/<VERSION>/${VERSION}/g'             \
+		sed -e 's/<ESSVERSION>/${ESSVERSION}/'       \
+		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/' \
+		    -e 's/<ORGVERSION>/${ORGVERSION}/'     \
+		    -e 's/<POLYMODEVERSION>/${POLYMODEVERSION}/' \
+		    -e 's/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/' \
+		    -e 's/<EXECPATHVERSION>/${EXECPATHVERSION}/' \
+		    -e 's/<PSVNVERSION>/${PSVNVERSION}/'     \
+		    -e 's/<VERSION>/${VERSION}/'             \
 		    -e 's/<DISTNAME>/${DISTNAME}/g'           \
 		    mac.html.in > mac.html
 	cp -p ${WWWSRC}/htdocs/s/emacs/mac.html ${WWWLIVE}/htdocs/s/emacs/
 	cd ${WWWSRC}/htdocs/en/s/emacs/ &&                    \
 		LANG=ISO-8859-1 \
-		sed -e 's/<ESSVERSION>/${ESSVERSION}/g'       \
-		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/g' \
-		    -e 's/<ORGVERSION>/${ORGVERSION}/g'     \
-		    -e 's/<PSVNVERSION>/${PSVNVERSION}/g'     \
-		    -e 's/<POLYMODEVERSION>/${POLYMODEVERSION}/g' \
-		    -e 's/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/g' \
-		    -e 's/<VERSION>/${VERSION}/g'             \
+		sed -e 's/<ESSVERSION>/${ESSVERSION}/'       \
+		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/' \
+		    -e 's/<ORGVERSION>/${ORGVERSION}/'     \
+		    -e 's/<POLYMODEVERSION>/${POLYMODEVERSION}/' \
+		    -e 's/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/' \
+		    -e 's/<EXECPATHVERSION>/${EXECPATHVERSION}/' \
+		    -e 's/<PSVNVERSION>/${PSVNVERSION}/'     \
+		    -e 's/<VERSION>/${VERSION}/'             \
 		    -e 's/<DISTNAME>/${DISTNAME}/g'           \
 		    mac.html.in > mac.html
 	cp -p ${WWWSRC}/htdocs/en/s/emacs/mac.html ${WWWLIVE}/htdocs/en/s/emacs/
@@ -206,15 +221,25 @@ get-org :
 get-polymode :
 	@echo ----- Preparing polymode
 	rm -rf polymode
-	cd ../polymode && git pull
+	git -C ../polymode pull
 	mkdir polymode && \
 		cp -p ../polymode/*.el ../polymode/modes/*.el ../polymode/readme.md polymode && \
 		cp -p ../polymode/modes/readme.md polymode/developing.md
 
-get-exec-path :
+get-markdownmode :
+	@echo ----- Preparing markdown-mode
+	git -C ../markdown-mode pull
+	cp -p ../markdown-mode/markdown-mode.el .
+
+get-execpath :
 	@echo ----- Preparing exec-path-from-shell
-	cd ../exec-path-from-shell && git pull
+	git -C ../exec-path-from-shell pull
 	cp -p ../exec-path-from-shell/exec-path-from-shell.el .
+
+get-psvn :
+	@echo ----- Preparing psvn.el
+	svn update ../emacs-svn
+	cp -p ../emacs-svn/psvn.el .
 
 clean :
 	rm ${DISTNAME}.dmg
