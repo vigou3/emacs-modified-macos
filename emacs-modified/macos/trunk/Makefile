@@ -113,10 +113,11 @@ execpath :
 	@echo ----- Done installing exec-path-from-shell.el
 
 psvn :
-	@echo ----- Copying psvn.el...
+	@echo ----- Patching and copying psvn.el...
+	patch < psvn.el_svn1.7.diff
 	cp -p psvn.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/psvn.el
-	@echo ----- Done copying installing psvn.el
+	@echo ----- Done installing psvn.el
 
 dmg :
 	@echo ----- Signing the application...
