@@ -114,7 +114,8 @@ execpath :
 
 psvn :
 	@echo ----- Patching and copying psvn.el...
-	patch -o psvn.el psvn.el.orig psvn.el_svn1.7.diff
+	cp psvn.el psvn.el.orig
+	patch < psvn.el_svn1.7.diff
 	cp -p psvn.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/psvn.el
 	@echo ----- Done installing psvn.el
@@ -240,7 +241,7 @@ get-execpath :
 get-psvn :
 	@echo ----- Preparing psvn.el
 	svn update ../emacs-svn
-	cp -p ../emacs-svn/psvn.el psvn.el.orig
+	cp -p ../emacs-svn/psvn.el .
 
 clean :
 	rm ${DISTNAME}.dmg
