@@ -6,7 +6,7 @@ Version 24.5-1-modified-6 (30 March 2016)
 NEW FEATURE
 
 o markdown-mode is now automatically loaded for file extensions
-'.text', '.markdown' and '.md'.
+  '.text', '.markdown' and '.md'.
 
 UPDATES
 
