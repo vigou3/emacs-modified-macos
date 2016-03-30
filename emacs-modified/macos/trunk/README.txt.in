@@ -1,5 +1,5 @@
 Copyright (C) 2008-2013 Free Software Foundation, Inc.
-Copyright (C) 2009-2015 Vincent Goulet for the modifications
+Copyright (C) 2009-2016 Vincent Goulet for the modifications
 See below for GNU Emacs license conditions.
 
 Emacs.app Modified
@@ -22,7 +22,7 @@ modified to include the following add-on packages:
 
 Note that polymode is made active for R mode by default.
 
-You may want to customize exec-path-from-shell-variables'.
+You may want to customize 'exec-path-from-shell-variables'.
 
 Please direct questions or comments on this modified version of
 Emacs.app to Vincent Goulet <vincent.goulet@act.ulaval.ca>.
