@@ -22,6 +22,10 @@ modified to include the following add-on packages:
 
 Note that polymode is made active for R mode by default.
 
+In order to use Markdown you may need to install a parser such as
+Pandoc (see https://github.com/jgm/pandoc/releases/latest) and
+customize 'markdown-command'.
+
 You may want to customize 'exec-path-from-shell-variables'.
 
 Please direct questions or comments on this modified version of
