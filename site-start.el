@@ -54,6 +54,9 @@
 ;; the option is disabled here.
 (setq-default inferior-R-args "--no-save ")
 
+;; Enable sweaving directly within the AUCTeX ecosystem.
+(setq-default ess-swv-plug-into-AUCTeX-p t)
+
 ;; Automagically delete trailing whitespace when saving R script
 ;; files. One can add other commands in the ess-mode-hook below.
 (add-hook 'ess-mode-hook
@@ -80,21 +83,21 @@
 ;; the resulting PDF. Until Preview learns to refresh automatically on
 ;; file updates, Skim (http://skim-app.sourceforge.net) is a nice PDF
 ;; viewer.
-(setq TeX-view-program-selection
-      '(((output-dvi style-pstricks)
-	 "dvips and PDF Viewer")
-	(output-dvi "PDF Viewer")
-	(output-pdf "PDF Viewer")
-	(output-html "Safari")))
-(setq TeX-view-program-list
-      '(("dvips and PDF Viewer" "%(o?)dvips %d -o && open %f")
-	("PDF Viewer" "open %o")
-	("Safari" "open %o")))
+;; (setq TeX-view-program-selection
+;;       '(((output-dvi style-pstricks)
+;; 	 "dvips and PDF Viewer")
+;; 	(output-dvi "PDF Viewer")
+;; 	(output-pdf "PDF Viewer")
+;; 	(output-html "Safari")))
+;; (setq TeX-view-program-list
+;;       '(("dvips and PDF Viewer" "%(o?)dvips %d -o && open %f")
+;; 	("PDF Viewer" "open %o")
+;; 	("Safari" "open %o")))
 
 ;; Add standard Sweave file extensions to the list of files recognized
 ;; by AUCTeX.
-(setq TeX-file-extensions
-      '("Rnw" "rnw" "Snw" "snw" "tex" "sty" "cls" "ltx" "texi" "texinfo" "dtx"))
+;; (setq TeX-file-extensions
+;;       '("Rnw" "rnw" "Snw" "snw" "tex" "sty" "cls" "ltx" "texi" "texinfo" "dtx"))
 
 ;; Defensive hack to find latex in case the PATH environment variable
 ;; was not correctly altered at TeX Live installation. Contributed by
@@ -111,25 +114,23 @@
 ;;;
 ;;; polymode
 ;;;
-;; Activation of the R specific bundle and basic configuration.
-(add-to-list 'auto-mode-alist '("\\.Snw" . poly-noweb+r-mode))
-(add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
+;; Activation of the R Markdown (Rmd) specific bundle and basic
+;; configuration.
 (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
-(add-to-list 'auto-mode-alist '("\\.rapport" . poly-rapport-mode))
-(add-to-list 'auto-mode-alist '("\\.Rhtml" . poly-html+r-mode))
-(add-to-list 'auto-mode-alist '("\\.Rbrew" . poly-brew+r-mode))
-(add-to-list 'auto-mode-alist '("\\.Rcpp" . poly-r+c++-mode))
-(add-to-list 'auto-mode-alist '("\\.cppR" . poly-c++r-mode))
 (require 'poly-R)
 
 ;;;
 ;;; markdown-mode
 ;;;
-(autoload 'markdown-mode "markdown-mode"
-   "Major mode for editing Markdown files" t)
+;; Activation of markdown-mode for common file extensions. One will
+;; also need to install a Markdown parser (such as 'pandoc') and then
+;; to indicate its location by customizing the variable
+;; 'markdown-command'.
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
 
 ;;;
 ;;; SVN
