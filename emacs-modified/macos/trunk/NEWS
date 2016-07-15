@@ -1,5 +1,22 @@
 === Modified version of GNU Emacs for Mac OS X ===
 
+Version 24.5-1-modified-7 (15 July 2016)
+========================================
+
+This is a re-release fixing only the current and the README.txt
+files. The 8 May 2016 version of this file should have also included
+the following statement.
+
+USER VISIBLE CHANGES
+
+o The default configuration has changed as follows:
+  ess-swv-plug-into-AUCTeX is active to Sweave documents using the
+  AUCTeX interface; polymode is active only for Rmarkdown (and as a
+  by-product for R help files). See threads in the ess-help mailing
+  list in April and July 2016 for some rationale of this decision
+  (https://stat.ethz.ch/pipermail/ess-help/).
+
+
 Version 24.5-1-modified-7 (8 May 2016)
 ======================================
 

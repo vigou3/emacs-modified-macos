@@ -11,7 +11,8 @@ modified to include the following add-on packages:
 * ESS <ESSVERSION>;
 * AUCTeX <AUCTEXVERSION>;
 * org <ORGVERSION>;
-* polymode <POLYMODEVERSION>;
+* polymode <POLYMODEVERSION> (active by default for RMarkdown mode
+  only);
 * markdown-mode <MARKDOWNMODEVERSION>;
 * exec-path-from-shell.el v<EXECPATHVERSION> to import the user's
   environment (by default PATH, MANPATH and LANG) at Emacs startup;
@@ -19,8 +20,6 @@ modified to include the following add-on packages:
   within Emacs;
 * framepop.el, to obtain temporary buffers in separate frames;
 * default.el and site-start.el files to make everything work together.
-
-Note that polymode is made active for R mode by default.
 
 In order to use Markdown you may need to install a parser such as
 Pandoc (see https://github.com/jgm/pandoc/releases/latest) and
