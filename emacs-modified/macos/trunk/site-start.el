@@ -79,26 +79,6 @@
 	    (turn-on-reftex)
 	    (setq reftex-plug-into-AUCTeX t)))
 
-;; Minimal OS X-friendly configuration of AUCTeX. Use 'open' to view
-;; the resulting PDF. Until Preview learns to refresh automatically on
-;; file updates, Skim (http://skim-app.sourceforge.net) is a nice PDF
-;; viewer.
-;; (setq TeX-view-program-selection
-;;       '(((output-dvi style-pstricks)
-;; 	 "dvips and PDF Viewer")
-;; 	(output-dvi "PDF Viewer")
-;; 	(output-pdf "PDF Viewer")
-;; 	(output-html "Safari")))
-;; (setq TeX-view-program-list
-;;       '(("dvips and PDF Viewer" "%(o?)dvips %d -o && open %f")
-;; 	("PDF Viewer" "open %o")
-;; 	("Safari" "open %o")))
-
-;; Add standard Sweave file extensions to the list of files recognized
-;; by AUCTeX.
-;; (setq TeX-file-extensions
-;;       '("Rnw" "rnw" "Snw" "snw" "tex" "sty" "cls" "ltx" "texi" "texinfo" "dtx"))
-
 ;; Defensive hack to find latex in case the PATH environment variable
 ;; was not correctly altered at TeX Live installation. Contributed by
 ;; Rodney Sparapani <rsparapa@mcw.edu>.
