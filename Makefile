@@ -127,7 +127,7 @@ dmg :
 	@echo ----- Creating disk image...
 	if [ -e ${TMPDMG} ]; then rm ${TMPDMG}; fi
 	hdiutil create ${TMPDMG} \
-		-size 180m \
+		-size 200m \
 	 	-format UDRW \
 		-fs HFS+ \
 		-srcfolder ${TMPDIR} \
