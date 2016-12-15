@@ -30,9 +30,8 @@
 If optional argument HERE is non-nil, insert string at point."
   (interactive "P")
   (let ((version-string
-         (format "GNU Emacs %d.%d-modified-%s"
-                 emacs-major-version
-                 emacs-minor-version
+         (format "GNU Emacs %s-modified-%s"
+                 emacs-version
                  emacs-modified-version)))
     (if here
         (insert version-string)
