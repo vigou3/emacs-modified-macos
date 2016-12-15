@@ -20,7 +20,7 @@ include ./Makeconf
 TMPDIR=${CURDIR}/tmpdir
 TMPDMG=${CURDIR}/tmpdmg.dmg
 #DMGFILE=Emacs-${EMACSVERSION}-universal-${ARCH}.dmg
-DMGFILE=Emacs-${EMACSVERSION}-universal.dmg
+DMGFILE=Emacs-${EMACSVERSION}$(if ${EMACSPATCHLEVEL},-${EMACSPATCHLEVEL},)-universal.dmg
 EMACSDIR=${TMPDIR}/Emacs.app
 
 PREFIX=${EMACSDIR}/Contents
@@ -46,7 +46,7 @@ all : get-packages emacs
 
 emacs : dir ess auctex org polymode markdownmode execpath psvn dmg
 
-get-packages : get-ess get-auctex get-org get-polymode get-markdownmode get-execpath get-psvn
+get-packages : get-emacs get-ess get-auctex get-org get-polymode get-markdownmode get-execpath get-psvn
 
 dir :
 	@echo ----- Creating the application in temporary directory...
@@ -66,7 +66,7 @@ dir :
 
 ess :
 	@echo ----- Making ESS...
-	${MAKE} EMACS=${EMACS} -C ${ESS} all
+	${MAKE} EMACS=${EMACS} DOWNLOAD=curl -C ${ESS} all
 	${MAKE} DESTDIR=${DESTDIR} SITELISP=${SITELISP} \
 	        ETCDIR=${ETCDIR}/ess DOCDIR=${DOCDIR}/ess \
 	        INFODIR=${INFODIR} -C ${ESS} install
@@ -203,6 +203,11 @@ www-pages :
 	svn ci -m "Version ${VERSION}"
 	svn cp ${REPOS}/trunk ${REPOS}/tags/${DISTNAME} -m "Tag version ${VERSION}"
 	@echo ----- Done updating web pages
+
+get-emacs :
+	@echo ----- Fetching and unpacking ESS...
+	# rm -rf ${DMGFILE}
+	# curl -O http://emacsformacosx.com/emacs-builds/${DMGFILE}
 
 get-ess :
 	@echo ----- Fetching and unpacking ESS...
