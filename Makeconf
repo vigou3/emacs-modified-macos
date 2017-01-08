@@ -1,18 +1,23 @@
-# Makeconf file used by Makefile
+### User settable variables used in -*-Makefile-*-
+##
+## Copyright (C) 2017 Vincent Goulet
+##
+## This file should only serves as a fall-back when the version
+## strings did not come from the make process started in branch
+## master. All values in this file are static since the submodules are
+## not installed in this branch.
+##
+## Author: Vincent Goulet
+##
+## This file is part of GNU Emacs Modified for macOS
+## http://github.com/vigou3/emacs-modified-macos
 
-# Copyright (C) 2014 Vincent Goulet
-
-# Author: Vincent Goulet
-
-# This file is part of GNU Emacs.app Modified
-# http://vgoulet.act.ulaval.ca/emacs
-
-# GNU and this distribution version number
+## GNU Emacs and this distribution version number
 EMACSVERSION=25.1
 EMACSPATCHLEVEL=1
 DISTVERSION=3
 
-# Extensions version numbers
+## Extensions version numbers
 ESSVERSION=16.10
 AUCTEXVERSION=11.89
 ORGVERSION=9.0.2
@@ -21,17 +26,16 @@ MARKDOWNMODEVERSION=$(shell git -C ../markdown-mode describe --tags)
 EXECPATHVERSION=$(shell git -C ../exec-path-from-shell describe --tags | cut -d "-" -f 1-2 -)
 PSVNVERSION=$(shell svn -v status ../emacs-svn/psvn.el | cut -d " " -f 16 -)
 
-# Version strings and file names
+### No modification should be necessary beyond this point
+
+## Version strings and file names
 VERSION=${EMACSVERSION}$(if ${EMACSPATCHLEVEL},-${EMACSPATCHLEVEL},)-modified-${DISTVERSION}
 DISTNAME=Emacs-${VERSION}
 DMGFILE=Emacs-${EMACSVERSION}$(if ${EMACSPATCHLEVEL},-${EMACSPATCHLEVEL},)-universal.dmg
 
-# DMG mount point
+## DMG mount point
 VOLUME=/Volumes
 
-# WWW site sources and live share mount point
-WWWSRC=~/Sites
-WWWLIVE=${VOLUME}/act-vgoulet
-
-# Subversion repository
-REPOS=https://svn.fsg.ulaval.ca/svn/vgoulet/emacs-modified/macos
+## GitHub repository and authentication
+REPOSURL=https://api.github.com/repos/vigou3/test
+OAUTHTOKEN=$(shell cat ~/.github/token)

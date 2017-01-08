@@ -1,32 +1,29 @@
-# Makefile for GNU Emacs.app Modified
+### -*-Makefile-*- for GitHub page of GNU Emacs Modified for macOS
+##
+## Copyright (C) 2014-2017 Vincent Goulet
+##
+## The code of this Makefile is based on a file created by Remko
+## Troncon (http://el-tramo.be/about).
+##
+## Author: Vincent Goulet
+##
+## This file is part of GNU Emacs Modified for macOS
+## http://github.com/vigou3/emacs-modified-macos
 
-# Copyright (C) 2014 Vincent Goulet
-
-# Author: Vincent Goulet
-
-# This file is part of GNU Emacs.app Modified
-# http://vgoulet.act.ulaval.ca/emacs
-
-# This Makefile will create a disk image to distribute a single
-# architecture or universal version of GNU Emacs. For a universal
-# build, two separate builds (i386 and ppc) are needed.
-#
-# The code of this Makefile is based on a file created by Remko
-# Troncon (http://el-tramo.be/about).
-
-# Set most variables in Makeconf
+## Set most variables in Makeconf
 include ./Makeconf
 
+## Build directory et al.
 TMPDIR=${CURDIR}/tmpdir
 TMPDMG=${CURDIR}/tmpdmg.dmg
 EMACSDIR=${TMPDIR}/Emacs.app
 
+## Emacs specific info
 PREFIX=${EMACSDIR}/Contents
 EMACS=${PREFIX}/MacOS/Emacs
 EMACSBATCH = $(EMACS) -batch -no-site-file -no-init-file
-RSYNC=rsync -n -avu --exclude="*~"
 
-# To override ESS variables defined in Makeconf
+## Override of ESS variables
 DESTDIR=${PREFIX}/Resources
 SITELISP=${DESTDIR}/site-lisp
 #LISPDIR=${DESTDIR}/site-lisp
@@ -34,13 +31,14 @@ ETCDIR=${DESTDIR}/etc
 DOCDIR=${DESTDIR}/doc
 INFODIR=${DESTDIR}/info
 
+## Directories of extensions
 ESS=ess-${ESSVERSION}
 AUCTEX=auctex-${AUCTEXVERSION}
 ORG=org-${ORGVERSION}
 
-all : get-packages emacs
+all : get-packages emacs release upload publish
 
-.PHONY : emacs dir ess auctex org polymode psvn dmg www clean
+.PHONY : emacs dir ess auctex org polymode psvn dmg release upload publish clean
 
 emacs : dir ess auctex org polymode markdownmode execpath psvn dmg
 
@@ -90,30 +88,29 @@ org :
 	@echo ----- Done making org
 
 polymode :
-	@echo ----- Copying polymode files...
-	mkdir -p ${SITELISP}/polymode
-	cp -p polymode/*.el ${SITELISP}/polymode
+	@echo ----- Copying and byte compiling polymode files...
+	mkdir -p ${SITELISP}/polymode ${DOCDIR}/polymode
+	cp -p polymode/*.el polymode/modes/*.el ${SITELISP}/polymode
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/polymode/*.el
-	mkdir -p ${DOCDIR}/polymode
-	cp -p polymode/*.md ${DOCDIR}/polymode
+	cp -p polymode/readme.md ${DOCDIR}/polymode
+	cp -p polymode/modes/readme.md ${DOCDIR}/polymode/developing.md
 	@echo ----- Done installing polymode
 
 markdownmode :
-	@echo ----- Copying markdown-mode.el...
-	cp -p markdown-mode.el ${SITELISP}/
+	@echo ----- Copying and byte compiling markdown-mode.el...
+	cp -p markdown-mode/markdown-mode.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/markdown-mode.el
 	@echo ----- Done installing markdown-mode.el
 
 execpath :
-	@echo ----- Copying exec-path-from-shell.el...
-	cp -p exec-path-from-shell.el ${SITELISP}/
+	@echo ----- Copying and byte compiling exec-path-from-shell.el...
+	cp -p exec-path-from-shell/exec-path-from-shell.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/exec-path-from-shell.el
 	@echo ----- Done installing exec-path-from-shell.el
 
 psvn :
-	@echo ----- Patching and copying psvn.el...
-	patch -o psvn.el psvn.el.orig psvn.el_svn1.7.diff
-	cp -p psvn.el ${SITELISP}/
+	@echo ----- Patching and byte compiling psvn.el...
+	patch -o ${SITELISP}/psvn.el emacs-svn/psvn.el psvn.el_svn1.7.diff
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/psvn.el
 	@echo ----- Done installing psvn.el
 
@@ -159,51 +156,51 @@ dmg :
 	rm -rf ${TMPDIR} ${TMPDMG}
 	@echo ----- Done building the disk image
 
-www : www-files www-pages
+release :
+	@echo ----- Creating release on GitHub...
+	if [ -e relnotes.in ]; then rm relnotes.in; fi
+	git commit -a -m "Version ${VERSION}" && git push
+	@echo '{"tag_name": "v${VERSION}",' > relnotes.in
+	@echo ' "name": "GNU Emacs Modified for macOS ${VERSION}",' >> relnotes.in
+	@echo '"body": "' >> relnotes.in
+	@awk '/${VERSION}/{flag=1; next} /^Version/{flag=0} flag' NEWS \
+	     | tail +3 | tail -r | tail +3 | tail -r | sed 's|$$|\\n|' >> relnotes.in
+	@echo '", "draft": false, "prerelease": false}' >> relnotes.in
+	curl --data @relnotes.in ${REPOSURL}/releases?access_token=${OAUTHTOKEN}
+	rm relnotes.in
+	@echo ----- Done creating the release
 
-www-files :
-	@echo ----- Pushing files to web site...
-	cp -p ${DISTNAME}.dmg ${WWWLIVE}/htdocs/pub/emacs/
-	cp -p NEWS ${WWWLIVE}/htdocs/pub/emacs/NEWS-mac
-	@echo ----- Done copying files
+upload : 
+	@echo ----- Getting upload URL from GitHub...
+	$(eval upload_url=$(shell curl -s ${REPOSURL}/releases/latest \
+	 			  | grep "^  \"upload_url\""  \
+	 			  | cut -d \" -f 4            \
+	 			  | cut -d { -f 1))
+	@echo ${upload_url}
+	@echo ----- Uploading the disk image to GitHub...
+	curl -H 'Content-Type: application/zip' \
+	     -H 'Authorization: token ${OAUTHTOKEN}' \
+	     --upload-file ${DISTNAME}.dmg \
+             -s -i "${upload_url}?&name=${DISTNAME}.dmg"
+	@echo ----- Done uploading the disk image
 
-www-pages :
-	@echo ----- Updating web pages...
-	cd ${WWWSRC} && svn update
-	cd ${WWWSRC}/htdocs/s/emacs/ &&                       \
-		LANG=ISO-8859-1 \
-		sed -e 's/<ESSVERSION>/${ESSVERSION}/'       \
-		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/' \
-		    -e 's/<ORGVERSION>/${ORGVERSION}/'     \
-		    -e 's/<POLYMODEVERSION>/${POLYMODEVERSION}/' \
-		    -e 's/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/' \
-		    -e 's/<EXECPATHVERSION>/${EXECPATHVERSION}/' \
-		    -e 's/<PSVNVERSION>/${PSVNVERSION}/'     \
-		    -e 's/<VERSION>/${VERSION}/'             \
-		    -e 's/<DISTNAME>/${DISTNAME}/g'           \
-		    mac.html.in > mac.html
-	cp -p ${WWWSRC}/htdocs/s/emacs/mac.html ${WWWLIVE}/htdocs/s/emacs/
-	cd ${WWWSRC}/htdocs/en/s/emacs/ &&                    \
-		LANG=ISO-8859-1 \
-		sed -e 's/<ESSVERSION>/${ESSVERSION}/'       \
-		    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/' \
-		    -e 's/<ORGVERSION>/${ORGVERSION}/'     \
-		    -e 's/<POLYMODEVERSION>/${POLYMODEVERSION}/' \
-		    -e 's/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/' \
-		    -e 's/<EXECPATHVERSION>/${EXECPATHVERSION}/' \
-		    -e 's/<PSVNVERSION>/${PSVNVERSION}/'     \
-		    -e 's/<VERSION>/${VERSION}/'             \
-		    -e 's/<DISTNAME>/${DISTNAME}/g'           \
-		    mac.html.in > mac.html
-	cp -p ${WWWSRC}/htdocs/en/s/emacs/mac.html ${WWWLIVE}/htdocs/en/s/emacs/
-	cd ${WWWLIVE} && ls -lRa > ${WWWSRC}/ls-lRa
-	cd ${WWWSRC} && svn ci -m "Update for Emacs Modified for OS X version ${VERSION}"
-	svn ci -m "Version ${VERSION}"
-	svn cp ${REPOS}/trunk ${REPOS}/tags/${DISTNAME} -m "Tag version ${VERSION}"
-	@echo ----- Done updating web pages
+publish :
+	@echo ----- Publishing the web page...
+	git checkout gh-pages && \
+	${MAKE} \
+	  VERSION=${VERSION} \
+	  ESSVERSION=${ESSVERSION} \
+	  AUCTEXVERSION=${AUCTEXVERSION} \
+	  ORGVERSION=${ORGVERSION} \
+	  POLYMODEVERSION=${POLYMODEVERSION} \
+	  MARDOWNMODEVERSION=${MARDOWNMODEVERSION} \
+	  EXECPATHVERSION=${EXECPATHVERSION} \
+	  PSVNVERSION=${PSVNVERSION} \
+	  DMGFILE=${DMGFILE} && \
+	git checkout master
 
 get-emacs :
-	@echo ----- Fetching and unpacking ESS...
+	@echo ----- Fetching Emacs...
 	# rm -rf ${DMGFILE}
 	# curl -O http://emacsformacosx.com/emacs-builds/${DMGFILE}
 
@@ -224,26 +221,19 @@ get-org :
 
 get-polymode :
 	@echo ----- Preparing polymode
-	rm -rf polymode
-	git -C ../polymode pull
-	mkdir polymode && \
-		cp -p ../polymode/*.el ../polymode/modes/*.el ../polymode/readme.md polymode && \
-		cp -p ../polymode/modes/readme.md polymode/developing.md
+	git submodule update --remote markdown-mode
 
 get-markdownmode :
 	@echo ----- Preparing markdown-mode
-	git -C ../markdown-mode pull
-	cp -p ../markdown-mode/markdown-mode.el .
+	git submodule update --remote markdown-mode
 
 get-execpath :
 	@echo ----- Preparing exec-path-from-shell
-	git -C ../exec-path-from-shell pull
-	cp -p ../exec-path-from-shell/exec-path-from-shell.el .
+	git submodule update --remote exec-path-from-shell
 
 get-psvn :
 	@echo ----- Preparing psvn.el
-	svn update ../emacs-svn
-	cp -p ../emacs-svn/psvn.el psvn.el.orig
+	svn update emacs-svn
 
 clean :
 	rm ${DISTNAME}.dmg
