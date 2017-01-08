@@ -36,13 +36,15 @@ ESS=ess-${ESSVERSION}
 AUCTEX=auctex-${AUCTEXVERSION}
 ORG=org-${ORGVERSION}
 
-all : get-packages emacs release upload publish
+all : get-packages emacs release
 
-.PHONY : emacs dir ess auctex org polymode psvn dmg release upload publish clean
+get-packages : get-emacs get-ess get-auctex get-org get-polymode get-markdownmode get-execpath get-psvn
 
 emacs : dir ess auctex org polymode markdownmode execpath psvn dmg
 
-get-packages : get-emacs get-ess get-auctex get-org get-polymode get-markdownmode get-execpath get-psvn
+release : create-release upload publish
+
+.PHONY : emacs dir ess auctex org polymode psvn dmg release create-release upload publish clean
 
 dir :
 	@echo ----- Creating the application in temporary directory...
@@ -156,7 +158,7 @@ dmg :
 	rm -rf ${TMPDIR} ${TMPDMG}
 	@echo ----- Done building the disk image
 
-release :
+create-release :
 	@echo ----- Creating release on GitHub...
 	if [ -e relnotes.in ]; then rm relnotes.in; fi
 	git commit -a -m "Version ${VERSION}" && git push
