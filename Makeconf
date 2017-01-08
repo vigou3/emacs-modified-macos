@@ -37,5 +37,5 @@ DMGFILE=Emacs-${EMACSVERSION}$(if ${EMACSPATCHLEVEL},-${EMACSPATCHLEVEL},)-unive
 VOLUME=/Volumes
 
 ## GitHub repository and authentication
-REPOSURL=https://api.github.com/repos/vigou3/test
+REPOSURL=https://api.github.com/repos/vigou3/emacs-modified-macos
 OAUTHTOKEN=$(shell cat ~/.github/token)
