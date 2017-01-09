@@ -2,11 +2,6 @@
 ##
 ## Copyright (C) 2017 Vincent Goulet
 ##
-## This file should only serves as a fall-back when the version
-## strings did not come from the make process started in branch
-## master. All values in this file are static since the submodules are
-## not installed in this branch.
-##
 ## Author: Vincent Goulet
 ##
 ## This file is part of GNU Emacs Modified for macOS
