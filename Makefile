@@ -203,8 +203,8 @@ publish :
 
 get-emacs :
 	@echo ----- Fetching Emacs...
-	# rm -rf ${DMGFILE}
-	# curl -O http://emacsformacosx.com/emacs-builds/${DMGFILE}
+	rm -rf ${DMGFILE}
+	curl -O -L http://emacsformacosx.com/emacs-builds/${DMGFILE}
 
 get-ess :
 	@echo ----- Fetching and unpacking ESS...
