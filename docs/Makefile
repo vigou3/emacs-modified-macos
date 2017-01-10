@@ -11,7 +11,6 @@
 include ../Makeconf
 
 all : 
-	@echo ----- Updating the web page...
 	sed -e 's/<ESSVERSION>/${ESSVERSION}/'       \
 	    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/' \
 	    -e 's/<ORGVERSION>/${ORGVERSION}/'     \
@@ -24,8 +23,6 @@ all :
 	sed -e 's/<VERSION>/${VERSION}/g'     \
 	    -e 's/<DISTNAME>/${DISTNAME}/'      \
 	    _layouts/default.html.in > _layouts/default.html
-	@echo ----- Publishing the page on GitHub...
 	git commit -a -m "Updating the web page for version ${VERSION}" && \
 	git push
-	@echo ----- Done publishing
 
