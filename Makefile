@@ -188,18 +188,7 @@ upload :
 
 publish :
 	@echo ----- Publishing the web page...
-	git checkout gh-pages && \
-	${MAKE} \
-	  VERSION=${VERSION} \
-	  ESSVERSION=${ESSVERSION} \
-	  AUCTEXVERSION=${AUCTEXVERSION} \
-	  ORGVERSION=${ORGVERSION} \
-	  POLYMODEVERSION=${POLYMODEVERSION} \
-	  MARDOWNMODEVERSION=${MARDOWNMODEVERSION} \
-	  EXECPATHVERSION=${EXECPATHVERSION} \
-	  PSVNVERSION=${PSVNVERSION} \
-	  DISTNAME=${DISTNAME} && \
-	git checkout master
+	${MAKE} -C doc
 
 get-emacs :
 	@echo ----- Fetching Emacs...
