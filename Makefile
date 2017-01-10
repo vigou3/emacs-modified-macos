@@ -188,7 +188,8 @@ upload :
 
 publish :
 	@echo ----- Publishing the web page...
-	${MAKE} -C doc
+	${MAKE} -C docs
+	@echo ----- Done publishing
 
 get-emacs :
 	@echo ----- Fetching Emacs...
