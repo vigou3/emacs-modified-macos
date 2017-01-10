@@ -8,3 +8,12 @@
 [submodule "exec-path-from-shell"]
 	path = exec-path-from-shell
 	url = https://github.com/purcell/exec-path-from-shell
+[submodule "ESS"]
+	path = ESS
+	url = https://github.com/emacs-ess/ESS/
+[submodule "org-mode"]
+	path = org-mode
+	url = http://orgmode.org/org-mode.git/
+[submodule "auctex"]
+	path = auctex
+	url = http://git.savannah.gnu.org/r/auctex.git
