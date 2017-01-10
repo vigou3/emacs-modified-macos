@@ -2,6 +2,17 @@
 === GNU Emacs Modified for macOS
 ===
 
+Version 25.1-1-modified-4 (9 January 2016)
+==========================================
+
+* This is a release to setup the new release mechanism through GitHub *
+
+UPDATES
+-------
+
+- Org 9.0.3
+
+
 Version 25.1-1-modified-3 (15 December 2016)
 ============================================
 
@@ -370,8 +381,8 @@ to do so.
 Version 24.2-modified-4 (22 December 2012)
 ==========================================
 
-UPDATE
-------
+UPDATES
+-------
 
 - ESS 12.09-1
 
@@ -503,8 +514,8 @@ NEW FEATURE
   that I provide [that is, the (setq ...)] are located in
   site-start.el.
 
-UPDATE
-------
+UPDATES
+-------
 
 - psvn.el updated to version of 2012-02-21.
 
@@ -512,8 +523,8 @@ UPDATE
 Version 23.4-modified-1 (6 February 2012)
 =========================================
 
-UPDATE
-------
+UPDATES
+-------
 
 - GNU Emacs 23.4, released January 29, 2012. ESS and AUCTeX versions
   are still 5.14 and 11.86patched, respectively.
@@ -558,8 +569,8 @@ UPDATES
 Version 23.3-modified-1-i386 (22 March 2011)
 ============================================
 
-UPDATE
-------
+UPDATES
+-------
 
 - GNU Emacs 23.3, released March 10, 2011. ESS and AUCTeX versions are
   still 5.13 and 11.86, respectively.
@@ -575,8 +586,8 @@ NEW FEATURE
   to open temporary buffers (such as *Completions*) in a separate
   frame. Thanks to Paul Johnson <pauljohn@ku.edu> for the suggestion.
 
-UPDATE
-------
+UPDATES
+-------
 
 - ESS 5.13
 
@@ -584,8 +595,8 @@ UPDATE
 Version 23.2-modified-6-i386 (9 November 2010)
 ==============================================
 
-UPDATE
-------
+UPDATES
+-------
 
 - ESS 5.12
 
@@ -599,8 +610,8 @@ NEW FEATURE
 - RefTeX is now activated in the site-start.el file. Thanks to Miguel
   Ruiz <rbenit68@gmail.com> for the suggestion.
 
-UPDATE
-------
+UPDATES
+-------
 
 - ESS 5.11
 
@@ -608,8 +619,8 @@ UPDATE
 Version 23.2-modified-4-i386 (8 June 2010)
 ==========================================
 
-UPDATE
-------
+UPDATES
+-------
 
 - ESS 5.10
 
@@ -617,8 +628,8 @@ UPDATE
 Version 23.2-modified-3-i386 (27 May 2010)
 ==========================================
 
-UPDATE
-------
+UPDATES
+-------
 
 - Activate ess-nuke-trailing-whitespace in site-start.el to
   automagically delete trailing whitespace when saving R script files.
@@ -627,8 +638,8 @@ UPDATE
 Version 23.2-modified-2-i386 (25 May 2010)
 ==========================================
 
-UPDATE
-------
+UPDATES
+-------
 
 - ESS 5.9.1
 
@@ -643,8 +654,8 @@ NEW FEATURE
 Version 23.2-modified-1-i386 (11 May 2010)
 ==========================================
 
-UPDATE
-------
+UPDATES
+-------
 
 - GNU Emacs 23.2, released May 8, 2010. This is a 32-bit Intel binary
   that should work on OS X 10.4 and above. We now base the
