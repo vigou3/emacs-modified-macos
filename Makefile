@@ -31,10 +31,11 @@ ETCDIR=${DESTDIR}/etc
 DOCDIR=${DESTDIR}/doc
 INFODIR=${DESTDIR}/info
 
-## Directories of extensions
+## Base name of extensions
 ESS=ess-${ESSVERSION}
 AUCTEX=auctex-${AUCTEXVERSION}
 ORG=org-${ORGVERSION}
+POLYMODE=polymode-master
 
 all : get-packages emacs release
 
@@ -55,8 +56,7 @@ dir :
 	cp -p default.el ${SITELISP}/
 	cp -p site-start.el ${SITELISP}/
 	sed -e '/^(defconst/s/<DISTVERSION>/${DISTVERSION}/' \
-	    version-modified.el.in > version-modified.el
-	cp -p version-modified.el ${SITELISP}/
+	    version-modified.el.in > ${SITELISP}/version-modified.el
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/version-modified.el
 	cp -p framepop.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/framepop.el
@@ -64,55 +64,67 @@ dir :
 
 ess :
 	@echo ----- Making ESS...
+	if [ -d ${ESS} ]; then rm -rf ${ESS}; fi
+	unzip ${ESS}.zip
 	${MAKE} EMACS=${EMACS} DOWNLOAD=curl -C ${ESS} all
 	${MAKE} DESTDIR=${DESTDIR} SITELISP=${SITELISP} \
 	        ETCDIR=${ETCDIR}/ess DOCDIR=${DOCDIR}/ess \
 	        INFODIR=${INFODIR} -C ${ESS} install
 	if [ -f ${SITELISP}/ess-site.el ]; then rm ${SITELISP}/ess-site.el; fi
+	rm -rf ${ESS}
 	@echo ----- Done making ESS
 
 auctex :
 	@echo ----- Making AUCTeX...
+	if [ -d ${AUCTEX} ]; then rm -rf ${AUCTEX}; fi
+	unzip ${AUCTEX}.zip
 	cd ${AUCTEX} && ./configure --datarootdir=${DESTDIR} \
 		--without-texmf-dir \
 		--with-lispdir=${SITELISP} \
 		--with-emacs=${EMACS}
 	make -C ${AUCTEX}
 	make -C ${AUCTEX} install
+	rm -rf ${AUCTEX}
 	@echo ----- Done making AUCTeX
 
 org :
 	@echo ----- Making org...
+	if [ -d ${ORG} ]; then rm -rf ${ORG}; fi
+	unzip ${ORG}.zip
 	${MAKE} EMACS=${EMACS} -C ${ORG} all
 	${MAKE} EMACS=${EMACS} lispdir=${SITELISP}/org \
 	        datadir=${ETCDIR}/org infodir=${INFODIR} -C ${ORG} install
 	mkdir -p ${DOCDIR}/org && cp -p ${ORG}/doc/*.pdf ${DOCDIR}/org/
+	rm -rf ${ORG}
 	@echo ----- Done making org
 
 polymode :
 	@echo ----- Copying and byte compiling polymode files...
+	if [ -d ${POLYMODE} ]; then rm -rf ${POLYMODE}; fi
+	unzip ${POLYMODE}.zip
 	mkdir -p ${SITELISP}/polymode ${DOCDIR}/polymode
-	cp -p polymode/*.el polymode/modes/*.el ${SITELISP}/polymode
+	cp -p ${POLYMODE}/*.el ${POLYMODE}/modes/*.el ${SITELISP}/polymode
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/polymode/*.el
-	cp -p polymode/readme.md ${DOCDIR}/polymode
-	cp -p polymode/modes/readme.md ${DOCDIR}/polymode/developing.md
+	cp -p ${POLYMODE}/readme.md ${DOCDIR}/polymode
+	cp -p ${POLYMODE}/modes/readme.md ${DOCDIR}/polymode/developing.md
+	rm -rf ${POLYMODE}
 	@echo ----- Done installing polymode
 
 markdownmode :
 	@echo ----- Copying and byte compiling markdown-mode.el...
-	cp -p markdown-mode/markdown-mode.el ${SITELISP}/
+	cp -p markdown-mode.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/markdown-mode.el
 	@echo ----- Done installing markdown-mode.el
 
 execpath :
 	@echo ----- Copying and byte compiling exec-path-from-shell.el...
-	cp -p exec-path-from-shell/exec-path-from-shell.el ${SITELISP}/
+	cp -p exec-path-from-shell.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/exec-path-from-shell.el
 	@echo ----- Done installing exec-path-from-shell.el
 
 psvn :
 	@echo ----- Patching and byte compiling psvn.el...
-	patch -o ${SITELISP}/psvn.el emacs-svn/psvn.el psvn.el_svn1.7.diff
+	patch -o ${SITELISP}/psvn.el psvn.el psvn.el_svn1.7.diff
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/psvn.el
 	@echo ----- Done installing psvn.el
 
@@ -142,8 +154,7 @@ dmg :
 	    -e 's/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/' \
 	    -e 's/<EXECPATHVERSION>/${EXECPATHVERSION}/' \
 	    -e 's/<PSVNVERSION>/${PSVNVERSION}/' \
-	    README.txt.in > README.txt
-	cp -p README.txt ${VOLUME}/${DISTNAME}/
+	    README.txt.in > ${VOLUME}/${DISTNAME}/README.txt
 	cp -p NEWS ${VOLUME}/${DISTNAME}/
 	ln -s /Applications ${VOLUME}/${DISTNAME}/Applications
 
@@ -172,7 +183,7 @@ create-release :
 	rm relnotes.in
 	@echo ----- Done creating the release
 
-upload : 
+upload :
 	@echo ----- Getting upload URL from GitHub...
 	$(eval upload_url=$(shell curl -s ${REPOSURL}/releases/latest \
 	 			  | grep "^  \"upload_url\""  \
@@ -193,39 +204,43 @@ publish :
 
 get-emacs :
 	@echo ----- Fetching Emacs...
-	rm -rf ${DMGFILE}
+	if [ -f ${DMGFILE} ]; then rm ${DMGFILE}; fi
 	curl -O -L http://emacsformacosx.com/emacs-builds/${DMGFILE}
 
 get-ess :
-	@echo ----- Fetching and unpacking ESS...
-	rm -rf ${ESS}
-	curl -O http://ess.r-project.org/downloads/ess/${ESS}.zip && unzip ${ESS}.zip
+	@echo ----- Fetching ESS...
+	if [ -d ${ESS}.zip ]; then rm ${ESS}.zip; fi
+	curl -O http://ess.r-project.org/downloads/ess/${ESS}.zip
 
 get-auctex :
-	@echo ----- Fetching and unpacking AUCTeX...
-	rm -rf ${AUCTEX}
-	curl -O http://ftp.gnu.org/pub/gnu/auctex/${AUCTEX}.zip && unzip ${AUCTEX}.zip
+	@echo ----- Fetching AUCTeX...
+	if [ -f ${AUCTEX}.zip ]; then rm ${AUCTEX}.zip; fi
+	curl -O http://ftp.gnu.org/pub/gnu/auctex/${AUCTEX}.zip
 
 get-org :
-	@echo ----- Fetching and unpacking org...
-	rm -rf ${ORG}
-	curl -O http://orgmode.org/${ORG}.zip && unzip ${ORG}.zip
+	@echo ----- Fetching org...
+	if [ -f ${ORG}.zip ]; then rm ${ORG}.zip; fi
+	curl -O http://orgmode.org/${ORG}.zip
 
 get-polymode :
-	@echo ----- Preparing polymode
-	git submodule update --remote markdown-mode
+	@echo ----- Fetching polymode
+	if [ -f ${POLYMODE}.zip ]; then rm ${POLYMODE}.zip; fi
+	curl -L -o ${POLYMODE}.zip https://github.com/vspinu/polymode/archive/master.zip
 
 get-markdownmode :
-	@echo ----- Preparing markdown-mode
-	git submodule update --remote markdown-mode
+	@echo ----- Fetching markdown-mode.el
+	if [ -f markdown-mode.el ]; then rm markdown-mode.el; fi
+	curl -OL https://github.com/jrblevin/markdown-mode/raw/v${MARKDOWNMODEVERSION}/markdown-mode.el
 
 get-execpath :
-	@echo ----- Preparing exec-path-from-shell
-	git submodule update --remote exec-path-from-shell
+	@echo ----- Fetching exec-path-from-shell.el
+	if [ -f exec-path-from-shell.el ]; then rm exec-path-from-shell.el; fi
+	curl -OL https://github.com/purcell/exec-path-from-shell/raw/${EXECPATHVERSION}/exec-path-from-shell.el
 
 get-psvn :
-	@echo ----- Preparing psvn.el
-	svn update emacs-svn
+	@echo ----- Fetching psvn.el
+	if [ -f psvn.el ]; then rm psvn.el; fi
+	svn cat http://svn.apache.org/repos/asf/subversion/trunk/contrib/client-side/emacs/psvn.el > psvn.el
 
 clean :
 	rm ${DISTNAME}.dmg

@@ -10,16 +10,16 @@
 ## GNU Emacs and this distribution version number
 EMACSVERSION=25.1
 EMACSPATCHLEVEL=1
-DISTVERSION=4
+DISTVERSION=5
 
 ## Extensions version numbers
 ESSVERSION=16.10
 AUCTEXVERSION=11.89
 ORGVERSION=9.0.3
-POLYMODEVERSION=$(shell git -C $(if ${MAKELEVEL},..,)/polymode show -s --format="%ci" HEAD | cut -d " " -f 1 -)
-MARKDOWNMODEVERSION=$(shell git -C $(if ${MAKELEVEL},..,)/markdown-mode describe --tags)
-EXECPATHVERSION=$(shell git -C $(if ${MAKELEVEL},..,)/exec-path-from-shell describe --tags | cut -d "-" -f 1-2 -)
-PSVNVERSION=$(shell svn -v status $(if ${MAKELEVEL},..,)/emacs-svn/psvn.el | cut -d " " -f 16 -)
+POLYMODEVERSION=2016-12-18
+MARKDOWNLOADVERSION=2.1
+EXECPATHVERSION=1.11
+PSVNVERSION=1573006
 
 ### No modification should be necessary beyond this point
 
