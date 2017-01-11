@@ -11,9 +11,9 @@ The additions to stock Emacs are the following:
 -   [AUCTeX](http://www.gnu.org/software/auctex/) <AUCTEXVERSION>;
 -   [org](http://orgmode.org/) <ORGVERSION>;
 -   [polymode](https://github.com/vitoshka/polymode) <POLYMODEVERSION>;
--   [markdown-mode](http://jblevins.org/projects/markdown-mode/) <MARKDOWNMODEVERSION>;
+-   [`markdown-mode.el`](http://jblevins.org/projects/markdown-mode/) <MARKDOWNMODEVERSION>;
 -   [`exec-path-from-shell.el`](https://github.com/purcell/exec-path-from-shell)
-    v<EXECPATHVERSION> to import the user's environment (by default `PATH`, `MANPATH` and
+    <EXECPATHVERSION> to import the user's environment (by default `PATH`, `MANPATH` and
     `LANG`) at Emacs startup;
 -   [`psvn.el`](http://svn.apache.org/viewvc/subversion/trunk/contrib/client-side/emacs/)
     r<PSVNVERSION>, an interface for the version control system
