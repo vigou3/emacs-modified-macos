@@ -16,4 +16,10 @@ this is a stock distribution of Emacs. Users of Emacs on other
 platforms will appreciate the similar look and feel of the
 application.
 
+## What is in here
+
+The repository does *not* contain the complete source code of the
+distribution, but rather only a few distribution-specific files and a
+`Makefile` to fetch the other components and combine everything into a
+disk image.
 
