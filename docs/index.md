@@ -8,12 +8,12 @@ LaTeX users and R developers.
 The additions to stock Emacs are the following:
 
 -   [ESS](http://ess.r-project.org) 16.10;
--   [AUCTeX](http://www.gnu.org/software/auctex/) 11.89;
+-   [AUCTeX](http://www.gnu.org/software/auctex/) 11.90;
 -   [org](http://orgmode.org/) 9.0.3;
 -   [polymode](https://github.com/vitoshka/polymode) 2016-12-18;
--   [markdown-mode](http://jblevins.org/projects/markdown-mode/) v2.1;
+-   [`markdown-mode.el`](http://jblevins.org/projects/markdown-mode/) 2.1;
 -   [`exec-path-from-shell.el`](https://github.com/purcell/exec-path-from-shell)
-    v1.11-8 to import the user's environment (by default `PATH`, `MANPATH` and
+    1.11 to import the user's environment (by default `PATH`, `MANPATH` and
     `LANG`) at Emacs startup;
 -   [`psvn.el`](http://svn.apache.org/viewvc/subversion/trunk/contrib/client-side/emacs/)
     r1573006, an interface for the version control system
@@ -23,9 +23,9 @@ The additions to stock Emacs are the following:
     to support Subversion 1.7;
 -   [`framepop.el`](http://bazaar.launchpad.net/~vcs-imports/emacs-goodies-el/trunk/view/head:/elisp/emacs-goodies-el/framepop.el)
     to open temporary buffers in a separate frame;
--   [`default.el`]({{ site.github.repository_url }}/tags/v25.1-1-modified-4/default.el)
+-   [`default.el`]({{ site.github.repository_url }}/tags/v25.1-1-modified-5/default.el)
     and
-    [`site-start.el`]({{ site.github.repository_url }}/tags/v25.1-1-modified-4/site-start.el),
+    [`site-start.el`]({{ site.github.repository_url }}/tags/v25.1-1-modified-5/site-start.el),
     configuration files to make everything work.
 
 The distribution is based on the latest stable release of GNU Emacs
@@ -35,7 +35,7 @@ compiled by David Caldwell and distributed on
 Latest release
 --------------
 
-Version 25.1-1-modified-4 ([Release notes]({{ site.github.repository_url }}/releases/tag/v25.1-1-modified-4/))
+Version 25.1-1-modified-5 ([Release notes]({{ site.github.repository_url }}/releases/tag/v25.1-1-modified-5/))
 
 System requirements
 -------------------
