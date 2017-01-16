@@ -34,7 +34,6 @@ following command:
 
     $ xcode-select --install
 
-
 ## Building the distribution
 
 Edit the `Makeconf` file to set the version numbers of GNU Emacs, the
@@ -43,8 +42,9 @@ distribution and the various extensions (more on this below). Then
 
 1. `get-packages` will fetch the binary release of GNU Emacs from
    [Emacs for Mac OS X](https://emacsformacosx.com); the official
-   releases of [AUCTeX](https://www.gnu.org/software/auctex/),
-   [ESS](https://ess.r-project.org) and [org](https://org-mode.org);
+   releases of [ESS](https://ess.r-project.org),
+   [AUCTeX](https://www.gnu.org/software/auctex/) and
+   [org](https://org-mode.org);
    [`markdown-mode.el`](https://github.com/jrblevin/markdown-mode),
    [`exec-path-from-shell.el`](https://github.com/purcell/exec-path-from-shell)
    and
@@ -77,7 +77,7 @@ including the extraction of the release notes from the `NEWS` file.
 ## Version numbers of the extensions
 
 The most manual part of the build process has always been to get the
-version numbers of the latest releases of all the bundled extensions.
+version numbers of the latest releases for all the bundled extensions.
 Here's how I managed to make my life easier using
 [Git Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
 
@@ -86,14 +86,13 @@ In a separate directory, I created a purely local Git repository named
 
     $ git init emacs-modified-extensions
 	
-In this repository I added submodules for ESS, AUCTeX, org,
-polymode, markdown-mode and exec-path-from-shell:
+In this repository I added the following submodules:
 
     $ git submodule add https://github.com/emacs-ess/ESS/
     $ git submodule add http://git.savannah.gnu.org/r/auctex.git
     $ git submodule add http://orgmode.org/org-mode.git/
-    $ git submodule add https://github.com/vspinu/polymode.git
-    $ git submodule add https://github.com/jrblevin/markdown-mode.git
+    $ git submodule add https://github.com/vspinu/polymode
+    $ git submodule add https://github.com/jrblevin/markdown-mode
     $ git submodule add https://github.com/purcell/exec-path-from-shell
 
 Finally, I created a `Makefile` with the following content to fetch
@@ -125,4 +124,6 @@ revision number of `psvn.el` in the Subversion source code repository.
 Running `make` in this directory yields a file `versions.txt`
 containing the variable initialization strings to use in this
 project's `Makeconf` file.
+
+This is actually simpler than using `git ls-remote`.
 
