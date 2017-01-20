@@ -189,15 +189,14 @@ create-release :
 upload :
 	@echo ----- Getting upload URL from GitHub...
 	$(eval upload_url=$(shell curl -s ${REPOSURL}/releases/latest \
-	 			  | grep "^  \"upload_url\""  \
-	 			  | cut -d \" -f 4            \
-	 			  | cut -d { -f 1))
+	 			  | awk -F '[ {]' '/^  \"upload_url\"/ \
+	                                    { print substr($$4, 2, length) }'))
 	@echo ${upload_url}
 	@echo ----- Uploading the disk image to GitHub...
-	curl -H 'Content-Type: application/zip' \
-	     -H 'Authorization: token ${OAUTHTOKEN}' \
-	     --upload-file ${DISTNAME}.dmg \
-             -s -i "${upload_url}?&name=${DISTNAME}.dmg"
+#	curl -H 'Content-Type: application/zip' \
+#	     -H 'Authorization: token ${OAUTHTOKEN}' \
+#	     --upload-file ${DISTNAME}.dmg \
+#             -s -i "${upload_url}?&name=${DISTNAME}.dmg"
 	@echo ----- Done uploading the disk image
 
 publish :
