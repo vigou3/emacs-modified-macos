@@ -193,10 +193,10 @@ upload :
 	                                    { print substr($$4, 2, length) }'))
 	@echo ${upload_url}
 	@echo ----- Uploading the disk image to GitHub...
-#	curl -H 'Content-Type: application/zip' \
-#	     -H 'Authorization: token ${OAUTHTOKEN}' \
-#	     --upload-file ${DISTNAME}.dmg \
-#             -s -i "${upload_url}?&name=${DISTNAME}.dmg"
+	curl -H 'Content-Type: application/zip' \
+	     -H 'Authorization: token ${OAUTHTOKEN}' \
+	     --upload-file ${DISTNAME}.dmg \
+             -s -i "${upload_url}?&name=${DISTNAME}.dmg"
 	@echo ----- Done uploading the disk image
 
 publish :
