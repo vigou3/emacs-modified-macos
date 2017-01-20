@@ -1,4 +1,4 @@
-### -*-Makefile-*- for GitHub page of GNU Emacs Modified for macOS
+### -*-Makefile-*- to build GNU Emacs Modified for macOS
 ##
 ## Copyright (C) 2014-2017 Vincent Goulet
 ##
