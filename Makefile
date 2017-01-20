@@ -173,12 +173,15 @@ create-release :
 	@echo ----- Creating release on GitHub...
 	if [ -e relnotes.in ]; then rm relnotes.in; fi
 	git commit -a -m "Version ${VERSION}" && git push
-	@echo '{"tag_name": "v${VERSION}",' > relnotes.in
-	@echo ' "name": "Emacs Modified for macOS ${VERSION}",' >> relnotes.in
-	@echo '"body": "' >> relnotes.in
-	@awk '/${VERSION}/{flag=1; next} /^Version/{flag=0} flag' NEWS \
-	     | tail +3 | tail -r | tail +3 | tail -r | sed 's|$$|\\n|' >> relnotes.in
-	@echo '", "draft": false, "prerelease": false}' >> relnotes.in
+	awk 'BEGIN { print "{\"tag_name\": \"v${VERSION}\"," } \
+	      /^$$/ { next } \
+              (state==0) && /^# / { state=1; \
+	                             printf "\"name\": \"Emacs Modified for macOS ${VERSION}\",\n\"body\": \""; \
+	                             next } \
+	      (state==1) && /^# / { state=2; printf "\",\n"; next } \
+	      state==1 { printf "%s\\n", $$0 } \
+	      END { print "\"draft\": false, \"prerelease\": false}" }' \
+	      NEWS >> relnotes.in
 	curl --data @relnotes.in ${REPOSURL}/releases?access_token=${OAUTHTOKEN}
 	rm relnotes.in
 	@echo ----- Done creating the release
