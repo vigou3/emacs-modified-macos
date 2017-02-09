@@ -1,10 +1,10 @@
-# GNU Emacs Modified for macOS
+# Emacs Modified for macOS
 
 > See the [web page](https://vigou3.github.io/emacs-modified-macos) of
 > the project for detailed information on the distribution and
 > to obtain the binary releases.
 
-Emacs Modified for macOS is a distribution of GNU Emacs bundled with a
+*Emacs Modified for macOS* is a distribution of GNU Emacs bundled with a
 few select packages for LaTeX users and R developers, most notably
 [AUCTeX](https://www.gnu.org/software/auctex/) and
 [ESS](https://ess.r-project.org). The distribution is based on the
@@ -58,12 +58,12 @@ distribution and the various extensions (more on this below). Then
 2. `emacs` will, in summary, decompress the
    [Emacs for Mac OS X](https://emacsformacosx.com) disk image in a
    temporary directory, add all the extensions into the application
-   tree and build a new signed application bundle. 
-   
+   tree and build a new signed application bundle.
+
 3. `release` will create a tag and a release on GitHub, upload the
    disk image and attach it to said release, and update the project's
    web page with the correct version numbers and hyperlinks.
-   
+
 Each of the above three steps is split into smaller recipes, around 20
 in total. See the `Makefile` for details.
 
