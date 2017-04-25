@@ -1,8 +1,9 @@
-# Emacs Modified for macOS
+> See the
+> [project page](https://vigou3.github.io/emacs-modified-macos) for
+> detailed information on the distribution and to obtain binary
+> releases.
 
-> See the [web page](https://vigou3.github.io/emacs-modified-macos) of
-> the project for detailed information on the distribution and
-> to obtain the binary releases.
+# Emacs Modified for macOS
 
 *Emacs Modified for macOS* is a distribution of GNU Emacs bundled with a
 few select packages for LaTeX users and R developers, most notably
