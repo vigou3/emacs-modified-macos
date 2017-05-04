@@ -4,20 +4,35 @@
 ##
 ## Author: Vincent Goulet
 ##
-## This file is part of GNU Emacs Modified for macOS
-## http://github.com/vigou3/emacs-modified-macos
+## This file is part of Emacs Modified for macOS
+## https://vigou3.github.com/emacs-modified-macos
+
+## Emacs Modified for macOS is free software; you can redistribute it
+## and/or modify it under the terms of the GNU General Public License
+## as published by the Free Software Foundation; either version 3, or
+## (at your option) any later version.
+##
+## GNU Emacs is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## You should have received a copy of the GNU General Public License
+## along with GNU Emacs; see the file COPYING.  If not, write to the
+## Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+## Boston, MA 02110-1301, USA.
 
 ## GNU Emacs and this distribution version number
-EMACSVERSION=25.1
-EMACSPATCHLEVEL=1
-DISTVERSION=5
+EMACSVERSION=25.2
+EMACSPATCHLEVEL=
+DISTVERSION=6
 
 ## Extensions version numbers
 ESSVERSION=16.10
 AUCTEXVERSION=11.90
-ORGVERSION=9.0.3
+ORGVERSION=9.0.6
 POLYMODEVERSION=2016-12-18
-MARKDOWNMODEVERSION=2.1
+MARKDOWNLOADVERSION=2.1
 EXECPATHVERSION=1.11
 PSVNVERSION=1573006
 

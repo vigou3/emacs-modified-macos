@@ -1,15 +1,15 @@
-;;; default.el --- Default configuration for GNU Emacs on OS X
+;;; default.el --- Default configuration for Emacs Modified for macOS
 ;;; Used mainly to load custom extensions.
 ;;; (Loaded *after* any user and site configuration files)
 
-;; Copyright (C) 2015 Vincent Goulet
+;; Copyright (C) 2017 Vincent Goulet
 
 ;; Author: Vincent Goulet
 
-;; This file is part of GNU Emacs.app Modified
-;; http://vgoulet.act.ulaval.ca/emacs
+;; This file is part of Emacs Modified for macOS
+;; https://vigou3.github.com/emacs-modified-macos
 
-;; GNU Emacs.app Modified is free software; you can redistribute it
+;; Emacs Modified for macOS is free software; you can redistribute it
 ;; and/or modify it under the terms of the GNU General Public License
 ;; as published by the Free Software Foundation; either version 3, or
 ;; (at your option) any later version.
@@ -25,7 +25,7 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;;
-;;; Version number of Emacs Modified
+;;; Version number of Emacs Modified for macOS
 ;;;
 ;; Define variable and function 'emacs-modified-version'
 (require 'version-modified)

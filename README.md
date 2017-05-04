@@ -5,8 +5,9 @@
 
 # Emacs Modified for macOS
 
-*Emacs Modified for macOS* is a distribution of GNU Emacs bundled with a
-few select packages for LaTeX users and R developers, most notably
+*Emacs Modified for macOS* is a distribution of
+[GNU Emacs](https://www.gnu.org/software/emacs/) bundled with a few
+select packages for LaTeX users and R developers, most notably
 [AUCTeX](https://www.gnu.org/software/auctex/) and
 [ESS](https://ess.r-project.org). The distribution is based on the
 latest stable release of GNU Emacs

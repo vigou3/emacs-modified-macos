@@ -1,13 +1,13 @@
 ;;; site-start.el --- Customizations for GNU Emacs on OS X
 
-;; Copyright (C) 2015 Vincent Goulet
+;; Copyright (C) 2015-2017 Vincent Goulet
 
 ;; Author: Vincent Goulet
 
-;; This file is part of GNU Emacs.app Modified
-;; http://vgoulet.act.ulaval.ca/emacs
+;; This file is part of Emacs Modified for macOS
+;; https://vigou3.github.com/emacs-modified-macos
 
-;; GNU Emacs.app Modified is free software; you can redistribute it
+;; Emacs Modified for macOS is free software; you can redistribute it
 ;; and/or modify it under the terms of the GNU General Public License
 ;; as published by the Free Software Foundation; either version 3, or
 ;; (at your option) any later version.
