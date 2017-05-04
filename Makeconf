@@ -25,7 +25,7 @@
 ## GNU Emacs and this distribution version number
 EMACSVERSION=25.2
 EMACSPATCHLEVEL=
-DISTVERSION=6
+DISTVERSION=1
 
 ## Extensions version numbers
 ESSVERSION=16.10
