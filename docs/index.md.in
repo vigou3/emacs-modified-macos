@@ -1,9 +1,10 @@
 Presentation
 ============
 
-Emacs Modified for macOS is a distribution of GNU Emacs **25.1**
-(released September 17, 2016) bundled with a few select packages for
-LaTeX users and R developers.
+Emacs Modified for macOS is a distribution of
+[GNU Emacs](https://www.gnu.org/software/emacs/) **25.2** (released
+April 21, 2017) bundled with a few select packages for LaTeX users and
+R developers.
 
 The additions to stock Emacs are the following:
 
@@ -40,7 +41,7 @@ Version <VERSION> ([Release notes]({{ site.github.repository_url }}/releases/tag
 System requirements
 -------------------
 
-macOS 10.4 or later
+Mac OS X 10.4 or later.
 
 Installation
 ============
