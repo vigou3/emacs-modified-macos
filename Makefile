@@ -29,28 +29,32 @@
 include ./Makeconf
 
 ## Build directory et al.
-TMPDIR=${CURDIR}/tmpdir
-TMPDMG=${CURDIR}/tmpdmg.dmg
-EMACSDIR=${TMPDIR}/Emacs.app
+TMPDIR = ${CURDIR}/tmpdir
+TMPDMG = ${CURDIR}/tmpdmg.dmg
+EMACSDIR = ${TMPDIR}/Emacs.app
 
 ## Emacs specific info
-PREFIX=${EMACSDIR}/Contents
-EMACS=${PREFIX}/MacOS/Emacs
+PREFIX = ${EMACSDIR}/Contents
+EMACS = ${PREFIX}/MacOS/Emacs
 EMACSBATCH = $(EMACS) -batch -no-site-file -no-init-file
 
 ## Override of ESS variables
-DESTDIR=${PREFIX}/Resources
-SITELISP=${DESTDIR}/site-lisp
-#LISPDIR=${DESTDIR}/site-lisp
-ETCDIR=${DESTDIR}/etc
-DOCDIR=${DESTDIR}/doc
-INFODIR=${DESTDIR}/info
+DESTDIR = ${PREFIX}/Resources
+SITELISP = ${DESTDIR}/site-lisp
+#LISPDIR = ${DESTDIR}/site-lisp
+ETCDIR = ${DESTDIR}/etc
+DOCDIR = ${DESTDIR}/doc
+INFODIR = ${DESTDIR}/info
 
 ## Base name of extensions
-ESS=ess-${ESSVERSION}
-AUCTEX=auctex-${AUCTEXVERSION}
-ORG=org-${ORGVERSION}
-POLYMODE=polymode-master
+ESS = ess-${ESSVERSION}
+AUCTEX = auctex-${AUCTEXVERSION}
+ORG = org-${ORGVERSION}
+POLYMODE = polymode-master
+
+## Toolset
+CP = cp -p
+RM = rm -r
 
 all : get-packages emacs release
 
@@ -68,14 +72,16 @@ dir :
 	hdiutil attach ${DMGFILE} -noautoopen -quiet
 	ditto -rsrc ${VOLUME}/Emacs/Emacs.app ${EMACSDIR}
 	hdiutil detach ${VOLUME}/Emacs -quiet
-	cp -p default.el ${SITELISP}/
-	cp -p site-start.el ${SITELISP}/
-	sed -e '/^(defconst/s/<DISTVERSION>/${DISTVERSION}/' \
-	    version-modified.el.in > ${SITELISP}/version-modified.el
+	${CP} default.el ${SITELISP}/
+	${CP} site-start.el ${SITELISP}/
+	awk '/^\(defconst/ { $$3 = "'"'"'${DISTVERSION}" } 1' \
+	    version-modified.el > tmpfile && \
+	  mv tmpfile version-modified.el && \
+	  ${CP} version-modified.el ${SITELISP}
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/version-modified.el
-	cp -p framepop.el ${SITELISP}/
+	${CP} framepop.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/framepop.el
-	cp -p Emacs.icns ${DESTDIR}/
+	${CP} Emacs.icns ${DESTDIR}/
 
 ess :
 	@echo ----- Making ESS...
@@ -109,7 +115,7 @@ org :
 	${MAKE} EMACS=${EMACS} -C ${ORG} all
 	${MAKE} EMACS=${EMACS} lispdir=${SITELISP}/org \
 	        datadir=${ETCDIR}/org infodir=${INFODIR} -C ${ORG} install
-	mkdir -p ${DOCDIR}/org && cp -p ${ORG}/doc/*.pdf ${DOCDIR}/org/
+	mkdir -p ${DOCDIR}/org && ${CP} ${ORG}/doc/*.pdf ${DOCDIR}/org/
 	rm -rf ${ORG}
 	@echo ----- Done making org
 
@@ -118,22 +124,22 @@ polymode :
 	if [ -d ${POLYMODE} ]; then rm -rf ${POLYMODE}; fi
 	unzip ${POLYMODE}.zip
 	mkdir -p ${SITELISP}/polymode ${DOCDIR}/polymode
-	cp -p ${POLYMODE}/*.el ${POLYMODE}/modes/*.el ${SITELISP}/polymode
+	${CP} ${POLYMODE}/*.el ${POLYMODE}/modes/*.el ${SITELISP}/polymode
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/polymode/*.el
-	cp -p ${POLYMODE}/readme.md ${DOCDIR}/polymode
-	cp -p ${POLYMODE}/modes/readme.md ${DOCDIR}/polymode/developing.md
+	${CP} ${POLYMODE}/readme.md ${DOCDIR}/polymode
+	${CP} ${POLYMODE}/modes/readme.md ${DOCDIR}/polymode/developing.md
 	rm -rf ${POLYMODE}
 	@echo ----- Done installing polymode
 
 markdownmode :
 	@echo ----- Copying and byte compiling markdown-mode.el...
-	cp -p markdown-mode.el ${SITELISP}/
+	${CP} markdown-mode.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/markdown-mode.el
 	@echo ----- Done installing markdown-mode.el
 
 execpath :
 	@echo ----- Copying and byte compiling exec-path-from-shell.el...
-	cp -p exec-path-from-shell.el ${SITELISP}/
+	${CP} exec-path-from-shell.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/exec-path-from-shell.el
 	@echo ----- Done installing exec-path-from-shell.el
 
@@ -162,15 +168,17 @@ dmg :
 	hdiutil attach ${TMPDMG} -noautoopen -quiet
 
 	@echo ----- Populating top level image directory...
-	sed -e 's/<ESSVERSION>/${ESSVERSION}/'          \
-	    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/' \
-	    -e 's/<ORGVERSION>/${ORGVERSION}/' \
-	    -e 's/<POLYMODEVERSION>/${POLYMODEVERSION}/' \
-	    -e 's/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/' \
-	    -e 's/<EXECPATHVERSION>/${EXECPATHVERSION}/' \
-	    -e 's/<PSVNVERSION>/${PSVNVERSION}/' \
-	    README.txt.in > ${VOLUME}/${DISTNAME}/README.txt
-	cp -p NEWS ${VOLUME}/${DISTNAME}/
+	awk '/^\* ESS/       { $$3 = "${ESSVERSION};" } \
+	     /^\* AUCTeX/    { $$3 = "${AUCTEXVERSION};" } \
+	     /^\* org/       { $$3 = "${ORGVERSION};" } \
+	     /^\* polymode/  { $$3 = "${POLYMODEVERSION}" } \
+	     /^\* markdown/  { $$3 = "${MARKDOWNMODEVERSION};" } \
+	     /^\* exec-path/ { $$3 = "${EXECPATHVERSION}" } \
+	     /^\* psvn/      { $$3 = "${PSVNVERSION}" } 1' \
+	    README.txt > tmpfile && \
+	  mv tmpfile README.txt && \
+	  ${CP} README.txt ${VOLUME}/${DISTNAME}/
+	${CP} NEWS ${VOLUME}/${DISTNAME}/
 	ln -s /Applications ${VOLUME}/${DISTNAME}/Applications
 
 	@echo ----- Unmounting and compressing disk image...
@@ -260,6 +268,17 @@ get-psvn :
 	svn cat http://svn.apache.org/repos/asf/subversion/trunk/contrib/client-side/emacs/psvn.el > psvn.el
 
 clean :
-	rm ${DISTNAME}.dmg
+	${RM} ${DISTNAME}.dmg
 	cd ${ESS} && ${MAKE} clean
 	cd ${AUCTEX} && ${MAKE} clean
+
+test:
+	awk '/^\* ESS/       { $$3 = "${ESSVERSION};" } \
+	     /^\* AUCTeX/    { $$3 = "${AUCTEXVERSION};" } \
+	     /^\* org/       { $$3 = "${ORGVERSION};" } \
+	     /^\* polymode/  { $$3 = "${POLYMODEVERSION}" } \
+	     /^\* markdown/  { $$3 = "${MARKDOWNMODEVERSION};" } \
+	     /^\* exec-path/ { $$3 = "${EXECPATHVERSION}" } \
+	     /^\* psvn/      { $$3 = "${PSVNVERSION}" } 1' \
+	    README.txt > tmpfile && \
+	  mv tmpfile README.txt

@@ -7,15 +7,15 @@ Emacs Modified for macOS
 
 This is GNU Emacs modified to include the following add-on packages:
 
-* ESS <ESSVERSION>;
-* AUCTeX <AUCTEXVERSION>;
-* org <ORGVERSION>;
-* polymode <POLYMODEVERSION> (active by default for RMarkdown mode
+* ESS 16.10;
+* AUCTeX 11.90;
+* org 9.0.6;
+* polymode 2016-12-18 (active by default for RMarkdown mode
   only);
-* markdown-mode.el <MARKDOWNMODEVERSION>;
-* exec-path-from-shell.el v<EXECPATHVERSION> to import the user's
+* markdown-mode.el 2.1;
+* exec-path-from-shell.el 1.11 to import the user's
   environment (by default PATH, MANPATH and LANG) at Emacs startup;
-* psvn.el r<PSVNVERSION> to work with Subversion repositories from
+* psvn.el 1573006 to work with Subversion repositories from
   within Emacs;
 * framepop.el, to obtain temporary buffers in separate frames;
 * default.el and site-start.el files to make everything work together.
