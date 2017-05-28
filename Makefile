@@ -174,7 +174,7 @@ dmg :
 	     /^\* polymode/  { $$3 = "${POLYMODEVERSION}" } \
 	     /^\* markdown/  { $$3 = "${MARKDOWNMODEVERSION};" } \
 	     /^\* exec-path/ { $$3 = "${EXECPATHVERSION}" } \
-	     /^\* psvn/      { $$3 = "${PSVNVERSION}" } 1' \
+	     /^\* psvn/      { $$3 = "r${PSVNVERSION}" } 1' \
 	    README.txt > tmpfile && \
 	  mv tmpfile README.txt && \
 	  ${CP} README.txt ${VOLUME}/${DISTNAME}/
