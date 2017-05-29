@@ -74,10 +74,10 @@ dir :
 	hdiutil detach ${VOLUME}/Emacs -quiet
 	${CP} default.el ${SITELISP}/
 	${CP} site-start.el ${SITELISP}/
-	awk '/^\(defconst/ { $$3 = "'"'"'${DISTVERSION}" } 1' \
-	    version-modified.el > tmpfile && \
-	  mv tmpfile version-modified.el && \
-	  ${CP} version-modified.el ${SITELISP}
+	sed -E -i "" \
+	    '/^\(defconst/s/(emacs-modified-version '"'"')[0-9]+/\1${DISTVERSION}/' \
+	    version-modified.el && \
+	  ${CP} version-modified.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/version-modified.el
 	${CP} framepop.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/framepop.el
@@ -168,15 +168,16 @@ dmg :
 	hdiutil attach ${TMPDMG} -noautoopen -quiet
 
 	@echo ----- Populating top level image directory...
-	awk '/^\* ESS/       { $$3 = "${ESSVERSION};" } \
-	     /^\* AUCTeX/    { $$3 = "${AUCTEXVERSION};" } \
-	     /^\* org/       { $$3 = "${ORGVERSION};" } \
-	     /^\* polymode/  { $$3 = "${POLYMODEVERSION}" } \
-	     /^\* markdown/  { $$3 = "${MARKDOWNMODEVERSION};" } \
-	     /^\* exec-path/ { $$3 = "${EXECPATHVERSION}" } \
-	     /^\* psvn/      { $$3 = "r${PSVNVERSION}" } 1' \
-	    README.txt > tmpfile && \
-	  mv tmpfile README.txt && \
+	sed -E -i "" \
+	    -e 's/[0-9.]+-modified-[0-9]/${VERSION}/' \
+	    -e 's/(ESS )[0-9.]+/\1${ESSVERSION}/' \
+	    -e 's/(AUCTeX )[0-9.]+/\1${AUCTEXVERSION}/' \
+	    -e 's/(org )[0-9.]+/\1${ORGVERSION}/' \
+	    -e 's/(polymode )[0-9\-]+/\1${POLYMODEVERSION}/' \
+	    -e 's/(markdown-mode.el )[0-9.]+/\1${MARKDOWNMODEVERSION}/' \
+	    -e 's/(exec-path-from-shell.el )[0-9.]+/\1${MARKDOWNMODEVERSION}/' \
+	    -e 's/(psvn.el )[0-9]+/\1${PSVNVERSION}/' \
+	    README.txt && \
 	  ${CP} README.txt ${VOLUME}/${DISTNAME}/
 	${CP} NEWS ${VOLUME}/${DISTNAME}/
 	ln -s /Applications ${VOLUME}/${DISTNAME}/Applications
@@ -271,14 +272,3 @@ clean :
 	${RM} ${DISTNAME}.dmg
 	cd ${ESS} && ${MAKE} clean
 	cd ${AUCTEX} && ${MAKE} clean
-
-test:
-	awk '/^\* ESS/       { $$3 = "${ESSVERSION};" } \
-	     /^\* AUCTeX/    { $$3 = "${AUCTEXVERSION};" } \
-	     /^\* org/       { $$3 = "${ORGVERSION};" } \
-	     /^\* polymode/  { $$3 = "${POLYMODEVERSION}" } \
-	     /^\* markdown/  { $$3 = "${MARKDOWNMODEVERSION};" } \
-	     /^\* exec-path/ { $$3 = "${EXECPATHVERSION}" } \
-	     /^\* psvn/      { $$3 = "${PSVNVERSION}" } 1' \
-	    README.txt > tmpfile && \
-	  mv tmpfile README.txt
