@@ -2,8 +2,8 @@ Copyright (C) 2008-2013 Free Software Foundation, Inc.
 Copyright (C) 2009-2017 Vincent Goulet for the modifications
 See below for GNU Emacs license conditions.
 
-Emacs Modified for macOS
-========================
+Emacs Modified for macOS 25.2-modified-9
+========================================
 
 This is GNU Emacs modified to include the following add-on packages:
 
@@ -26,8 +26,8 @@ customize 'markdown-command'.
 
 You may want to customize 'exec-path-from-shell-variables'.
 
-Please direct questions or comments on this modified version of
-Emacs.app to Vincent Goulet <vincent.goulet@act.ulaval.ca>.
+Please direct questions or comments on this version of Emacs Modified
+for macOS to Vincent Goulet <vincent.goulet@act.ulaval.ca>.
 
 GNU Emacs Modified is free software: you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
