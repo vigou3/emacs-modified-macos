@@ -175,7 +175,7 @@ dmg :
 	    -e 's/(org )[0-9.]+/\1${ORGVERSION}/' \
 	    -e 's/(polymode )[0-9\-]+/\1${POLYMODEVERSION}/' \
 	    -e 's/(markdown-mode.el )[0-9.]+/\1${MARKDOWNMODEVERSION}/' \
-	    -e 's/(exec-path-from-shell.el )[0-9.]+/\1${MARKDOWNMODEVERSION}/' \
+	    -e 's/(exec-path-from-shell.el )[0-9.]+/\1${EXECPATHVERSION}/' \
 	    -e 's/(psvn.el )[0-9]+/\1${PSVNVERSION}/' \
 	    README.txt && \
 	  ${CP} README.txt ${VOLUME}/${DISTNAME}/
