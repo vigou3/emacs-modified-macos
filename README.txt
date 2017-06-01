@@ -1,9 +1,9 @@
 Copyright (C) 2008-2013 Free Software Foundation, Inc.
-Copyright (C) 2009-2017 Vincent Goulet for the modifications
+Copyright (C) 2009-2017 Vincent Goulet for the modifications.
 See below for GNU Emacs license conditions.
 
-Emacs Modified for macOS 25.2-modified-9
-========================================
+Emacs Modified for macOS
+========================
 
 This is GNU Emacs modified to include the following add-on packages:
 
@@ -19,6 +19,9 @@ This is GNU Emacs modified to include the following add-on packages:
   within Emacs;
 * framepop.el, to obtain temporary buffers in separate frames;
 * default.el and site-start.el files to make everything work together.
+
+The distribution is based on the latest stable release of GNU Emacs
+compiled by David Caldwell (http://emacsformacosx.com).
 
 In order to use Markdown you may need to install a parser such as
 Pandoc (see https://github.com/jgm/pandoc/releases/latest) and
