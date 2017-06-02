@@ -10,9 +10,9 @@ The additions to stock Emacs are the following:
 
 -   [ESS](http://ess.r-project.org) 16.10;
 -   [AUCTeX](http://www.gnu.org/software/auctex/) 11.90;
--   [org](http://orgmode.org/) 9.0.6;
--   [polymode](https://github.com/vitoshka/polymode) 2016-12-18;
--   [`markdown-mode.el`](http://jblevins.org/projects/markdown-mode/) ;
+-   [org](http://orgmode.org/) 9.0.7;
+-   [polymode](https://github.com/vitoshka/polymode) 2017-03-07;
+-   [`markdown-mode.el`](http://jblevins.org/projects/markdown-mode/) 2.2;
 -   [`exec-path-from-shell.el`](https://github.com/purcell/exec-path-from-shell)
     1.11 to import the user's environment (by default `PATH`, `MANPATH` and
     `LANG`) at Emacs startup;
@@ -24,9 +24,9 @@ The additions to stock Emacs are the following:
     to support Subversion 1.7;
 -   [`framepop.el`](http://bazaar.launchpad.net/~vcs-imports/emacs-goodies-el/trunk/view/head:/elisp/emacs-goodies-el/framepop.el)
     to open temporary buffers in a separate frame;
--   [`default.el`]({{ site.github.repository_url }}/tags/v25.2-modified-1/default.el)
+-   [`default.el`]({{ site.github.repository_url }}/tags/v25.2-modified-2/default.el)
     and
-    [`site-start.el`]({{ site.github.repository_url }}/tags/v25.2-modified-1/site-start.el),
+    [`site-start.el`]({{ site.github.repository_url }}/tags/v25.2-modified-2/site-start.el),
     configuration files to make everything work.
 
 The distribution is based on the latest stable release of GNU Emacs
@@ -36,7 +36,7 @@ compiled by David Caldwell and distributed on
 Latest release
 --------------
 
-Version 25.2-modified-1 ([Release notes]({{ site.github.repository_url }}/releases/tag/v25.2-modified-1/))
+Version 25.2-modified-2 ([Release notes]({{ site.github.repository_url }}/releases/tag/v25.2-modified-2/))
 
 System requirements
 -------------------
