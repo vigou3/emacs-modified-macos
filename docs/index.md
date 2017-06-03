@@ -7,11 +7,11 @@ R developers.
 
 The additions to stock Emacs are the following:
 
-- [ESS](http://ess.r-project.org) 16.10
-- [AUCTeX](http://www.gnu.org/software/auctex/) 11.90
-- [org](http://orgmode.org/) 9.0.7
-- [polymode](https://github.com/vitoshka/polymode) 2017-03-07
-- [markdown-mode.el](http://jblevins.org/projects/markdown-mode/) 2.2
+- [ESS](http://ess.r-project.org) 16.10;
+- [AUCTeX](http://www.gnu.org/software/auctex/) 11.90;
+- [org](http://orgmode.org/) 9.0.7;
+- [polymode](https://github.com/vitoshka/polymode) 2017-03-07;
+- [markdown-mode.el](http://jblevins.org/projects/markdown-mode/) 2.2;
 - [exec-path-from-shell.el](https://github.com/purcell/exec-path-from-shell) 1.11
   to import the user's environment (by default `PATH`, `MANPATH` and
   `LANG`) at Emacs startup;
