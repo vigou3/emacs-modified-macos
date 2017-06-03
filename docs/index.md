@@ -13,10 +13,10 @@ The additions to stock Emacs are the following:
 - [polymode](https://github.com/vitoshka/polymode) 2017-03-07
 - [markdown-mode.el](http://jblevins.org/projects/markdown-mode/) 2.2
 - [exec-path-from-shell.el](https://github.com/purcell/exec-path-from-shell) 1.11
-  1.11 to import the user's environment (by default `PATH`, `MANPATH` and
+  to import the user's environment (by default `PATH`, `MANPATH` and
   `LANG`) at Emacs startup;
-- [psvn.el](http://svn.apache.org/viewvc/subversion/trunk/contrib/client-side/emacs/) 1573006
-  r1573006, an interface for the version control system
+- [psvn.el](http://svn.apache.org/viewvc/subversion/trunk/contrib/client-side/emacs/) r1573006,
+  an interface for the version control system
   [Subversion](http://subversion.tigris.org) modified to include
   Andre Colomb's and Koji Nakamaru's
   [combined patches](http://mail-archives.apache.org/mod_mbox//subversion-dev/201208.mbox/raw/%3c503B958F.6010906@schickhardt.org%3e/1/4)
