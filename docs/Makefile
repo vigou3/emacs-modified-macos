@@ -11,24 +11,29 @@
 include ../Makeconf
 
 INDEX = index.md
-DEFAULT = default.html
+DEFAULT = _layouts/default.html
 
-all : files commit
+all: files commit
 
-files : 
-	sed -e 's/<ESSVERSION>/${ESSVERSION}/'       \
-	    -e 's/<AUCTEXVERSION>/${AUCTEXVERSION}/' \
-	    -e 's/<ORGVERSION>/${ORGVERSION}/'     \
-	    -e 's/<POLYMODEVERSION>/${POLYMODEVERSION}/' \
-	    -e 's/<MARKDOWNMODEVERSION>/${MARKDOWNMODEVERSION}/' \
-	    -e 's/<EXECPATHVERSION>/${EXECPATHVERSION}/' \
-	    -e 's/<PSVNVERSION>/${PSVNVERSION}/'     \
-	    -e 's/<VERSION>/${VERSION}/g'             \
-	    ${INDEX}.in > ${INDEX}
-	sed -e 's/<VERSION>/${VERSION}/g'     \
-	    -e 's/<DISTNAME>/${DISTNAME}/'      \
-	    _layouts/${DEFAULT}.in > _layouts/${DEFAULT}
+files: 
+	awk '/\[ESS\]/ { $$3 = "${ESSVERSION}" } \
+	     /\[AUCTeX\]/ { $$3 = "${AUCTEXVERSION}" } \
+	     /\[org\]/ { $$3 = "${ORGVERSION}" } \
+	     /\[polymode\]/ { $$3 = "${POLYMODEVERSION}" } \
+	     /\[markdown-mode.el\]/ { $$3 = "${MARKDOWNMODEVERSION}" } \
+	     /\[exec-path-from-shell.el\]/ { $$3 = "${EXECPATHVERSION}" } \
+	     /\[psvn.el\]/ { $$3 = "${PSVNVERSION}" } \
+	     /^## Latest/ { print; getline; print; getline; \
+	                    print "Version ${VERSION}"; next } \
+	     /^\[Release notes\]/ { FS = "/"; OFS = "/"; \
+	                            $$4 = "v${VERSION}" } \
+	     1' \
+	     ${INDEX} > tmpfile && \
+	  mv tmpfile ${INDEX}
+	sed -E -i "" \
+	    '/{{ site.github.releases_url }}/s/[0-9.]+-modified-[0-9]+/${VERSION}/g' \
+	    ${DEFAULT}
 
-commit :
+commit:
 	git commit -a -m "Updating the web page for version ${VERSION}" && \
 	git push
