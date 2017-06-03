@@ -1,10 +1,10 @@
-### Makefile for GitHub page of GNU Emacs Modified for macOS
+### Makefile for GitHub page of Emacs Modified for macOS
 ##
 ## Copyright (C) 2017 Vincent Goulet
 ##
 ## Author: Vincent Goulet
 ##
-## This file is part of GNU Emacs for macOS Modified
+## This file is part of Emacs Modified for macOS
 ## http://github.com/vigou3/emacs-modified-macos
 
 ## Get version strings in Makeconf
