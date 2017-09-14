@@ -23,9 +23,9 @@ The additions to stock Emacs are the following:
   to support Subversion 1.7;
 - [framepop.el](http://bazaar.launchpad.net/~vcs-imports/emacs-goodies-el/trunk/view/head:/elisp/emacs-goodies-el/framepop.el)
   to open temporary buffers in a separate frame;
-- [default.el]({{ site.github.repository_url }}/tags/v25.2-modified-2/default.el)
+- [default.el]({{ site.github.repository_url }}/blob/v25.2-modified-2/default.el)
   and
-  [site-start.el]({{ site.github.repository_url }}/tags/v25.2-modified-2/site-start.el),
+  [site-start.el]({{ site.github.repository_url }}/blob/v25.2-modified-2/site-start.el),
   configuration files to make everything work.
 
 The distribution is based on the latest stable release of GNU Emacs
