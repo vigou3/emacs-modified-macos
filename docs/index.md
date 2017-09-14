@@ -1,9 +1,15 @@
+---
+title: Emacs Modified for macOS
+tagline: GNU Emacs. Ready for R and LaTeX
+description: Distribution of GNU Emacs for R developers and LaTeX users
+---
+
 # Presentation
 
-Emacs Modified for macOS is a distribution of
-[GNU Emacs](https://www.gnu.org/software/emacs/) **25.2** (released
-April 21, 2017) bundled with a few select packages for LaTeX users and
-R developers.
+Emacs Modified for macOS is a distribution
+of [GNU Emacs](https://www.gnu.org/software/emacs/) **25.2** (released
+April 21, 2017) bundled with a few select packages for R developers
+and LaTeX users.
 
 The additions to stock Emacs are the following:
 
