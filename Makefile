@@ -56,7 +56,7 @@ POLYMODE = polymode-master
 CP = cp -p
 RM = rm -r
 
-all : get-packages emacs release
+all : get-packages emacs
 
 get-packages : get-emacs get-ess get-auctex get-org get-polymode get-markdownmode get-execpath get-psvn
 
