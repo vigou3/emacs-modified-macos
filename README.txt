@@ -8,8 +8,8 @@ Emacs Modified for macOS
 This is GNU Emacs modified to include the following add-on packages:
 
 * ESS 17.11;
-* AUCTeX 11.91;
-* org 9.1.3;
+* AUCTeX 12.1;
+* org 9.1.6;
 * polymode 2017-03-07 (active by default for RMarkdown mode
   only);
 * markdown-mode.el 2.3;
