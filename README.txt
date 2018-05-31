@@ -9,7 +9,7 @@ This is GNU Emacs modified to include the following add-on packages:
 
 * ESS 17.11;
 * AUCTeX 12.1;
-* org 9.1.6;
+* org 9.1.13;
 * polymode 2017-03-07 (active by default for RMarkdown mode
   only);
 * markdown-mode.el 2.3;
