@@ -15,6 +15,9 @@ REPOSURL = $(shell git show master:Makeconf \
 VERSION = $(shell git show master:Makeconf \
 	| grep ^VERSION \
 	| cut -d = -f 2)
+DISTNAME = $(shell git show master:Makeconf \
+	| grep ^DISTNAME \
+	| cut -d = -f 2)
 ESSVERSION = $(shell git show master:Makeconf \
 	| grep ^ESSVERSION \
 	| cut -d = -f 2)
@@ -68,7 +71,8 @@ files:
 	cd layouts/partials && \
 	  sed -E -i ""  \
 	  awk 'BEGIN { FS = "/"; OFS = "/" } \
-	       /${url}\/uploads/ { $$7 = "${file_id}" } \
+	       /${url}\/uploads/ { $$7 = "${file_id}"; \
+	                           sub(/.*\.dmg/, "${DISTNAME}.dmg", $$8) } \
 	       /${url}\/tags/ { $$7 = "${TAGNAME}" } 1' \
 	       site-header.html > tmpfile && \
 	  mv tmpfile site-header.html
