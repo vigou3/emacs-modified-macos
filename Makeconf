@@ -1,11 +1,11 @@
 ### User settable variables used in -*-Makefile-*-
 ##
-## Copyright (C) 2017 Vincent Goulet
+## Copyright (C) 2018 Vincent Goulet
 ##
 ## Author: Vincent Goulet
 ##
 ## This file is part of Emacs Modified for macOS
-## https://vigou3.github.io/emacs-modified-macos
+## https://gitlab.com/vigou3/emacs-modified-macos
 
 ## Emacs Modified for macOS is free software; you can redistribute it
 ## and/or modify it under the terms of the GNU General Public License
@@ -40,12 +40,15 @@ PSVNVERSION=1573006
 
 ## Version strings and file names
 VERSION=${EMACSVERSION}$(if ${EMACSPATCHLEVEL},-${EMACSPATCHLEVEL},)-modified-${DISTVERSION}
+TAGNAME=v${VERSION}
 DISTNAME=Emacs-${VERSION}
 DMGFILE=Emacs-${EMACSVERSION}$(if ${EMACSPATCHLEVEL},-${EMACSPATCHLEVEL},)-universal.dmg
 
 ## DMG mount point
 VOLUME=/Volumes
 
-## GitHub repository and authentication
-REPOSURL=https://api.github.com/repos/vigou3/emacs-modified-macos
-OAUTHTOKEN=$(shell cat ~/.github/token)
+## GitLab repository and authentication
+REPOSURL=https://gitlab.com/vigou3/emacs-modified-macos
+REPOSNAME=$(shell basename ${REPOSURL})
+APIURL=https://gitlab.com/api/v4/projects/vigou3%2F${REPOSNAME}
+OAUTHTOKEN=$(shell cat ~/.gitlab/token)
