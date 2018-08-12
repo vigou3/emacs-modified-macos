@@ -12,35 +12,35 @@ and LaTeX users.
 
 The additions to stock Emacs are the following:
 
-- [ESS](http://ess.r-project.org) 17.11;
-- [AUCTeX](http://www.gnu.org/software/auctex/) 12.1;
-- [org](http://orgmode.org/) 9.1.13;
+- [ESS](https://ess.r-project.org) 17.11;
+- [AUCTeX](https://www.gnu.org/software/auctex/) 12.1;
+- [org](https://orgmode.org/) 9.1.13;
 - [polymode](https://github.com/vitoshka/polymode) 2017-03-07;
-- [markdown-mode.el](http://jblevins.org/projects/markdown-mode/) 2.3;
+- [markdown-mode.el](https://jblevins.org/projects/markdown-mode/) 2.3;
 - [exec-path-from-shell.el](https://github.com/purcell/exec-path-from-shell) 1.11
   to import the user's environment (by default `PATH`, `MANPATH` and
   `LANG`) at Emacs startup;
-- [psvn.el](http://svn.apache.org/viewvc/subversion/trunk/contrib/client-side/emacs/) r1573006,
+- [psvn.el](https://svn.apache.org/viewvc/subversion/trunk/contrib/client-side/emacs/) r1573006,
   an interface for the version control system
-  [Subversion](http://subversion.tigris.org) modified to include
+  [Subversion](https://subversion.tigris.org) modified to include
   Andre Colomb's and Koji Nakamaru's
-  [combined patches](http://mail-archives.apache.org/mod_mbox//subversion-dev/201208.mbox/raw/%3c503B958F.6010906@schickhardt.org%3e/1/4)
+  [combined patches](https://mail-archives.apache.org/mod_mbox//subversion-dev/201208.mbox/raw/%3c503B958F.6010906@schickhardt.org%3e/1/4)
   to support Subversion 1.7;
-- [framepop.el](http://bazaar.launchpad.net/~vcs-imports/emacs-goodies-el/trunk/view/head:/elisp/emacs-goodies-el/framepop.el)
+- [framepop.el](https://bazaar.launchpad.net/~vcs-imports/emacs-goodies-el/trunk/view/head:/elisp/emacs-goodies-el/framepop.el)
   to open temporary buffers in a separate frame;
-- [default.el](https://gitlab.com/vigou3/emacs-modified-macos/blob/v26.1-2-modified-1/default.el)
+- [default.el](https://gitlab.com/vigou3/emacs-modified-macos/blob/v26.1-26.1-modified-1/default.el)
   and
-  [site-start.el](https://gitlab.com/vigou3/emacs-modified-macos/blob/v26.1-2-modified-1/site-start.el),
+  [site-start.el](https://gitlab.com/vigou3/emacs-modified-macos/blob/v26.1-26.1-modified-1/site-start.el),
   configuration files to make everything work.
 
 The distribution is based on the latest stable release of GNU Emacs
 compiled by David Caldwell and distributed on
-[Emacs for Mac OS X](http://emacsformacosx.com).
+[Emacs for Mac OS X](https://emacsformacosx.com).
 
 ## Latest release
 
-Version 26.1-2-modified-1
-([Release notes](https://gitlab.com/vigou3/emacs-modified-macos/tags/v26.1-2-modified-1/))
+Version 26.1-26.1-modified-1
+([Release notes](https://gitlab.com/vigou3/emacs-modified-macos/tags/v26.1-26.1-modified-1/))
 
 ## System requirements
 
