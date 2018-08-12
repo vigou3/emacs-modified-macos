@@ -46,12 +46,6 @@ ETCDIR = ${DESTDIR}/etc
 DOCDIR = ${DESTDIR}/doc
 INFODIR = ${DESTDIR}/info
 
-## Base name of extensions
-ESS = ess-${ESSVERSION}
-AUCTEX = auctex-${AUCTEXVERSION}
-ORG = org-${ORGVERSION}
-POLYMODE = polymode-master
-
 ## Toolset
 CP = cp -p
 RM = rm -r

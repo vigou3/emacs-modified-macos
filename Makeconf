@@ -44,6 +44,12 @@ TAGNAME=v${VERSION}
 DISTNAME=Emacs-${VERSION}
 DMGFILE=Emacs-${EMACSVERSION}$(if ${EMACSPATCHLEVEL},-${EMACSPATCHLEVEL},)-universal.dmg
 
+## Base name of extensions
+ESS = ess-${ESSVERSION}
+AUCTEX = auctex-${AUCTEXVERSION}
+ORG = org-${ORGVERSION}
+POLYMODE = polymode-master
+
 ## DMG mount point
 VOLUME=/Volumes
 
