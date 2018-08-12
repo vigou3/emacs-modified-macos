@@ -8,37 +8,36 @@
 ## https://gitlab.com/vigou3/emacs-modified-macos
 
 
-## Get version strings from Makeconf
+## Get variables and version strings from Makeconf, NEWS and
+## README.txt files in master branch (version strings are computed in
+## Makeconf, hence we cannot use them directly here)
 REPOSURL = $(shell git show master:Makeconf \
 	| grep ^REPOSURL \
 	| cut -d = -f 2)
-VERSION = $(shell git show master:Makeconf \
-	| grep ^VERSION \
-	| cut -d = -f 2)
-DISTNAME = $(shell git show master:Makeconf \
-	| grep ^DISTNAME \
-	| cut -d = -f 2)
-ESSVERSION = $(shell git show master:Makeconf \
-	| grep ^ESSVERSION \
-	| cut -d = -f 2)
-AUCTEXVERSION = $(shell git show master:Makeconf \
-	| grep ^AUCTEXVERSION \
-	| cut -d = -f 2)
-ORGVERSION = $(shell git show master:Makeconf \
-	| grep ^ORGVERSION \
-	| cut -d = -f 2)
-POLYMODEVERSION = $(shell git show master:Makeconf \
-	| grep ^POLYMODEVERSION \
-	| cut -d = -f 2)
-MARKDOWNMODEVERSION = $(shell git show master:Makeconf \
-	| grep ^MARKDOWNMODEVERSION \
-	| cut -d = -f 2)
-EXECPATHVERSION = $(shell git show master:Makeconf \
-	| grep ^EXECPATHVERSION \
-	| cut -d = -f 2)
-PSVNVERSION = $(shell git show master:Makeconf \
-	| grep ^PSVNVERSION \
-	| cut -d = -f 2)
+VERSION = $(shell git show master:NEWS \
+	| awk '/^\# / { print $$3; exit }')
+DISTNAME = Emacs-${VERSION}
+ESSVERSION = $(shell git show master:README.txt \
+	| awk '/^- ESS/ { print $$3; exit }' \
+	| tr -d ";")
+AUCTEXVERSION = $(shell git show master:README.txt \
+	| awk '/^- AUCTeX/ { print $$3; exit }' \
+	| tr -d ";")
+ORGVERSION = $(shell git show master:README.txt \
+	| awk '/^- org/ { print $$3; exit }' \
+	| tr -d ";")
+POLYMODEVERSION = $(shell git show master:README.txt \
+	| awk '/^- polymode/ { print $$3; exit }' \
+	| tr -d ";")
+MARKDOWNMODEVERSION = $(shell git show master:README.txt \
+	| awk '/^- markdown/ { print $$3; exit }' \
+	| tr -d ";")
+EXECPATHVERSION = $(shell git show master:README.txt \
+	| awk '/^- exec-path/ { print $$3; exit }' \
+	| tr -d ";")
+PSVNVERSION = $(shell git show master:README.txt \
+	| awk '/^- psvn/ { print $$3; exit }' \
+	| tr -d ";")
 
 ## GitLab repository and authentication
 REPOSNAME = $(shell basename ${REPOSURL})
@@ -69,7 +68,6 @@ files:
 	      -e '/\[psvn.el\]/s/r[0-9]+/r${PSVNVERSION}/' \
 	       _index.md
 	cd layouts/partials && \
-	  sed -E -i ""  \
 	  awk 'BEGIN { FS = "/"; OFS = "/" } \
 	       /${url}\/uploads/ { $$7 = "${file_id}"; \
 	                           sub(/.*\.dmg/, "${DISTNAME}.dmg", $$8) } \
