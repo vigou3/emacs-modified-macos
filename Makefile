@@ -58,7 +58,7 @@ files:
 	                        | cut -d/ -f3))
 	cd content && \
 	  sed -E -i "" \
-	      -e 's/[0-9.]+-modified-[0-9]+/${VERSION}/g' \
+	      -e 's/[0-9.-]+-modified-[0-9]+/${VERSION}/g' \
 	      -e '/\[ESS\]/s/[0-9]+[0-9.]*/${ESSVERSION}/' \
 	      -e '/\[AUCTeX\]/s/[0-9]+[0-9.]*/${AUCTEXVERSION}/' \
 	      -e '/\[org\]/s/[0-9]+[0-9.]*/${ORGVERSION}/' \
