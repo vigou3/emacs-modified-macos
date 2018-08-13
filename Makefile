@@ -209,7 +209,7 @@ create-release :
 	$(eval FILESIZE=$(shell du -h ${DISTNAME}.dmg | cut -f1 | sed 's/\([KMG]\)/ \1b/'))
 	awk 'BEGIN { ORS = " "; print "{\"tag_name\": \"${TAGNAME}\"," } \
 	      /^$$/ { next } \
-	      /^# / { state = 1; \
+	      (state == 0) && /^# / { state = 1; \
 		out = $$3; \
 	        for(i = 4; i <= NF; i++) { out = out" "$$i }; \
 	        printf "\"description\": \"# Emacs Modified for macOS %s\\n", out; \
