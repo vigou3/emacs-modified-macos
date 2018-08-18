@@ -1,5 +1,5 @@
 > See the
-> [project page](https://vigou3.github.io/emacs-modified-macos) for
+> [project page](https://vigou3.gitlab.io/emacs-modified-macos) for
 > detailed information on the distribution and to obtain binary
 > releases.
 
@@ -62,21 +62,23 @@ distribution and the various extensions (more on this below). Then
    temporary directory, add all the extensions into the application
    tree and build a new signed application bundle.
 
-3. `release` will create a tag and a release on GitHub, upload the
-   disk image and attach it to said release, and update the project's
-   web page with the correct version numbers and hyperlinks.
+3. `release` will upload the disk image to GitLab, create a release
+   with the a link to the disk image in the release notes, and update
+   the project's web page with the correct version numbers and
+   hyperlinks.
 
 Each of the above three steps is split into smaller recipes, around 20
 in total. See the `Makefile` for details.
 
-## Publishing on GitHub
+## Publishing on GitLab
 
-Publishing a release and uploading files in GitHub from the command
+Uploading files and publishing a release on GitLab from the command
 line involves using the
-[GitHub API](https://developer.github.com/v3/). The interested reader
-may have a look at the `create-release` and `upload` recipes in the
-`Makefile` to see how we achieved complete automation of the process,
-including the extraction of the release notes from the `NEWS` file.
+[GitLab API](https://docs.gitlab.com/ee/api/README.html). The
+interested reader may have a look at the `upload` and `create-release`
+recipes in the `Makefile` to see how we achieved complete automation
+of the process, including the extraction of the release notes from the
+`NEWS` file.
 
 ## Version numbers of the extensions
 
