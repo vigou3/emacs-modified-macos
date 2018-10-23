@@ -1,6 +1,6 @@
 ;;; site-start.el --- Customizations for Emacs Modified for macOS
 ;;
-;; Copyright (C) 2015-2017 Vincent Goulet
+;; Copyright (C) 2015-2018 Vincent Goulet
 ;;
 ;; Author: Vincent Goulet
 ;;
@@ -66,8 +66,8 @@
                          (ess-nuke-trailing-whitespace)))
 	     (setq ess-nuke-trailing-whitespace-p t)))
 
-;; Load ESS.
-(require 'ess-site)
+;; Load ESS when needed.
+(load "ess-autoloads")
 
 ;;;
 ;;; AUCTeX
@@ -90,14 +90,6 @@
 ;; Load AUCTeX and preview-latex.
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
-
-;;;
-;;; polymode
-;;;
-;; Activation of the R Markdown (Rmd) specific bundle and basic
-;; configuration.
-(add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
-(require 'poly-R)
 
 ;;;
 ;;; markdown-mode
