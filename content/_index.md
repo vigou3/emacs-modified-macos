@@ -15,7 +15,6 @@ The additions to stock Emacs are the following:
 - [ESS](https://ess.r-project.org) 17.11;
 - [AUCTeX](https://www.gnu.org/software/auctex/) 12.1;
 - [org](https://orgmode.org/) 9.1.13;
-- [polymode](https://github.com/vitoshka/polymode) 2017-03-07;
 - [markdown-mode.el](https://jblevins.org/projects/markdown-mode/) 2.3;
 - [exec-path-from-shell.el](https://github.com/purcell/exec-path-from-shell) 1.11
   to import the user's environment (by default `PATH`, `MANPATH` and

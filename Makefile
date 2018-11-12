@@ -26,9 +26,6 @@ AUCTEXVERSION = $(shell git show master:README.txt \
 ORGVERSION = $(shell git show master:README.txt \
 	| awk '/^- org/ { print $$3; exit }' \
 	| tr -d ";")
-POLYMODEVERSION = $(shell git show master:README.txt \
-	| awk '/^- polymode/ { print $$3; exit }' \
-	| tr -d ";")
 MARKDOWNMODEVERSION = $(shell git show master:README.txt \
 	| awk '/^- markdown/ { print $$3; exit }' \
 	| tr -d ";")
@@ -62,7 +59,6 @@ files:
 	      -e '/\[ESS\]/s/[0-9]+[0-9.]*/${ESSVERSION}/' \
 	      -e '/\[AUCTeX\]/s/[0-9]+[0-9.]*/${AUCTEXVERSION}/' \
 	      -e '/\[org\]/s/[0-9]+[0-9.]*/${ORGVERSION}/' \
-	      -e '/\[polymode\]/s/[0-9]+[0-9\-]*/${POLYMODEVERSION}/' \
 	      -e '/\[markdown-mode.el\]/s/[0-9]+[0-9.]*/${MARKDOWNMODEVERSION}/' \
 	      -e '/\[exec-path-from-shell.el\]/s/[0-9]+[0-9.]*/${EXECPATHVERSION}/' \
 	      -e '/\[psvn.el\]/s/r[0-9]+/r${PSVNVERSION}/' \
