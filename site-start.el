@@ -67,7 +67,7 @@
 	     (setq ess-nuke-trailing-whitespace-p t)))
 
 ;; Load ESS when needed.
-(load "ess-autoloads")
+(require 'ess-site)
 
 ;;;
 ;;; AUCTeX

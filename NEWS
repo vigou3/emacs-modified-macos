@@ -2,6 +2,19 @@
 === Emacs Modified for macOS
 ===
 
+# VERSION 26.1-2-modified-2 (11 November 2018)
+
+## Updates
+
+- ESS 18.10.2 (patched to include the *.el files in the distribution)
+- Org 9.1.14
+
+## User visible changes
+
+- Polymode is removed from the distribution. See
+  https://polymode.github.io/ to install the package.
+
+
 # VERSION 26.1-2-modified-1 (31 May 2018)
 
 ## Updates

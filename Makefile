@@ -50,17 +50,16 @@ INFODIR = ${DESTDIR}/info
 CP = cp -p
 RM = rm -r
 
-all : get-packages emacs
+all: get-packages emacs
 
-get-packages : get-emacs get-ess get-auctex get-org get-polymode get-markdownmode get-execpath get-psvn
+get-packages: get-emacs get-ess get-auctex get-org get-markdownmode get-execpath get-psvn
 
-emacs : dir ess auctex org polymode markdownmode execpath psvn dmg
+emacs: dir ess auctex org markdownmode execpath psvn dmg
 
-release : upload create-release publish
+release: upload create-release publish
 
-.PHONY : emacs dir ess auctex org polymode psvn dmg release create-release upload publish clean
-
-dir :
+.PHONY: dir
+dir:
 	@echo ----- Creating the application in temporary directory...
 	if [ -d ${TMPDIR} ]; then ${RM} -f ${TMPDIR}; fi
 	hdiutil attach ${DMGFILE} -noautoopen -quiet
@@ -77,7 +76,8 @@ dir :
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/framepop.el
 	${CP} Emacs.icns ${DESTDIR}/
 
-ess :
+.PHONY: ess
+ess:
 	@echo ----- Making ESS...
 	if [ -d ${ESS} ]; then ${RM} -f ${ESS}; fi
 	unzip ${ESS}.zip
@@ -85,11 +85,13 @@ ess :
 	${MAKE} DESTDIR=${DESTDIR} SITELISP=${SITELISP} \
 	        ETCDIR=${ETCDIR}/ess DOCDIR=${DOCDIR}/ess \
 	        INFODIR=${INFODIR} -C ${ESS} install
+	${CP} ${ESS}/lisp/*.el ${SITELISP}/ess # temporary; should be fixed for ESS > 18.10.2
 	if [ -f ${SITELISP}/ess-site.el ]; then rm ${SITELISP}/ess-site.el; fi
 	${RM} -f ${ESS}
 	@echo ----- Done making ESS
 
-auctex :
+.PHONY: auctex
+auctex:
 	@echo ----- Making AUCTeX...
 	if [ -d ${AUCTEX} ]; then ${RM} -f ${AUCTEX}; fi
 	unzip ${AUCTEX}.zip
@@ -102,7 +104,8 @@ auctex :
 	${RM} -f ${AUCTEX}
 	@echo ----- Done making AUCTeX
 
-org :
+.PHONY: org
+org:
 	@echo ----- Making org...
 	if [ -d ${ORG} ]; then ${RM} -f ${ORG}; fi
 	unzip ${ORG}.zip
@@ -113,37 +116,29 @@ org :
 	${RM} -f ${ORG}
 	@echo ----- Done making org
 
-polymode :
-	@echo ----- Copying and byte compiling polymode files...
-	if [ -d ${POLYMODE} ]; then ${RM} -f ${POLYMODE}; fi
-	unzip ${POLYMODE}.zip
-	mkdir -p ${SITELISP}/polymode ${DOCDIR}/polymode
-	${CP} ${POLYMODE}/*.el ${POLYMODE}/modes/*.el ${SITELISP}/polymode
-	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/polymode/*.el
-	${CP} ${POLYMODE}/readme.md ${DOCDIR}/polymode
-	${CP} ${POLYMODE}/modes/readme.md ${DOCDIR}/polymode/developing.md
-	${RM} -f ${POLYMODE}
-	@echo ----- Done installing polymode
-
-markdownmode :
+.PHONY: markdownmode
+markdownmode:
 	@echo ----- Copying and byte compiling markdown-mode.el...
 	${CP} markdown-mode.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/markdown-mode.el
 	@echo ----- Done installing markdown-mode.el
 
-execpath :
+.PHONY: execpath
+execpath:
 	@echo ----- Copying and byte compiling exec-path-from-shell.el...
 	${CP} exec-path-from-shell.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/exec-path-from-shell.el
 	@echo ----- Done installing exec-path-from-shell.el
 
-psvn :
+.PHONY: psvn
+psvn:
 	@echo ----- Patching and byte compiling psvn.el...
 	patch -o ${SITELISP}/psvn.el psvn.el psvn.el_svn1.7.diff
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/psvn.el
 	@echo ----- Done installing psvn.el
 
-dmg :
+.PHONY: dmg
+dmg:
 	@echo ----- Signing the application...
 	codesign --force --sign "Developer ID Application: Vincent Goulet" \
 		${EMACSDIR}
@@ -167,10 +162,9 @@ dmg :
 	    -e 's/(ESS )[0-9.]+/\1${ESSVERSION}/' \
 	    -e 's/(AUCTeX )[0-9.]+/\1${AUCTEXVERSION}/' \
 	    -e 's/(org )[0-9.]+/\1${ORGVERSION}/' \
-	    -e 's/(polymode )[0-9\-]+/\1${POLYMODEVERSION}/' \
 	    -e 's/(markdown-mode.el )[0-9.]+/\1${MARKDOWNMODEVERSION}/' \
 	    -e 's/(exec-path-from-shell.el )[0-9.]+/\1${EXECPATHVERSION}/' \
-	    -e 's/(psvn.el )[0-9]+/\1${PSVNVERSION}/' \
+	    -e 's/(psvn.el r)[0-9]+/\1${PSVNVERSION}/' \
 	    README.txt && \
 	  ${CP} README.txt ${VOLUME}/${DISTNAME}/
 	${CP} NEWS ${VOLUME}/${DISTNAME}/
@@ -186,7 +180,8 @@ dmg :
 	${RM} -f ${TMPDIR} ${TMPDMG}
 	@echo ----- Done building the disk image
 
-upload :
+.PHONY: upload
+upload:
 	@echo ----- Uploading installer to GitLab...
 	$(eval upload_url_markdown=$(shell curl --form "file=@${DISTNAME}.dmg" \
 	                                        --header "PRIVATE-TOKEN: ${OAUTHTOKEN}"	\
@@ -197,7 +192,8 @@ upload :
 	@echo "${upload_url_markdown}"
 	@echo ----- Done uploading installer
 
-create-release :
+.PHONY: create-release
+create-release:
 	@echo ----- Creating release on GitLab...
 	@if [ -n "$(shell git status --porcelain | grep -v '^??')" ]; then \
 	     echo "uncommitted changes in repository; not creating release"; exit 2; fi
@@ -228,54 +224,58 @@ create-release :
 	${RM} relnotes.in
 	@echo ----- Done creating the release
 
-publish :
+.PHONY: publish
+publish:
 	@echo ----- Publishing the web page...
 	git checkout pages && \
 	  ${MAKE} && \
 	  git checkout master
 	@echo ----- Done publishing
 
-get-emacs :
+.PHONY: get-emacs
+get-emacs:
 	@echo ----- Fetching Emacs...
 	if [ -f ${DMGFILE} ]; then ${RM} ${DMGFILE}; fi
 	curl -O -L http://emacsformacosx.com/emacs-builds/${DMGFILE}
 
-get-ess :
+.PHONY: get-ess
+get-ess:
 	@echo ----- Fetching ESS...
 	if [ -d ${ESS}.zip ]; then ${RM} ${ESS}.zip; fi
 	curl -O http://ess.r-project.org/downloads/ess/${ESS}.zip
 
-get-auctex :
+.PHONY: get-auctex
+get-auctex:
 	@echo ----- Fetching AUCTeX...
 	if [ -f ${AUCTEX}.zip ]; then rm ${AUCTEX}.zip; fi
 	curl -O http://ftp.gnu.org/pub/gnu/auctex/${AUCTEX}.zip
 
-get-org :
+.PHONY: get-org
+get-org:
 	@echo ----- Fetching org...
 	if [ -f ${ORG}.zip ]; then ${RM} ${ORG}.zip; fi
 	curl -O https://orgmode.org/${ORG}.zip
 
-get-polymode :
-	@echo ----- Fetching polymode
-	if [ -f ${POLYMODE}.zip ]; then ${RM} ${POLYMODE}.zip; fi
-	curl -L -o ${POLYMODE}.zip https://github.com/vspinu/polymode/archive/master.zip
-
-get-markdownmode :
+.PHONY: get-markdownmode
+get-markdownmode:
 	@echo ----- Fetching markdown-mode.el
 	if [ -f markdown-mode.el ]; then ${RM} markdown-mode.el; fi
 	curl -OL https://github.com/jrblevin/markdown-mode/raw/v${MARKDOWNMODEVERSION}/markdown-mode.el
 
-get-execpath :
+.PHONY: get-execpath
+get-execpath:
 	@echo ----- Fetching exec-path-from-shell.el
 	if [ -f exec-path-from-shell.el ]; then ${RM} exec-path-from-shell.el; fi
 	curl -OL https://github.com/purcell/exec-path-from-shell/raw/${EXECPATHVERSION}/exec-path-from-shell.el
 
-get-psvn :
+.PHONY: get-psvn
+get-psvn:
 	@echo ----- Fetching psvn.el
 	if [ -f psvn.el ]; then ${RM} psvn.el; fi
 	svn cat http://svn.apache.org/repos/asf/subversion/trunk/contrib/client-side/emacs/psvn.el > psvn.el
 
-clean :
+.PHONY: clean
+clean:
 	${RM} ${DISTNAME}.dmg
 	cd ${ESS} && ${MAKE} clean
 	cd ${AUCTEX} && ${MAKE} clean

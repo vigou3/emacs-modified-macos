@@ -103,7 +103,6 @@ In this repository I added the following submodules:
 $ git submodule add https://github.com/emacs-ess/ESS/
 $ git submodule add http://git.savannah.gnu.org/r/auctex.git
 $ git submodule add http://orgmode.org/org-mode.git/
-$ git submodule add https://github.com/vspinu/polymode
 $ git submodule add https://github.com/jrblevin/markdown-mode
 $ git submodule add https://github.com/purcell/exec-path-from-shell
 ```
@@ -124,8 +123,6 @@ all :
 	echo AUCTEXVERSION=$(shell git -C auctex describe --tags | cut -d - -f 1 | cut -d _ -f 2-3 | tr _ .) \
 	  >> versions.txt
 	echo ORGVERSION=$(shell git -C org-mode describe --tags | cut -d - -f 1 | cut -d _ -f 2) \
-	  >> versions.txt
-	echo POLYMODEVERSION=$(shell git -C polymode show -s --format="%ci" HEAD | cut -d " " -f 1) \
 	  >> versions.txt
 	echo MARKDOWNLOADVERSION=$(shell git -C markdown-mode describe --tags | cut -d - -f 1 | tr -d v) \
 	  >> versions.txt

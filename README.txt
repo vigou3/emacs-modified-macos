@@ -1,5 +1,5 @@
 Copyright (C) 2008-2013 Free Software Foundation, Inc.
-Copyright (C) 2009-2017 Vincent Goulet for the modifications.
+Copyright (C) 2009-2018 Vincent Goulet for the modifications.
 See below for GNU Emacs license conditions.
 
 Emacs Modified for macOS
@@ -7,15 +7,13 @@ Emacs Modified for macOS
 
 This is GNU Emacs modified to include the following add-on packages:
 
-- ESS 17.11;
+- ESS 18.10.2;
 - AUCTeX 12.1;
-- org 9.1.13;
-- polymode 2017-03-07 (active by default for RMarkdown mode
-  only);
+- org 9.1.14;
 - markdown-mode.el 2.3;
 - exec-path-from-shell.el 1.11 to import the user's
   environment (by default PATH, MANPATH and LANG) at Emacs startup;
-- psvn.el 1573006 to work with Subversion repositories from
+- psvn.el r1573006 to work with Subversion repositories from
   within Emacs;
 - framepop.el, to obtain temporary buffers in separate frames;
 - default.el and site-start.el files to make everything work together.
