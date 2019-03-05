@@ -39,6 +39,12 @@ PSVNVERSION=1573006
 ## codesign the application
 DEVELOPERID=Vincent Goulet
 
+## GitLab repository and authentication
+REPOSURL=https://gitlab.com/vigou3/emacs-modified-macos
+REPOSNAME=$(shell basename ${REPOSURL})
+APIURL=https://gitlab.com/api/v4/projects/vigou3%2F${REPOSNAME}
+OAUTHTOKEN=$(shell cat ~/.gitlab/token)
+
 ### No modification should be necessary beyond this point
 
 ## Version strings and file names
@@ -54,9 +60,3 @@ ORG = org-${ORGVERSION}
 
 ## DMG mount point
 VOLUME=/Volumes
-
-## GitLab repository and authentication
-REPOSURL=https://gitlab.com/vigou3/emacs-modified-macos
-REPOSNAME=$(shell basename ${REPOSURL})
-APIURL=https://gitlab.com/api/v4/projects/vigou3%2F${REPOSNAME}
-OAUTHTOKEN=$(shell cat ~/.gitlab/token)
