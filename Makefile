@@ -140,7 +140,7 @@ psvn:
 .PHONY: dmg
 dmg:
 	@echo ----- Signing the application...
-	codesign --force --sign "Developer ID Application: Vincent Goulet" \
+	codesign --force --sign "Developer ID Application: ${DEVELOPERID}" \
 		${EMACSDIR}
 
 	@echo ----- Creating disk image...

@@ -35,6 +35,10 @@ MARKDOWNMODEVERSION=2.3
 EXECPATHVERSION=1.11
 PSVNVERSION=1573006
 
+## Name of the Apple Developer ID Application certificate used to
+## codesign the application
+DEVELOPERID=Vincent Goulet
+
 ### No modification should be necessary beyond this point
 
 ## Version strings and file names
