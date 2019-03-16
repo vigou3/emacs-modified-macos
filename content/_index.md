@@ -19,7 +19,7 @@ The additions to stock Emacs are the following:
 - [exec-path-from-shell.el](https://github.com/purcell/exec-path-from-shell) 1.11
   to import the user's environment (by default `PATH`, `MANPATH` and
   `LANG`) at Emacs startup;
-- [psvn.el](https://svn.apache.org/viewvc/subversion/trunk/contrib/client-side/emacs/) rr1573006,
+- [psvn.el](https://svn.apache.org/viewvc/subversion/trunk/contrib/client-side/emacs/) r1573006,
   an interface for the version control system
   [Subversion](https://subversion.tigris.org) modified to include
   Andre Colomb's and Koji Nakamaru's
@@ -56,7 +56,7 @@ other folder.
 
 This distribution of Emacs is based on the NeXTstep port part of the
 official sources of GNU Emacs. Other than the additions mentioned above
-and the minor configurations found in the `site-start.el` file, this is
+and the minor configuration found in the `site-start.el` file, this is
 a stock distribution of Emacs. Users of Emacs on other platforms will
 appreciate the similar look and feel of the application.
 
