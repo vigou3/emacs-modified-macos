@@ -52,6 +52,21 @@ Open the disk image and copy Emacs in the `Applications` folder or any
 other folder.
 
 
+# Additional packages
+
+If you want to install additional Emacs packages
+([polymode](https://polymode.github.io) comes to mind, here) through
+the [MELPA](https://melpa.org/) repository, add the following lines
+to your `.emacs` configuration file:
+
+```
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(package-initialize)
+```
+
+
 # Philosophy
 
 This distribution of Emacs is based on the NeXTstep port part of the
@@ -69,6 +84,8 @@ date on a regular basis.
 
 For more information of the various options to run Emacs on macOS, see
 the [Emacs wiki](http://www.emacswiki.org/emacs/EmacsForMacOS).
+
+
 
 
 # Also available
