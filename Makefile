@@ -143,7 +143,7 @@ psvn:
 codesign:
 	@echo ----- Signing the application...
 	codesign --force --sign "Developer ID Application: ${DEVELOPERID}" \
-		 --options=runtime \
+		 --options=runtime --deep \
 	         ${EMACSDIR}
 	@echo ----- Done signing the application...
 
