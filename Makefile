@@ -143,7 +143,8 @@ psvn:
 codesign:
 	@echo ----- Signing the application...
 	codesign --force --sign "Developer ID Application: ${DEVELOPERID}" \
-		${EMACSDIR}
+		 --options=runtime \
+	         ${EMACSDIR}
 	@echo ----- Done signing the application...
 
 .PHONY: bundle
@@ -182,7 +183,7 @@ bundle:
 		-format UDZO \
 		-imagekey zlib-level=9 \
 		-o ${DISTNAME}.dmg -quiet
-	${RM} -f ${TMPDIR} ${TMPDMG}
+#	${RM} -f ${TMPDIR} ${TMPDMG}
 	@echo ----- Done building the disk image
 
 .PHONY: notarize
@@ -200,6 +201,17 @@ staple:
 	xcrun stapler staple ${DISTNAME}.dmg
 	@echo ----- Done notarizing the application...
 
+.PHONY: check-status
+check-status:
+	@echo ----- Checking status of working directory...
+	@if [ "master" != $(shell git branch --list | grep ^* | cut -d " " -f 2-) ]; then \
+	     echo "not on branch master"; exit 2; fi
+	@if [ -n "$(shell git status --porcelain | grep -v '^??')" ]; then \
+	     echo "uncommitted changes in repository; not creating release"; exit 2; fi
+	@if [ -n "$(shell git log origin/master..HEAD)" ]; then \
+	    echo "unpushed commits in repository; pushing to origin"; \
+	     git push; fi
+
 .PHONY: upload
 upload:
 	@echo ----- Uploading installer to GitLab...
@@ -215,11 +227,6 @@ upload:
 .PHONY: create-release
 create-release:
 	@echo ----- Creating release on GitLab...
-	@if [ -n "$(shell git status --porcelain | grep -v '^??')" ]; then \
-	     echo "uncommitted changes in repository; not creating release"; exit 2; fi
-	@if [ -n "$(shell git log origin/master..HEAD)" ]; then \
-	    echo "unpushed commits in repository; pushing to origin"; \
-	     git push; fi
 	if [ -e relnotes.in ]; then ${RM} relnotes.in; fi
 	touch relnotes.in
 	$(eval FILESIZE=$(shell du -h ${DISTNAME}.dmg | cut -f1 | sed 's/\([KMG]\)/ \1b/'))
