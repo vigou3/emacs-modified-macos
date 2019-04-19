@@ -39,6 +39,10 @@ PSVNVERSION=1573006
 ## codesign the application
 DEVELOPERID=Vincent Goulet
 
+## Entries for Apple notarization service.
+AC_USERNAME=vincent.goulet@me.com
+AC_PASSWORD=altool
+
 ## GitLab repository and authentication
 REPOSURL=https://gitlab.com/vigou3/emacs-modified-macos
 REPOSNAME=$(shell basename ${REPOSURL})

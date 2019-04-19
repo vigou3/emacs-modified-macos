@@ -56,7 +56,9 @@ get-packages: get-emacs get-ess get-auctex get-org get-markdownmode get-execpath
 
 emacs: dir ess auctex org markdownmode execpath psvn dmg
 
-release: upload create-release publish
+dmg: codesign bundle notarize
+
+release: staple upload create-release publish
 
 .PHONY: dir
 dir:
@@ -137,12 +139,15 @@ psvn:
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/psvn.el
 	@echo ----- Done installing psvn.el
 
-.PHONY: dmg
-dmg:
+.PHONY: codesign
+codesign:
 	@echo ----- Signing the application...
 	codesign --force --sign "Developer ID Application: ${DEVELOPERID}" \
 		${EMACSDIR}
+	@echo ----- Done signing the application...
 
+.PHONY: bundle
+bundle:
 	@echo ----- Creating disk image...
 	if [ -e ${TMPDMG} ]; then rm ${TMPDMG}; fi
 	hdiutil create ${TMPDMG} \
@@ -179,6 +184,21 @@ dmg:
 		-o ${DISTNAME}.dmg -quiet
 	${RM} -f ${TMPDIR} ${TMPDMG}
 	@echo ----- Done building the disk image
+
+.PHONY: notarize
+notarize:
+	@echo ----- Notarizing the application...
+	xcrun altool --notarize-app --primary-bundle-id "notarization" \
+	             --username ${AC_USERNAME} \
+	             --password "@keychain:${AC_PASSWORD}"
+	             --file ${DISTNAME}.dmg
+	@echo ----- Done notarizing the application...
+
+.PHONY: staple
+notarize:
+	@echo ----- Stapling ticket to the application...
+	xcrun stapler staple ${DISTNAME}.dmg
+	@echo ----- Done notarizing the application...
 
 .PHONY: upload
 upload:
