@@ -9,7 +9,7 @@ This is GNU Emacs modified to include the following add-on packages:
 
 - ESS 18.10.2;
 - AUCTeX 12.1;
-- org 9.1.14;
+- org 9.2.3;
 - markdown-mode.el 2.3;
 - exec-path-from-shell.el 1.11 to import the user's
   environment (by default PATH, MANPATH and LANG) at Emacs startup;
