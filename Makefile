@@ -58,7 +58,7 @@ emacs: dir ess auctex org markdownmode execpath psvn dmg
 
 dmg: codesign bundle notarize
 
-release: staple upload create-release publish
+release: staple check-status upload create-release publish
 
 .PHONY: dir
 dir:
