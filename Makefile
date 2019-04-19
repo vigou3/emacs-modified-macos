@@ -190,7 +190,7 @@ notarize:
 	@echo ----- Notarizing the application...
 	xcrun altool --notarize-app --primary-bundle-id "notarization" \
 	             --username ${AC_USERNAME} \
-	             --password "@keychain:${AC_PASSWORD}"
+	             --password "@keychain:${AC_PASSWORD}" \
 	             --file ${DISTNAME}.dmg
 	@echo ----- Done notarizing the application...
 
