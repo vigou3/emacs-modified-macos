@@ -14,7 +14,7 @@ The additions to stock Emacs are the following:
 
 - [ESS](https://ess.r-project.org) 18.10.2;
 - [AUCTeX](https://www.gnu.org/software/auctex/) 12.1;
-- [org](https://orgmode.org/) 9.1.14;
+- [org](https://orgmode.org/) 9.2.3;
 - [markdown-mode.el](https://jblevins.org/projects/markdown-mode/) 2.3;
 - [exec-path-from-shell.el](https://github.com/purcell/exec-path-from-shell) 1.11
   to import the user's environment (by default `PATH`, `MANPATH` and
@@ -27,9 +27,9 @@ The additions to stock Emacs are the following:
   to support Subversion 1.7;
 - [framepop.el](https://bazaar.launchpad.net/~vcs-imports/emacs-goodies-el/trunk/view/head:/elisp/emacs-goodies-el/framepop.el)
   to open temporary buffers in a separate frame;
-- [default.el](https://gitlab.com/vigou3/emacs-modified-macos/blob/v26.1-2-modified-2/default.el)
+- [default.el](https://gitlab.com/vigou3/emacs-modified-macos/blob/v26.2-modified-1/default.el)
   and
-  [site-start.el](https://gitlab.com/vigou3/emacs-modified-macos/blob/v26.1-2-modified-2/site-start.el),
+  [site-start.el](https://gitlab.com/vigou3/emacs-modified-macos/blob/v26.2-modified-1/site-start.el),
   configuration files to make everything work.
 
 The distribution is based on the latest stable release of GNU Emacs
@@ -38,8 +38,8 @@ compiled by David Caldwell and distributed on
 
 ## Latest release
 
-Version 26.1-2-modified-2
-([Release notes](https://gitlab.com/vigou3/emacs-modified-macos/tags/v26.1-2-modified-2/))
+Version 26.2-modified-1
+([Release notes](https://gitlab.com/vigou3/emacs-modified-macos/tags/v26.2-modified-1/))
 
 ## System requirements
 
