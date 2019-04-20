@@ -74,9 +74,15 @@ files:
 	       _index.md
 	cd layouts/partials && \
 	  awk 'BEGIN { FS = "/"; OFS = "/" } \
-	       /${url}\/uploads/ { $$7 = "${file_id}"; \
+	       /${url}\/uploads/ { if (NF > 8) { \
+		                       print "too many fields in the uploads url" > "/dev/stderr"; \
+				       exit 1; } \
+				   $$7 = "${file_id}"; \
 	                           sub(/.*\.dmg/, "${DISTNAME}.dmg", $$8) } \
-	       /${url}\/tags/ { $$7 = "${TAGNAME}" } 1' \
+	       /${url}\/tags/ { if (NF > 8) { \
+		                    print "too many fields in the tags url" > "/dev/stderr"; \
+				    exit 1; } \
+		                $$7 = "${TAGNAME}" } 1' \
 	       site-header.html > tmpfile && \
 	  mv tmpfile site-header.html
 
