@@ -4,10 +4,11 @@
 
 # VERSION
 
-## Other changes
+## User visible changes
 
-Instructions on customization of `exec-path-from-shell-variables`
-updated in `site-start.el`.
+In order to have a more complete AUCTeX and RefTeX setup, the
+environment variables TEXINPUTS and BIBINPUTS are now also imported
+from the shell at startup.
 
 
 # VERSION 26.2-modified-1 (19 April 2019)

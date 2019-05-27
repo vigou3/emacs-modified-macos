@@ -26,16 +26,18 @@
 ;;;
 ;;; Environment setting
 ;;;
-;; By default, environment variables PATH, MANPATH and LANG are
-;; imported from the shell at startup. If needed, more variables may
-;; be imported by listing them in 'exec-path-from-shell-variables'
-;; variable. You may also Customize this variable.
+;; By default, environment variables PATH, MANPATH, LANG, TEXINPUTS
+;; and BIBINPUTS are imported from the shell at startup. If needed,
+;; more variables may be imported by listing them in
+;; 'exec-path-from-shell-variables' variable. You may also Customize
+;; this variable.
 ;;
 ;; Customizations should probably go in a user's .emacs file, so just
 ;; consider the code below as an example of how to do it. Bear in mind
-;; that LANG is added to 'exec-path-from-shell-variables' in
-;; default.el, so there is no need to include it here.
-;(setq exec-path-from-shell-variables '("PATH" "MANPATH" "BIBINPUTS"))
+;; that LANG, TEXINPUTS and BIBINPUTS are added to
+;; 'exec-path-from-shell-variables' in default.el, so there is no need
+;; to include them in the definition.
+;(setq exec-path-from-shell-variables '("PATH" "MANPATH" "FOO" "BAR"))
 
 ;;;
 ;;; Nice options to have On by default

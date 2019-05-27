@@ -35,10 +35,10 @@
 ;;; Import the shell environment
 ;;;
 ;; Import some shell environment variables into Emacs at launch. Steve
-;; Purcell's exec-path-from-shell imports $PATH and $MANPATH by
-;; default; $LANG is added here. You can customize
-;; 'exec-env-from-shell-variables' variable in site-start.el or the
-;; user's config file.
+;; Purcell's exec-path-from-shell imports PATH and MANPATH by default;
+;; LANG, TEXINPUTS and BIBINPUTS are added here. You can customize
+;; 'exec-env-from-shell-variables' in site-start.el or the user's
+;; config file.
 (require 'exec-path-from-shell)
-(nconc exec-path-from-shell-variables '("LANG"))
+(nconc exec-path-from-shell-variables '("LANG" "TEXINPUTS" "BIBINPUTS"))
 (exec-path-from-shell-initialize)
