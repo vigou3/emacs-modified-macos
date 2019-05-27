@@ -2,6 +2,14 @@
 === Emacs Modified for macOS
 ===
 
+# VERSION
+
+## Other changes
+
+Instructions on customization of `exec-path-from-shell-variables`
+updated in `site-start.el`.
+
+
 # VERSION 26.2-modified-1 (19 April 2019)
 
 ## Updates
