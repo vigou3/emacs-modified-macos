@@ -17,8 +17,8 @@ The additions to stock Emacs are the following:
 - [org](https://orgmode.org/) 9.2.3;
 - [markdown-mode.el](https://jblevins.org/projects/markdown-mode/) 2.3;
 - [exec-path-from-shell.el](https://github.com/purcell/exec-path-from-shell) 1.11
-  to import the user's environment (by default `PATH`, `MANPATH` and
-  `LANG`) at Emacs startup;
+  to import the user's environment (by default `PATH`, `MANPATH`,
+  `LANG`, `TEXINPUTS` and `BIBINPUTS`) at Emacs startup;
 - [psvn.el](https://svn.apache.org/viewvc/subversion/trunk/contrib/client-side/emacs/) r1573006,
   an interface for the version control system
   [Subversion](https://subversion.tigris.org) modified to include
