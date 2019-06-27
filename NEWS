@@ -2,13 +2,15 @@
 === Emacs Modified for macOS
 ===
 
-# VERSION
+# VERSION (development)
 
 ## User visible changes
 
 In order to have a more complete AUCTeX and RefTeX setup, the
 environment variables TEXINPUTS and BIBINPUTS are now also imported
-from the shell at startup.
+from the shell at startup. Therefore, the following environment
+variables are imported at startup by default: PATH, MANPATH, LANG,
+TEXINPUTS, BIBINPUTS.
 
 
 # VERSION 26.2-modified-1 (19 April 2019)

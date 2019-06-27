@@ -12,7 +12,8 @@ This is GNU Emacs modified to include the following add-on packages:
 - org 9.2.3;
 - markdown-mode.el 2.3;
 - exec-path-from-shell.el 1.11 to import the user's
-  environment (by default PATH, MANPATH and LANG) at Emacs startup;
+  environment (by default PATH, MANPATH, LANG, TEXINPUTS and
+  BIBINPUTS) at Emacs startup; 
 - psvn.el r1573006 to work with Subversion repositories from
   within Emacs;
 - framepop.el, to obtain temporary buffers in separate frames;
