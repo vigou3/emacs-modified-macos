@@ -1,6 +1,6 @@
 ### -*-Makefile-*- for GitLab page of Emacs Modified for macOS
 ##
-## Copyright (C) 2018 Vincent Goulet
+## Copyright (C) 2019 Vincent Goulet
 ##
 ## Author: Vincent Goulet
 ##
@@ -38,6 +38,9 @@ EXECPATHVERSION = $(shell git show master:Makeconf \
 PSVNVERSION = $(shell git show master:Makeconf \
 	| grep ^PSVNVERSION \
 	| cut -d = -f 2)
+TABBARVERSION = $(shell git show master:Makeconf \
+	| grep ^TABBARVERSION \
+	| cut -d = -f 2)
 REPOSURL = $(shell git show master:Makeconf \
 	| grep ^REPOSURL \
 	| cut -d = -f 2)
@@ -68,6 +71,7 @@ files:
 	      -e '/\[ESS\]/s/[0-9]+[0-9.]*/${ESSVERSION}/' \
 	      -e '/\[AUCTeX\]/s/[0-9]+[0-9.]*/${AUCTEXVERSION}/' \
 	      -e '/\[org\]/s/[0-9]+[0-9.]*/${ORGVERSION}/' \
+	      -e '/\[Tabbar\]/s/[0-9]+[0-9.]*/${TABBARVERSION}/' \
 	      -e '/\[markdown-mode.el\]/s/[0-9]+[0-9.]*/${MARKDOWNMODEVERSION}/' \
 	      -e '/\[exec-path-from-shell.el\]/s/[0-9]+[0-9.]*/${EXECPATHVERSION}/' \
 	      -e '/\[psvn.el\]/s/r[0-9]+/r${PSVNVERSION}/' \

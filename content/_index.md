@@ -15,6 +15,9 @@ The additions to stock Emacs are the following:
 - [ESS](https://ess.r-project.org) 18.10.2;
 - [AUCTeX](https://www.gnu.org/software/auctex/) 12.1;
 - [org](https://orgmode.org/) 9.2.3;
+- [Tabbar](https://github.com/dholm/tabbar) 2.2, a minor mode that
+  displays a tab bar at the top of the Emacs window, similar to the
+  idea of web browsers tabs;
 - [markdown-mode.el](https://jblevins.org/projects/markdown-mode/) 2.3;
 - [exec-path-from-shell.el](https://github.com/purcell/exec-path-from-shell) 1.11
   to import the user's environment (by default `PATH`, `MANPATH`,
@@ -84,8 +87,6 @@ date on a regular basis.
 
 For more information of the various options to run Emacs on macOS, see
 the [Emacs wiki](http://www.emacswiki.org/emacs/EmacsForMacOS).
-
-
 
 
 # Also available
