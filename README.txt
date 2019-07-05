@@ -1,5 +1,5 @@
 Copyright (C) 2008-2013 Free Software Foundation, Inc.
-Copyright (C) 2009-2018 Vincent Goulet for the modifications.
+Copyright (C) 2009-2019 Vincent Goulet for the modifications.
 See below for GNU Emacs license conditions.
 
 Emacs Modified for macOS
@@ -9,11 +9,11 @@ This is GNU Emacs modified to include the following add-on packages:
 
 - ESS 18.10.2;
 - AUCTeX 12.1;
-- org 9.2.3;
+- org 9.2.4;
 - Tabbar 2.2, an emacs minor mode that displays a tab bar at the top,
   similar to the idea of web browser’s tabs;
 - markdown-mode.el 2.3;
-- exec-path-from-shell.el 1.11 to import the user's
+- exec-path-from-shell.el 1.12 to import the user's
   environment (by default PATH, MANPATH, LANG, TEXINPUTS and
   BIBINPUTS) at Emacs startup; 
 - psvn.el r1573006 to work with Subversion repositories from

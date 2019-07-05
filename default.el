@@ -3,7 +3,7 @@
 ;; This file is used mainly to load custom extensions. It is loaded
 ;; *after* any user and site configuration files.
 ;;
-;; Copyright (C) 2017 Vincent Goulet
+;; Copyright (C) 2019 Vincent Goulet
 ;;
 ;; Author: Vincent Goulet
 ;;
