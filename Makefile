@@ -49,12 +49,13 @@ INFODIR = ${DESTDIR}/info
 ## Toolset
 CP = cp -p
 RM = rm -r
+MD = mkdir -p
 
 all: get-packages emacs
 
-get-packages: get-emacs get-ess get-auctex get-org get-markdownmode get-execpath get-psvn
+get-packages: get-emacs get-ess get-auctex get-org get-markdownmode get-execpath get-psvn get-tabbar
 
-emacs: dir ess auctex org markdownmode execpath psvn dmg
+emacs: dir ess auctex org markdownmode execpath psvn tabbar dmg
 
 dmg: codesign bundle notarize
 
@@ -139,6 +140,26 @@ psvn:
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/psvn.el
 	@echo ----- Done installing psvn.el
 
+.PHONY: tabbar
+tabbar:
+	@echo ----- Making tabbar...
+	if [ -d ${TABBAR} ]; then ${RM} -f ${TABBAR}; fi
+	unzip ${TABBAR}.zip
+	${MD} ${SITELISP}/tabbar
+	${CP} ${TABBAR}/*.el ${SITELISP}/tabbar
+	${CP} ${TABBAR}/*.tiff ${SITELISP}/tabbar
+	${CP} ${TABBAR}/*.png ${SITELISP}/tabbar
+	${MD} ${DOCDIR}/tabbar
+	${CP} ${TABBAR}/README.markdown ${DOCDIR}/tabbar/README.md
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/tabbar/aquamacs-compat.el
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/tabbar/aquamacs-tabbar.el
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/tabbar/aquamacs-tools.el
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/tabbar/one-buffer-one-frame.el
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/tabbar/tabbar-window.el
+	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/tabbar/tabbar.el
+	${RM} -f ${TABBAR}
+	@echo ----- Done making tabbar
+
 .PHONY: codesign
 codesign:
 	@echo ----- Signing the application...
@@ -168,6 +189,7 @@ bundle:
 	    -e 's/(ESS )[0-9.]+/\1${ESSVERSION}/' \
 	    -e 's/(AUCTeX )[0-9.]+/\1${AUCTEXVERSION}/' \
 	    -e 's/(org )[0-9.]+/\1${ORGVERSION}/' \
+	    -e 's/(Tabbar )[0-9.]+/\1${TABBARVERSION}/' \
 	    -e 's/(markdown-mode.el )[0-9.]+/\1${MARKDOWNMODEVERSION}/' \
 	    -e 's/(exec-path-from-shell.el )[0-9.]+/\1${EXECPATHVERSION}/' \
 	    -e 's/(psvn.el r)[0-9]+/\1${PSVNVERSION}/' \
@@ -300,6 +322,14 @@ get-psvn:
 	@echo ----- Fetching psvn.el
 	if [ -f psvn.el ]; then ${RM} psvn.el; fi
 	svn cat http://svn.apache.org/repos/asf/subversion/trunk/contrib/client-side/emacs/psvn.el > psvn.el
+
+.PHONY: get-tabbar
+get-tabbar:
+	@echo ----- Fetching tabbar...
+	if [ -f ${TABBAR}.zip ]; then ${RM} ${TABBAR}.zip; fi
+	curl -OL https://github.com/dholm/tabbar/archive/v${TABBARVERSION}.zip
+	${CP} v${TABBARVERSION}.zip ${TABBAR}.zip
+	${RM} v${TABBARVERSION}.zip
 
 .PHONY: clean
 clean:

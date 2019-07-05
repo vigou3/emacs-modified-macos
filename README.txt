@@ -10,6 +10,8 @@ This is GNU Emacs modified to include the following add-on packages:
 - ESS 18.10.2;
 - AUCTeX 12.1;
 - org 9.2.3;
+- Tabbar 2.2, an emacs minor mode that displays a tab bar at the top,
+  similar to the idea of web browser’s tabs;
 - markdown-mode.el 2.3;
 - exec-path-from-shell.el 1.11 to import the user's
   environment (by default PATH, MANPATH, LANG, TEXINPUTS and
@@ -21,6 +23,9 @@ This is GNU Emacs modified to include the following add-on packages:
 
 The distribution is based on the latest stable release of GNU Emacs
 compiled by David Caldwell (http://emacsformacosx.com).
+
+Tabbar is not enabled by default. To use it, use 'M-x tabbar-mode' or
+add '(tabbar-mode)' in your ~/.emacs file.
 
 In order to use Markdown you may need to install a parser such as
 Pandoc (see https://github.com/jgm/pandoc/releases/latest) and

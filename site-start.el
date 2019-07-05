@@ -116,3 +116,13 @@
 (add-to-list 'vc-handled-backends 'SVN)
 (add-hook 'svn-log-edit-mode-hook 'turn-off-auto-fill) ; useful option
 (require 'psvn)
+
+;;;
+;;; tabbar
+;;;
+;; Start with (tabbar-mode) in ~/.emacs
+;; Toggle with (tabbar-mode -1)
+;; tabbar v2.2 was cloned from https://github.com/dholm/tabbar
+;; tabbar-mode's inclusion in Vincent's distribution is maintained by 
+;; Rodney Sparapani <rsparapa@mcw.edu>
+(require 'tabbar) 

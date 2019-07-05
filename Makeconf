@@ -34,6 +34,7 @@ ORGVERSION=9.2.3
 MARKDOWNMODEVERSION=2.3
 EXECPATHVERSION=1.11
 PSVNVERSION=1573006
+TABBARVERSION=2.2
 
 ## Name of the Apple Developer ID Application certificate used to
 ## codesign the application
@@ -61,6 +62,7 @@ DMGFILE=Emacs-${EMACSVERSION}$(if ${EMACSPATCHLEVEL},-${EMACSPATCHLEVEL},)-unive
 ESS = ess-${ESSVERSION}
 AUCTEX = auctex-${AUCTEXVERSION}
 ORG = org-${ORGVERSION}
+TABBAR = tabbar-${TABBARVERSION}
 
 ## DMG mount point
 VOLUME=/Volumes

@@ -13,7 +13,7 @@ select packages for LaTeX users and R developers, most notably
 latest stable release of GNU Emacs
 [compiled by David Caldwell](https://emacsformacosx.com).
 
-Other than the additions mentioned above and some minor configuration,
+Other than the few selected additions and some minor configuration,
 this is a stock distribution of Emacs. Users of Emacs on other
 platforms will appreciate the similar look and feel of the
 application.
