@@ -2,7 +2,21 @@
 === Emacs Modified for macOS
 ===
 
-# VERSION (development)
+# VERSION 26.2-modified-2 (5 July 2019)
+
+## New feature
+
+David Holm's TabBarMode (v2.2), a minor mode to display a tab bar at
+the top, similar to the idea of web browser’s tabs. Brought to you by
+Rodney Sparapani <rsparapa@mcw.edu>.
+
+Note that TabBarMode is *not* enabled by default. To use it, use `M-x
+tabbar-mode` or add `(tabbar-mode)` in your `~/.emacs` file.
+
+## Updates
+
+- Org 9.2.4
+- exec-path-from-shell 1.12
 
 ## User visible changes
 
@@ -372,7 +386,7 @@ the following statement.
 
 ## (More or less) User visible change
 
-Shell environment variables, most notably $PATH, are imported into
+Shell environment variables, most notably PATH, are imported into
 Emacs using a different, faster and apparently more reliable
 technique.
 
@@ -384,7 +398,7 @@ imported.
 The new code (adapted from Steve Purcell's exec-path-from-shell.el
 <https://github.com/purcell/exec-path-from-shell>) instead copies only
 the environment variables listed in `import-env-from-shell-variables`.
-By default, these are $PATH, $MANPATH and $LANG. If you relied on
+By default, these are PATH, MANPATH and LANG. If you relied on
 other variables being imported into Emacs with previous versions, you
 can Customize `import-env-from-shell-variables`, or else append to it
 in your .emacs file; see the site-start.el[*] file for an example of how

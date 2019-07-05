@@ -1,6 +1,6 @@
 ### User settable variables used in -*-Makefile-*-
 ##
-## Copyright (C) 2018 Vincent Goulet
+## Copyright (C) 2019 Vincent Goulet
 ##
 ## Author: Vincent Goulet
 ##
@@ -25,14 +25,14 @@
 ## GNU Emacs and this distribution version number
 EMACSVERSION=26.2
 EMACSPATCHLEVEL=
-DISTVERSION=1
+DISTVERSION=2
 
 ## Extensions version numbers
 ESSVERSION=18.10.2
 AUCTEXVERSION=12.1
-ORGVERSION=9.2.3
+ORGVERSION=9.2.4
 MARKDOWNMODEVERSION=2.3
-EXECPATHVERSION=1.11
+EXECPATHVERSION=1.12
 PSVNVERSION=1573006
 TABBARVERSION=2.2
 
@@ -59,10 +59,10 @@ DISTNAME=Emacs-${VERSION}
 DMGFILE=Emacs-${EMACSVERSION}$(if ${EMACSPATCHLEVEL},-${EMACSPATCHLEVEL},)-universal.dmg
 
 ## Base name of extensions
-ESS = ess-${ESSVERSION}
-AUCTEX = auctex-${AUCTEXVERSION}
-ORG = org-${ORGVERSION}
-TABBAR = tabbar-${TABBARVERSION}
+ESS=ess-${ESSVERSION}
+AUCTEX=auctex-${AUCTEXVERSION}
+ORG=org-${ORGVERSION}
+TABBAR=tabbar-${TABBARVERSION}
 
 ## DMG mount point
 VOLUME=/Volumes
