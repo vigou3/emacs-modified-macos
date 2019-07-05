@@ -10,8 +10,8 @@ This is GNU Emacs modified to include the following add-on packages:
 - ESS 18.10.2;
 - AUCTeX 12.1;
 - org 9.2.4;
-- Tabbar 2.2, an emacs minor mode that displays a tab bar at the top,
-  similar to the idea of web browser’s tabs;
+- Tabbar 2.2, a minor mode that displays a tab bar at the top of the
+  Emacs window, similar to the idea of web browsers tabs;
 - markdown-mode.el 2.3;
 - exec-path-from-shell.el 1.12 to import the user's
   environment (by default PATH, MANPATH, LANG, TEXINPUTS and
