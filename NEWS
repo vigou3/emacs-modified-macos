@@ -7,8 +7,8 @@
 ## New feature
 
 David Holm's TabBarMode (v2.2), a minor mode to display a tab bar at
-the top, similar to the idea of web browser’s tabs. Brought to you by
-Rodney Sparapani <rsparapa@mcw.edu>.
+the top of the Emacs window, similar to the idea of web browsers tabs.
+Brought to you by Rodney Sparapani <rsparapa@mcw.edu>.
 
 Note that TabBarMode is *not* enabled by default. To use it, use `M-x
 tabbar-mode` or add `(tabbar-mode)` in your `~/.emacs` file.
