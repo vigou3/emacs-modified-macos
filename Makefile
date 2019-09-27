@@ -193,9 +193,9 @@ bundle:
 	    -e 's/(markdown-mode.el )[0-9.]+/\1${MARKDOWNMODEVERSION}/' \
 	    -e 's/(exec-path-from-shell.el )[0-9.]+/\1${EXECPATHVERSION}/' \
 	    -e 's/(psvn.el r)[0-9]+/\1${PSVNVERSION}/' \
-	    README.txt && \
-	  ${CP} README.txt ${VOLUME}/${DISTNAME}/
-	${CP} NEWS ${VOLUME}/${DISTNAME}/
+	    ${README} && \
+	  ${CP} ${README} ${VOLUME}/${DISTNAME}/
+	${CP} ${NEWS} ${VOLUME}/${DISTNAME}/
 	ln -s /Applications ${VOLUME}/${DISTNAME}/Applications
 
 	@echo ----- Unmounting and compressing disk image...
@@ -230,20 +230,20 @@ check-status:
 	     echo "not on branch master"; exit 2; fi
 	@if [ -n "$(shell git status --porcelain | grep -v '^??')" ]; then \
 	     echo "uncommitted changes in repository; not creating release"; exit 2; fi
-	@if [ -n "$(shell git log origin/master..HEAD)" ]; then \
+	@if [ -n "$(shell git log origin/master..HEAD | head -n1)" ]; then \
 	    echo "unpushed commits in repository; pushing to origin"; \
 	     git push; fi
 
 .PHONY: upload
 upload:
 	@echo ----- Uploading installer to GitLab...
-	$(eval upload_url_markdown=$(shell curl --form "file=@${DISTNAME}.dmg" \
+	$(eval upload_url=$(shell curl --form "file=@${DISTNAME}.dmg" \
 	                                        --header "PRIVATE-TOKEN: ${OAUTHTOKEN}"	\
 	                                        --silent \
 	                                        ${APIURL}/uploads \
-	                                   | awk -F '"' '{ print $$12 }'))
-	@echo Markdown ready url to file:
-	@echo "${upload_url_markdown}"
+	                                   | awk -F '"' '{ print $$8 }'))
+	@echo url to file:
+	@echo "${upload_url}"
 	@echo ----- Done uploading installer
 
 .PHONY: create-release
@@ -251,25 +251,25 @@ create-release:
 	@echo ----- Creating release on GitLab...
 	if [ -e relnotes.in ]; then ${RM} relnotes.in; fi
 	touch relnotes.in
-	$(eval FILESIZE=$(shell du -h ${DISTNAME}.dmg | cut -f1 | sed 's/\([KMG]\)/ \1b/'))
 	awk 'BEGIN { ORS = " "; print "{\"tag_name\": \"${TAGNAME}\"," } \
 	      /^$$/ { next } \
 	      (state == 0) && /^# / { state = 1; \
 		out = $$3; \
 	        for(i = 4; i <= NF; i++) { out = out" "$$i }; \
-	        printf "\"description\": \"# Emacs Modified for macOS %s\\n", out; \
+	        printf "\"name\": \"Emacs Modified for macOS %s\", \"description\":\"", out; \
 	        next } \
 	      (state == 1) && /^# / { exit } \
 	      state == 1 { printf "%s\\n", $$0 } \
-	      END { print "\\n## Download the installer\\n${upload_url_markdown} (${FILESIZE})\"}" }' \
-	     NEWS >> relnotes.in
+	      END { print "\",\"assets\": { \"links\": [{ \"name\": \"${DISTNAME}.dmg\", \"url\": \"${REPOSURL}${upload_url}\" }] }}" }' \
+	     ${NEWS} >> relnotes.in
 	curl --request POST \
 	     --header "PRIVATE-TOKEN: ${OAUTHTOKEN}" \
 	     "${APIURL}/repository/tags?tag_name=${TAGNAME}&ref=master"
-	curl --data @relnotes.in \
+	curl --request POST \
+	     --data @relnotes.in \
 	     --header "PRIVATE-TOKEN: ${OAUTHTOKEN}" \
 	     --header "Content-Type: application/json" \
-	     ${APIURL}/repository/tags/${TAGNAME}/release
+	     ${APIURL}/releases
 	${RM} relnotes.in
 	@echo ----- Done creating the release
 
