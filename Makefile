@@ -62,7 +62,7 @@ files:
 	$(eval url=$(subst /,\/,$(patsubst %/,%,${REPOSURL})))
 	$(eval file_id=$(shell curl --header "PRIVATE-TOKEN: ${OAUTHTOKEN}" \
 	                             --silent \
-	                             ${APIURL}/repository/tags/${TAGNAME} \
+	                             ${APIURL}/releases/${TAGNAME}/assets/links \
 	                        | grep -o "/uploads/[a-z0-9]*/" \
 	                        | cut -d/ -f3))
 	cd content && \
@@ -82,11 +82,8 @@ files:
 		                       print "too many fields in the uploads url" > "/dev/stderr"; \
 				       exit 1; } \
 				   $$7 = "${file_id}"; \
-	                           sub(/.*\.dmg/, "${DISTNAME}.dmg", $$8) } \
-	       /${url}\/tags/ { if (NF > 8) { \
-		                    print "too many fields in the tags url" > "/dev/stderr"; \
-				    exit 1; } \
-		                $$7 = "${TAGNAME}" } 1' \
+	                           sub(/.*\.dmg/, "${DISTNAME}.dmg", $$8) } 
+	       1 \
 	       site-header.html > tmpfile && \
 	  mv tmpfile site-header.html
 
