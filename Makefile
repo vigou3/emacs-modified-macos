@@ -82,7 +82,7 @@ files:
 		                       print "too many fields in the uploads url" > "/dev/stderr"; \
 				       exit 1; } \
 				   $$7 = "${file_id}"; \
-	                           sub(/.*\.dmg/, "${DISTNAME}.dmg", $$8) } 
+	                           sub(/.*\.dmg/, "${DISTNAME}.dmg", $$8) } \
 	       1' \
 	       site-header.html > tmpfile && \
 	  mv tmpfile site-header.html
