@@ -83,7 +83,7 @@ files:
 				       exit 1; } \
 				   $$7 = "${file_id}"; \
 	                           sub(/.*\.dmg/, "${DISTNAME}.dmg", $$8) } 
-	       1 \
+	       1' \
 	       site-header.html > tmpfile && \
 	  mv tmpfile site-header.html
 
