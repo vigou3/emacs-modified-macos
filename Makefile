@@ -32,6 +32,7 @@ include ./Makeconf
 TMPDIR = ${CURDIR}/tmpdir
 TMPDMG = ${CURDIR}/tmpdmg.dmg
 EMACSDIR = ${TMPDIR}/Emacs.app
+DICTDIR = ${TMPDIR}/Dictionaries
 
 ## Emacs specific info
 PREFIX = ${EMACSDIR}/Contents
@@ -50,12 +51,13 @@ INFODIR = ${DESTDIR}/info
 CP = cp -p
 RM = rm -r
 MD = mkdir -p
+UNZIP = unzip
 
 all: get-packages emacs
 
-get-packages: get-emacs get-ess get-auctex get-org get-markdownmode get-execpath get-psvn get-tabbar
+get-packages: get-emacs get-ess get-auctex get-org get-markdownmode get-execpath get-psvn get-tabbar get-dict
 
-emacs: dir ess auctex org markdownmode execpath psvn tabbar dmg
+emacs: dir ess auctex org markdownmode execpath psvn tabbar dict dmg
 
 dmg: codesign bundle notarize
 
@@ -83,7 +85,7 @@ dir:
 ess:
 	@echo ----- Making ESS...
 	if [ -d ${ESS} ]; then ${RM} -f ${ESS}; fi
-	unzip ${ESS}.zip
+	${UNZIP} ${ESS}.zip
 	${MAKE} EMACS=${EMACS} DOWNLOAD=curl -C ${ESS} all
 	${MAKE} DESTDIR=${DESTDIR} SITELISP=${SITELISP} \
 	        ETCDIR=${ETCDIR}/ess DOCDIR=${DOCDIR}/ess \
@@ -97,7 +99,7 @@ ess:
 auctex:
 	@echo ----- Making AUCTeX...
 	if [ -d ${AUCTEX} ]; then ${RM} -f ${AUCTEX}; fi
-	unzip ${AUCTEX}.zip
+	${UNZIP} ${AUCTEX}.zip
 	cd ${AUCTEX} && ./configure --datarootdir=${DESTDIR} \
 		--without-texmf-dir \
 		--with-lispdir=${SITELISP} \
@@ -111,7 +113,7 @@ auctex:
 org:
 	@echo ----- Making org...
 	if [ -d ${ORG} ]; then ${RM} -f ${ORG}; fi
-	unzip ${ORG}.zip
+	${UNZIP} ${ORG}.zip
 	${MAKE} EMACS=${EMACS} -C ${ORG} all
 	${MAKE} EMACS=${EMACS} lispdir=${SITELISP}/org \
 	        datadir=${ETCDIR}/org infodir=${INFODIR} -C ${ORG} install
@@ -144,7 +146,7 @@ psvn:
 tabbar:
 	@echo ----- Making tabbar...
 	if [ -d ${TABBAR} ]; then ${RM} -f ${TABBAR}; fi
-	unzip ${TABBAR}.zip
+	${UNZIP} ${TABBAR}.zip
 	${MD} ${SITELISP}/tabbar
 	${CP} ${TABBAR}/*.el ${SITELISP}/tabbar
 	${CP} ${TABBAR}/*.tiff ${SITELISP}/tabbar
@@ -159,6 +161,16 @@ tabbar:
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/tabbar/tabbar.el
 	${RM} -f ${TABBAR}
 	@echo ----- Done making tabbar
+
+.PHONY: dict
+dict:
+	@echo ----- Installing dictionaries...
+	if [ -d ${DICTDIR} ]; then ${RM} -f ${DICTDIR}; fi
+	${MD} ${DICTDIR}
+	${UNZIP} -j -d ${DICTDIR} ${DICT-EN}.zip "*.aff" "*.dic" "th_en*" "README*en*.txt"
+	${UNZIP} -j -d ${DICTDIR} ${DICT-FR}.zip dictionaries/* 
+	${UNZIP} -j -d ${DICTDIR} ${DICT-ES}.zip "*.aff" "*.dic" "th_es*" "README*es*.txt"
+	${UNZIP} -j -d ${DICTDIR} ${DICT-DE}.zip "de_DE_frami/*.aff" "de_DE_frami/*.dic" "de_DE_frami/*README.txt" "hyph_de_DE/*.dic" "hyph_de_DE/*README.txt" "thes_de_DE_v2/th_de_DE*"
 
 .PHONY: codesign
 codesign:
@@ -205,7 +217,7 @@ bundle:
 		-format UDZO \
 		-imagekey zlib-level=9 \
 		-o ${DISTNAME}.dmg -quiet
-#	${RM} -f ${TMPDIR} ${TMPDMG}
+	${RM} -f ${TMPDIR} ${TMPDMG}
 	@echo ----- Done building the disk image
 
 .PHONY: notarize
@@ -330,6 +342,18 @@ get-tabbar:
 	curl -OL https://github.com/dholm/tabbar/archive/v${TABBARVERSION}.zip
 	${CP} v${TABBARVERSION}.zip ${TABBAR}.zip
 	${RM} v${TABBARVERSION}.zip
+
+.PHONY: get-dict
+get-dict:
+	@echo ----- Fetching dictionaries
+	if [ -f ${DICT-EN}.zip ]; then ${RM} ${DICT-EN}.zip; fi
+	curl -L -o ${DICT-EN}.zip https://extensions.libreoffice.org/extensions/english-dictionaries/$(shell echo ${DICT-ENVERSION} | sed 's/\./-/')/@@download/file/${DICT-EN}.oxt
+	if [ -f ${DICT-FR}.zip ]; then ${RM} ${DICT-FR}.zip; fi
+	curl -L -o ${DICT-FR}.zip https://extensions.libreoffice.org/extensions/dictionnaires-francais/${DICT-FRVERSION}/@@download/file/${DICT-FR}.oxt
+	if [ -f ${DICT-ES}.zip ]; then ${RM} ${DICT-ES}.zip; fi
+	curl -L -o ${DICT-ES}.zip https://extensions.libreoffice.org/extensions/spanish-dictionaries/${DICT-ESVERSION}/@@download/file/${DICT-ES}.oxt
+	if [ -f ${DICT-DE}.zip ]; then ${RM} ${DICT-DE}.zip; fi
+	curl -L -o ${DICT-DE}.zip https://extensions.libreoffice.org/extensions/german-de-de-frami-dictionaries/$(subst .,-,${DICT-DEVERSION})/@@download/file/${DICT-DE}.oxt
 
 .PHONY: clean
 clean:

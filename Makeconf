@@ -35,6 +35,10 @@ MARKDOWNMODEVERSION=2.3
 EXECPATHVERSION=1.12
 PSVNVERSION=1573006
 TABBARVERSION=2.2
+DICT-ENVERSION=2019.07.01
+DICT-FRVERSION=5.7
+DICT-DEVERSION=2017.01.12
+DICT-ESVERSION=2.4
 
 ## Name of the Apple Developer ID Application certificate used to
 ## codesign the application
@@ -65,6 +69,10 @@ ESS=ess-${ESSVERSION}
 AUCTEX=auctex-${AUCTEXVERSION}
 ORG=org-${ORGVERSION}
 TABBAR=tabbar-${TABBARVERSION}
+DICT-EN = dict-en_$(subst .,,${DICT-ENVERSION})
+DICT-FR = lo-oo-ressources-linguistiques-fr-v${DICT-FRVERSION}
+DICT-ES = es_ANY
+DICT-DE = dict-de_DE-frami_$(subst .,-,${DICT-DEVERSION})
 
 ## DMG mount point
 VOLUME=/Volumes
