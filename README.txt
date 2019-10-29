@@ -22,16 +22,16 @@ This is GNU Emacs modified to include the following add-on packages:
 - default.el and site-start.el files to make everything work together.
 
 The distribution is based on the latest stable release of GNU Emacs
-compiled by David Caldwell (http://emacsformacosx.com).
+compiled by David Caldwell (<https://emacsformacosx.com>).
 
-Tabbar is not enabled by default. To use it, use 'M-x tabbar-mode' or
-add '(tabbar-mode)' in your ~/.emacs file.
+Tabbar is not enabled by default. To use it, use `M-x tabbar-mode` or
+add `(tabbar-mode)` in your ~/.emacs file.
 
 In order to use Markdown you may need to install a parser such as
-Pandoc (see https://github.com/jgm/pandoc/releases/latest) and
-customize 'markdown-command'.
+Pandoc (see <https://github.com/jgm/pandoc/releases/latest>) and
+customize `markdown-command`.
 
-You may want to customize 'exec-path-from-shell-variables'.
+You may want to customize `exec-path-from-shell-variables`.
 
 Please direct questions or comments on this version of Emacs Modified
 for macOS to Vincent Goulet <vincent.goulet@act.ulaval.ca>.
@@ -40,6 +40,42 @@ GNU Emacs Modified is free software: you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
+
+Spell checking and dictionaries
+===============================
+
+Spell checking inside Emacs on macOS requires an external checker. I
+recommend to install Hunspell (<https://hunspell.github.io>) using
+Homebrew (<https://brew.sh>).
+
+The Hunspell installation does not include any dictionaries.
+Therefore, this distributions of Emacs ships with the following Libre
+Office dictionaries suitable for use with Hunspell:
+
+- English (version 2019.07.01);
+- French (version 5.7);
+- German (version 2017.01.12);
+- Spanish (version 2.4).
+
+Copy the files in the `Dictionaries` directory of the disk image to
+`~/Library/Spelling`. If needed, create a symbolic link named after
+your LANG environment variable to the corresponding dictionary and
+affix files. For example, if LANG is set to fr_CA.URF-8, do from the
+command line
+
+  cd ~/Library/Spelling
+  ln -s fr-classique.dic fr_CA.dic
+  ln -s fr-classique.aff fr_CA.aff
+
+Finally, add the following lines to your ~/.emacs file:
+
+  (setq-default ispell-program-name "/usr/local/bin/hunspell")
+  (setq ispell-really-hunspell t)
+
+Spell checking should now work with `M-x ispell`.
+
+See <https://extensions.libreoffice.org/extensions> to install
+additional dictionnaries.
 
 GNU Emacs
 =========

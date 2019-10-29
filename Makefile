@@ -205,6 +205,10 @@ bundle:
 	    -e 's/(markdown-mode.el )[0-9.]+/\1${MARKDOWNMODEVERSION}/' \
 	    -e 's/(exec-path-from-shell.el )[0-9.]+/\1${EXECPATHVERSION}/' \
 	    -e 's/(psvn.el r)[0-9]+/\1${PSVNVERSION}/' \
+	    -e 's/\(English (version \)[0-9a-z.]\+/\1${DICT-ENVERSION}/' \
+	    -e 's/\(French (version \)[0-9.]\+/\1${DICT-FRVERSION}/' \
+	    -e 's/\(German (version \)[0-9.]\+/\1${DICT-DEVERSION}/' \
+	    -e 's/\(Spanish (version \)[0-9.]\+/\1${DICT-ESVERSION}/' \
 	    ${README} && \
 	  ${CP} ${README} ${VOLUME}/${DISTNAME}/
 	${CP} ${NEWS} ${VOLUME}/${DISTNAME}/
