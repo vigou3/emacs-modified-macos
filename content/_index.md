@@ -21,6 +21,8 @@ The additions to stock Emacs are the following:
 - [markdown-mode.el](https://jblevins.org/projects/markdown-mode/) 2.3;
 - [exec-path-from-shell.el](https://github.com/purcell/exec-path-from-shell) 1.12
   to import the user's environment at Emacs startup;
+- dictionaries for the [Hunspell](https://hunspell.github.io) spell
+  checker (optional; see below for details);
 - [psvn.el](https://svn.apache.org/viewvc/subversion/trunk/contrib/client-side/emacs/) r1573006,
   an interface for the version control system
   [Subversion](https://subversion.tigris.org) modified to include
@@ -66,7 +68,7 @@ Office dictionaries](https://extensions.libreoffice.org/extensions?getCategories
 [German](https://extensions.libreoffice.org/extensions/german-de-de-frami-dictionaries);
 [Spanish](https://extensions.libreoffice.org/extensions/spanish-dictionaries).
 
-To use the dictionaries, copy the files in the `Dictionaries`
+To make use of the dictionaries, copy the files in the `Dictionaries`
 directory of the disk image to `~/Library/Spelling`. If needed, create
 a symbolic link named after your `LANG` environment variable to the
 corresponding dictionary and affix files. For example, if `LANG` is set
