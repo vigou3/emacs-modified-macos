@@ -1,6 +1,6 @@
 ---
 title: Emacs Modified for macOS
-description: GNU Emacs. Ready for R and LaTeX
+description: GNU Emacs. Ready for R and LaTeX.
 ---
 
 # Presentation
@@ -48,14 +48,43 @@ Version 26.3-modified-1
 
 Mac OS X 10.4 or later.
 
-
-# Installation
+## Installation
 
 Open the disk image and copy Emacs in the `Applications` folder or any
 other folder.
 
+## Spell checking and dictionaries
 
-# Additional packages
+Spell checking inside Emacs on macOS requires an external checker. I
+recommend to install [Hunspell](https://hunspell.github.io) using
+[Homebrew](https://brew.sh).
+
+The Hunspell installation does not include any dictionaries.
+Therefore, this distributions of Emacs ships with the following [Libre
+Office dictionaries](https://extensions.libreoffice.org/extensions?getCategories=Dictionary&getCompatibility=any) suitable for use with Hunspell:
+[English](https://extensions.libreoffice.org/extensions/english-dictionaries/);
+[French](https://extensions.libreoffice.org/extensions/dictionnaires-francais/);
+[German](https://extensions.libreoffice.org/extensions/german-de-de-frami-dictionaries);
+[Spanish](https://extensions.libreoffice.org/extensions/spanish-dictionaries).
+
+To use the dictionaries, copy the files in the `Dictionaries`
+directory of the disk image to `~/Library/Spelling`. If needed, create
+a symbolic link named after your `LANG` environment variable to the
+corresponding dictionary and affix files. For example, if `LANG` is set
+to `fr_CA.URF-8`, do from the command line
+
+    cd ~/Library/Spelling
+    ln -s fr-classique.dic fr_CA.dic
+    ln -s fr-classique.aff fr_CA.aff
+
+Finally, add the following lines to your ~/.emacs file:
+
+    (setq-default ispell-program-name "/usr/local/bin/hunspell")
+    (setq ispell-really-hunspell t)
+
+Spell checking should now work with `M-x ispell`.
+
+## Additional packages
 
 If you want to install additional Emacs packages
 ([polymode](https://polymode.github.io) comes to mind, here) through
