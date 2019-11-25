@@ -60,7 +60,7 @@ Office dictionaries suitable for use with Hunspell:
 Copy the files in the `Dictionaries` directory of the disk image to
 `~/Library/Spelling`. If needed, create a symbolic link named after
 your LANG environment variable to the corresponding dictionary and
-affix files. For example, if LANG is set to fr_CA.URF-8, do from the
+affix files. For example, if LANG is set to fr_CA.UTF-8, do from the
 command line
 
   cd ~/Library/Spelling
