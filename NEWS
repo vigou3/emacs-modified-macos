@@ -2,7 +2,7 @@
 === Emacs Modified for macOS
 ===
 
-# VERSION devel
+# VERSION 26.3-modified-2 (11 March 2020)
 
 ## New feature
 
@@ -10,7 +10,8 @@ The distribution now ships with dictionaries to use with Hunspell. You
 need to install an Hunspell binary separately, most likely through
 Homebrew. You may then use the included English, French, German and
 Spanish dictionaries by copying the files in the `Dictionaries`
-directory to `~/Library/Spelling`.
+directory to `~/Library/Spelling`. See the README.txt file for
+additional details.
 
 ## Updates
 
