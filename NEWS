@@ -6,12 +6,16 @@
 
 ## New feature
 
-The distribution now includes dictionaries to use with Hunspell. You
+The distribution now ships with dictionaries to use with Hunspell. You
 need to install an Hunspell binary separately, most likely through
 Homebrew. You may then use the included English, French, German and
 Spanish dictionaries by copying the files in the `Dictionaries`
 directory to `~/Library/Spelling`.
 
+## Updates
+
+- AUCTeX 12.2
+- Org 9.3.6
 
 
 # VERSION 26.3-modified-1 (27 September 2019)
