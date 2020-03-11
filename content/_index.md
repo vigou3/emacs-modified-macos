@@ -63,10 +63,10 @@ recommend to install [Hunspell](https://hunspell.github.io) using
 The Hunspell installation does not include any dictionaries.
 Therefore, this distributions of Emacs ships with the following [Libre
 Office dictionaries](https://extensions.libreoffice.org/extensions?getCategories=Dictionary&getCompatibility=any) suitable for use with Hunspell:
-[English](https://extensions.libreoffice.org/extensions/english-dictionaries/);
-[French](https://extensions.libreoffice.org/extensions/dictionnaires-francais/);
-[German](https://extensions.libreoffice.org/extensions/german-de-de-frami-dictionaries);
-[Spanish](https://extensions.libreoffice.org/extensions/spanish-dictionaries).
+[English](https://extensions.libreoffice.org/extensions/english-dictionaries/) (version 2020.03.01);
+[French](https://extensions.libreoffice.org/extensions/dictionnaires-francais/) (version 5.7);
+[German](https://extensions.libreoffice.org/extensions/german-de-de-frami-dictionaries) (version 2017.01.12);
+[Spanish](https://extensions.libreoffice.org/extensions/spanish-dictionaries) (version 2.4).
 
 To make use of the dictionaries, copy the files in the `Dictionaries`
 directory of the disk image to `~/Library/Spelling`. If needed, create

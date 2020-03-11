@@ -41,6 +41,18 @@ PSVNVERSION = $(shell git show master:Makeconf \
 TABBARVERSION = $(shell git show master:Makeconf \
 	| grep ^TABBARVERSION \
 	| cut -d = -f 2)
+DICT-ENVERSION = $(shell git show devel:Makeconf \
+        | grep ^DICT-ENVERSION \
+        | cut -d = -f 2)
+DICT-FRVERSION = $(shell git show devel:Makeconf \
+        | grep ^DICT-FRVERSION \
+        | cut -d = -f 2)
+DICT-DEVERSION = $(shell git show devel:Makeconf \
+        | grep ^DICT-DEVERSION \
+        | cut -d = -f 2)
+DICT-ESVERSION = $(shell git show devel:Makeconf \
+        | grep ^DICT-ESVERSION \
+        | cut -d = -f 2)
 REPOSURL = $(shell git show master:Makeconf \
 	| grep ^REPOSURL \
 	| cut -d = -f 2)
@@ -75,7 +87,11 @@ files:
 	      -e '/\[markdown-mode.el\]/s/[0-9]+[0-9.]*/${MARKDOWNMODEVERSION}/' \
 	      -e '/\[exec-path-from-shell.el\]/s/[0-9]+[0-9.]*/${EXECPATHVERSION}/' \
 	      -e '/\[psvn.el\]/s/r[0-9]+/r${PSVNVERSION}/' \
-	       _index.md
+	      -e '/\[English\]/s/version [0-9a-z.]+/version ${DICT-ENVERSION}/' \
+	      -e '/\[French\]/s/version [0-9.]+/version ${DICT-FRVERSION}/' \
+	      -e '/\[German\]/s/version [0-9.]+/version ${DICT-DEVERSION}/' \
+	      -e '/\[Spanish\]/s/version [0-9.]+/version ${DICT-ESVERSION}/' \
+	      _index.md
 	cd layouts/partials && \
 	  awk 'BEGIN { FS = "/"; OFS = "/" } \
 	       /${url}\/uploads/ { if (NF > 8) { \
