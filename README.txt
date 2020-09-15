@@ -1,11 +1,12 @@
 Copyright (C) 2008-2013 Free Software Foundation, Inc.
-Copyright (C) 2009-2019 Vincent Goulet for the modifications.
+Copyright (C) 2009-2020 Vincent Goulet for the modifications.
 See below for GNU Emacs license conditions.
 
 Emacs Modified for macOS
 ========================
 
-This is GNU Emacs modified to include the following add-on packages:
+This is GNU Emacs 26.3 modified to include the following add-on
+packages:
 
 - ESS 18.10.2;
 - AUCTeX 12.2;
@@ -20,7 +21,6 @@ This is GNU Emacs modified to include the following add-on packages:
   details);
 - psvn.el r1573006 to work with Subversion repositories from
   within Emacs;
-- framepop.el, to obtain temporary buffers in separate frames;
 - default.el and site-start.el files to make everything work together.
 
 The distribution is based on the latest stable release of GNU Emacs

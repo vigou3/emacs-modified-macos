@@ -2,6 +2,20 @@
 === Emacs Modified for macOS
 ===
 
+# (in development)
+
+## Updates
+
+- Emacs 27.1-1 released 10 August 2020
+- Org 9.3.8
+- markdownmode.el v2.4
+- Libre Office English dictionary 2020.08.01
+- Libre Office Spanish dictionary 2.5
+
+## Changes
+
+- Largely obsolete framepop.el removed from the distribution.
+
 # VERSION 26.3-modified-2 (11 March 2020)
 
 ## New feature

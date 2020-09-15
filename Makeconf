@@ -23,22 +23,22 @@
 ## Boston, MA 02110-1301, USA.
 
 ## GNU Emacs and this distribution version number
-EMACSVERSION=26.3
-EMACSPATCHLEVEL=
-DISTVERSION=2
+EMACSVERSION=27.1
+EMACSPATCHLEVEL=1
+DISTVERSION=1
 
 ## Extensions version numbers
 ESSVERSION=18.10.2
 AUCTEXVERSION=12.2
-ORGVERSION=9.3.6
-MARKDOWNMODEVERSION=2.3
+ORGVERSION=9.3.8
+MARKDOWNMODEVERSION=2.4
 EXECPATHVERSION=1.12
 PSVNVERSION=1573006
 TABBARVERSION=2.2
-DICT-ENVERSION=2020.03.01
+DICT-ENVERSION=2020.08.01
 DICT-FRVERSION=5.7
 DICT-DEVERSION=2017.01.12
-DICT-ESVERSION=2.4
+DICT-ESVERSION=2.5
 
 ## Name of the Apple Developer ID Application certificate used to
 ## codesign the application
@@ -69,10 +69,10 @@ ESS=ess-${ESSVERSION}
 AUCTEX=auctex-${AUCTEXVERSION}
 ORG=org-${ORGVERSION}
 TABBAR=tabbar-${TABBARVERSION}
-DICT-EN = dict-en_$(subst .,,${DICT-ENVERSION})
-DICT-FR = lo-oo-ressources-linguistiques-fr-v${DICT-FRVERSION}
-DICT-ES = es_ANY
-DICT-DE = dict-de_DE-frami_$(subst .,-,${DICT-DEVERSION})
+DICT-EN = dict-en-$(subst .,,${DICT-ENVERSION})
+DICT-FR = lo-oo-ressources-linguistiques-fr-v$(subst .,-,${DICT-FRVERSION})
+DICT-ES = es-any
+DICT-DE = dict-de-de-frami-$(subst .,-,${DICT-DEVERSION})
 
 ## DMG mount point
 VOLUME=/Volumes

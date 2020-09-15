@@ -77,8 +77,6 @@ dir:
 	    version-modified.el && \
 	  ${CP} version-modified.el ${SITELISP}/
 	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/version-modified.el
-	${CP} framepop.el ${SITELISP}/
-	$(EMACSBATCH) -f batch-byte-compile ${SITELISP}/framepop.el
 	${CP} Emacs.icns ${DESTDIR}/
 
 .PHONY: ess
@@ -197,7 +195,7 @@ bundle:
 
 	@echo ----- Populating top level image directory...
 	sed -E -i "" \
-	    -e 's/[0-9.]+-modified-[0-9]/${VERSION}/' \
+	    -e 's/(GNU Emacs )[0-9.]+/\1${EMACSVERSION}/' \
 	    -e 's/(ESS )[0-9.]+/\1${ESSVERSION}/' \
 	    -e 's/(AUCTeX )[0-9.]+/\1${AUCTEXVERSION}/' \
 	    -e 's/(org )[0-9.]+/\1${ORGVERSION}/' \
@@ -205,10 +203,10 @@ bundle:
 	    -e 's/(markdown-mode.el )[0-9.]+/\1${MARKDOWNMODEVERSION}/' \
 	    -e 's/(exec-path-from-shell.el )[0-9.]+/\1${EXECPATHVERSION}/' \
 	    -e 's/(psvn.el r)[0-9]+/\1${PSVNVERSION}/' \
-	    -e 's/(English \(version )[0-9a-z.]\+/\1${DICT-ENVERSION}/' \
-	    -e 's/(French \(version )[0-9.]\+/\1${DICT-FRVERSION}/' \
-	    -e 's/(German \(version )[0-9.]\+/\1${DICT-DEVERSION}/' \
-	    -e 's/(Spanish \(version )[0-9.]\+/\1${DICT-ESVERSION}/' \
+	    -e 's/(English \(version )[0-9a-z.]+/\1${DICT-ENVERSION}/' \
+	    -e 's/(French \(version )[0-9.]+/\1${DICT-FRVERSION}/' \
+	    -e 's/(German \(version )[0-9.]+/\1${DICT-DEVERSION}/' \
+	    -e 's/(Spanish \(version )[0-9.]+/\1${DICT-ESVERSION}/' \
 	    ${README} && \
 	  ${CP} ${README} ${VOLUME}/${DISTNAME}/
 	${CP} ${NEWS} ${VOLUME}/${DISTNAME}/
@@ -351,13 +349,13 @@ get-tabbar:
 get-dict:
 	@echo ----- Fetching dictionaries
 	if [ -f ${DICT-EN}.zip ]; then ${RM} ${DICT-EN}.zip; fi
-	curl -L -o ${DICT-EN}.zip https://extensions.libreoffice.org/extensions/english-dictionaries/$(shell echo ${DICT-ENVERSION} | sed 's/\./-/')/@@download/file/${DICT-EN}.oxt
+	curl -L -o ${DICT-EN}.zip https://extensions.libreoffice.org/assets/downloads/41/${DICT-EN}.oxt
 	if [ -f ${DICT-FR}.zip ]; then ${RM} ${DICT-FR}.zip; fi
-	curl -L -o ${DICT-FR}.zip https://extensions.libreoffice.org/extensions/dictionnaires-francais/${DICT-FRVERSION}/@@download/file/${DICT-FR}.oxt
+	curl -L -o ${DICT-FR}.zip https://extensions.libreoffice.org/assets/downloads/z/${DICT-FR}.oxt
 	if [ -f ${DICT-ES}.zip ]; then ${RM} ${DICT-ES}.zip; fi
-	curl -L -o ${DICT-ES}.zip https://extensions.libreoffice.org/extensions/spanish-dictionaries/${DICT-ESVERSION}/@@download/file/${DICT-ES}.oxt
+	curl -L -o ${DICT-ES}.zip https://extensions.libreoffice.org/assets/downloads/z/${DICT-ES}.oxt
 	if [ -f ${DICT-DE}.zip ]; then ${RM} ${DICT-DE}.zip; fi
-	curl -L -o ${DICT-DE}.zip https://extensions.libreoffice.org/extensions/german-de-de-frami-dictionaries/$(subst .,-,${DICT-DEVERSION})/@@download/file/${DICT-DE}.oxt
+	curl -L -o ${DICT-DE}.zip https://extensions.libreoffice.org/assets/downloads/z/${DICT-DE}.oxt
 
 .PHONY: clean
 clean:
