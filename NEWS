@@ -2,7 +2,7 @@
 === Emacs Modified for macOS
 ===
 
-# (in development)
+# VERSION 27.1-1-modified-1 (16 September 2020)
 
 ## Updates
 
@@ -15,6 +15,7 @@
 ## Changes
 
 - Largely obsolete framepop.el removed from the distribution.
+
 
 # VERSION 26.3-modified-2 (11 March 2020)
 
