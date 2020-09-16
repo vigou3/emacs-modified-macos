@@ -1,6 +1,6 @@
 ### -*-Makefile-*- for GitLab page of Emacs Modified for macOS
 ##
-## Copyright (C) 2019 Vincent Goulet
+## Copyright (C) 2020 Vincent Goulet
 ##
 ## Author: Vincent Goulet
 ##
@@ -63,8 +63,8 @@ APIURL = https://gitlab.com/api/v4/projects/vigou3%2F${REPOSNAME}
 OAUTHTOKEN = $(shell cat ~/.gitlab/token)
 
 ## Automatic variables
-TAGNAME = v${VERSION}
 VERSION=${EMACSVERSION}$(if ${EMACSPATCHLEVEL},-${EMACSPATCHLEVEL},)-modified-${DISTVERSION}
+TAGNAME = v${VERSION}
 DISTNAME = Emacs-${VERSION}
 
 

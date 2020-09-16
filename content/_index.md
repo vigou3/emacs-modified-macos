@@ -6,8 +6,8 @@ description: GNU Emacs. Ready for R and LaTeX.
 # Presentation
 
 Emacs Modified for macOS is a distribution
-of [GNU Emacs](https://www.gnu.org/software/emacs/) **26.3** (released
-August 28, 2019) bundled with a few select packages for R developers
+of [GNU Emacs](https://www.gnu.org/software/emacs/) **27.1** (released
+August 10, 2020) bundled with a few select packages for R developers
 and LaTeX users.
 
 The additions to stock Emacs are the following:
@@ -29,8 +29,6 @@ The additions to stock Emacs are the following:
   Andre Colomb's and Koji Nakamaru's
   [combined patches](https://mail-archives.apache.org/mod_mbox//subversion-dev/201208.mbox/raw/%3c503B958F.6010906@schickhardt.org%3e/1/4)
   to support Subversion 1.7;
-- [framepop.el](https://bazaar.launchpad.net/~vcs-imports/emacs-goodies-el/trunk/view/head:/elisp/emacs-goodies-el/framepop.el)
-  to open temporary buffers in a separate frame;
 - [default.el](https://gitlab.com/vigou3/emacs-modified-macos/blob/v26.3-modified-2/default.el)
   and
   [site-start.el](https://gitlab.com/vigou3/emacs-modified-macos/blob/v26.3-modified-2/site-start.el),
