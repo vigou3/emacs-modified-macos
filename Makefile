@@ -71,12 +71,10 @@ DISTNAME = Emacs-${VERSION}
 all: files commit
 
 files: 
-	$(eval url=$(subst /,\/,$(patsubst %/,%,${REPOSURL})))
 	$(eval file_id=$(shell curl --header "PRIVATE-TOKEN: ${OAUTHTOKEN}" \
 	                             --silent \
 	                             ${APIURL}/releases/${TAGNAME}/assets/links \
-				| sed -E 's/.*\"direct_asset_url\":\"([^"]*)\".*/\1/' \
-				| cut -d/ -f7))
+	                       | sed -E 's/.*\"direct_asset_url\":\".*\/uploads\/([^\/]*)\/.*/\1/'))
 	cd content && \
 	  sed -E \
 	      -e 's/[0-9.-]+-modified-[0-9]+/${VERSION}/g' \
@@ -95,11 +93,11 @@ files:
 	  mv tmpfile _index.md
 	cd layouts/partials && \
 	  awk 'BEGIN { FS = "/"; OFS = "/" } \
-	       /${url}\/uploads/ { if (NF > 8) { \
-		                       print "too many fields in the uploads url" > "/dev/stderr"; \
-				       exit 1; } \
-				   $$7 = "${file_id}"; \
-	                           sub(/.*\.dmg/, "${DISTNAME}.dmg", $$8) } \
+	       /uploads/ { if (NF > 8) { \
+		               print "too many fields in the uploads url" > "/dev/stderr"; \
+			       exit 1; } \
+			   $$7 = "${file_id}"; \
+	                   sub(/.*\.dmg/, "${DISTNAME}.dmg", $$8) } \
 	       1' \
 	       site-header.html > tmpfile && \
 	  mv tmpfile site-header.html
