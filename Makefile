@@ -91,6 +91,10 @@ files:
 	      -e '/\[Spanish\]/s/version [0-9.]+/version ${DICT-ESVERSION}/' \
 	      _index.md > tmpfile && \
 	  mv tmpfile _index.md
+ifeq ($(strip ${file_id}),)
+	@echo "error retrieving the asset url"
+	exit 1
+else
 	cd layouts/partials && \
 	  awk 'BEGIN { FS = "/"; OFS = "/" } \
 	       /uploads/ { if (NF > 8) { \
@@ -101,6 +105,7 @@ files:
 	       1' \
 	       site-header.html > tmpfile && \
 	  mv tmpfile site-header.html
+endif
 
 commit:
 	git commit content/_index.md layouts/partials/site-header.html \
