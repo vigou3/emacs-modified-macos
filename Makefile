@@ -278,11 +278,13 @@ create-release:
 	     ${NEWS} >> relnotes.in
 	curl --request POST \
 	     --header "PRIVATE-TOKEN: ${OAUTHTOKEN}" \
+	     --output /dev/null --silent \
 	     "${APIURL}/repository/tags?tag_name=${TAGNAME}&ref=master"
 	curl --request POST \
 	     --data @relnotes.in \
 	     --header "PRIVATE-TOKEN: ${OAUTHTOKEN}" \
 	     --header "Content-Type: application/json" \
+	     --output /dev/null --silent \
 	     ${APIURL}/releases
 	${RM} relnotes.in
 	@echo ----- Done creating the release
