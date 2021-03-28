@@ -5,12 +5,12 @@ See below for GNU Emacs license conditions.
 Emacs Modified for macOS
 ========================
 
-This is GNU Emacs 27.1 modified to include the following add-on
+This is GNU Emacs 27.2 modified to include the following add-on
 packages:
 
 - ESS 18.10.2;
-- AUCTeX 12.2;
-- org 9.3.8;
+- AUCTeX 12.3;
+- org 9.4;
 - Tabbar 2.2, a minor mode that displays a tab bar at the top of the
   Emacs window, similar to the idea of web browsers tabs;
 - markdown-mode.el 2.4;
@@ -54,7 +54,7 @@ The Hunspell installation does not include any dictionaries.
 Therefore, this distributions of Emacs ships with the following Libre
 Office dictionaries suitable for use with Hunspell:
 
-- English (version 2020.08.01);
+- English (version 2021.02.01);
 - French (version 5.7);
 - German (version 2017.01.12);
 - Spanish (version 2.5).
