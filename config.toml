@@ -9,7 +9,7 @@ enableRobotsTXT = true
 [params]
   pages_home = "https://vigou3.gitlab.io/"
   gitlab = "https://gitlab.com/vigou3"
-  repos = "programmer-avec-r"
+  repos = "emacs-modified-macos"
   file_id = "uploads/da2ab547d5b25c3880f76701cec0987f/Emacs-27.2-2-modified-1.dmg"
   release_notes = "-/releases/"
   custom_css = ["/css/custom.css"]

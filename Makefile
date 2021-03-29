@@ -74,7 +74,12 @@ files:
 	$(eval file_id=$(shell curl --header "PRIVATE-TOKEN: ${OAUTHTOKEN}" \
 	                             --silent \
 	                             ${APIURL}/releases/${TAGNAME}/assets/links \
-	                       | sed -E 's/.*\"direct_asset_url\":\".*\/uploads\/([^\/]*)\/.*/\1/'))
+	                       | sed -E 's/.*\"direct_asset_url\":\".*\/(uploads\/[^\"]*)\".*/\1/'))
+	awk 'BEGIN { FS = "\""; OFS = "\"" } \
+	     /file_id/ { $$2 = "${file_id}" } \
+	     1' \
+	    config.toml > tmpfile && \
+	  mv tmpfile config.toml
 	cd content && \
 	  sed -E \
 	      -e 's/[0-9.-]+-modified-[0-9]+/${VERSION}/g' \
@@ -91,23 +96,8 @@ files:
 	      -e '/\[Spanish\]/s/version [0-9.]+/version ${DICT-ESVERSION}/' \
 	      _index.md > tmpfile && \
 	  mv tmpfile _index.md
-ifeq ($(strip ${file_id}),)
-	@echo "error retrieving the asset url"
-	exit 1
-else
-	cd layouts/partials && \
-	  awk 'BEGIN { FS = "/"; OFS = "/" } \
-	       /uploads/ { if (NF > 8) { \
-		               print "too many fields in the uploads url" > "/dev/stderr"; \
-			       exit 1; } \
-			   $$7 = "${file_id}"; \
-	                   sub(/.*\.dmg/, "${DISTNAME}.dmg", $$8) } \
-	       1' \
-	       site-header.html > tmpfile && \
-	  mv tmpfile site-header.html
-endif
 
 commit:
-	git commit content/_index.md layouts/partials/site-header.html \
+	git commit config.toml content/_index.md \
 	    -m "Updated web page for version ${VERSION}"
 	git push
