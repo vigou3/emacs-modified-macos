@@ -1,15 +1,30 @@
 title = "Vincent Goulet"
 baseURL = "https://vigou3.gitlab.io/emacs-modified-macos"
-languageCode = "fr-ca"
 theme = "ananke"
 
 MetaDataFormat = "yaml"
-DefaultContentLanguage = "fr"
+DefaultContentLanguage = "en"
 enableRobotsTXT = true
 
 [params]
-  gitlab_home = "https://vigou3.gitlab.io/"
-  custom_css = ["/css/custom.css"]
+  pages_home = "https://vigou3.gitlab.io/"
   gitlab = "https://gitlab.com/vigou3"
+  repos = "programmer-avec-r"
+  file_id = "uploads/da2ab547d5b25c3880f76701cec0987f/Emacs-27.2-2-modified-1.dmg"
+  release_notes = "-/releases/"
+  custom_css = ["/css/custom.css"]
   background_color_class = "bg-black"
   featured_image = "/images/orion.jpg"
+
+  ## Google Fonts integration using the implementation of
+  ## https://jeremybise.com/google-fonts-in-hugo-themes/
+  ##
+  ## See also assets/scss/main.scss; layouts/partials/google-fonts.html;
+  ## layouts/_default/baseof.html.
+  google_fonts = [
+    ["Fira Sans", "300, 300i, 400, 400i, 600, 600i"],
+    ["Fira Code", "300"]
+  ]
+  heading_font = "Fira Sans"
+  body_font = "Fira Sans"
+  code_font = "Fira Code"

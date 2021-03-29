@@ -13,8 +13,8 @@ and LaTeX users.
 The additions to stock Emacs are the following:
 
 - [ESS](https://ess.r-project.org) 18.10.2;
-- [AUCTeX](https://www.gnu.org/software/auctex/) 12.2;
-- [org](https://orgmode.org/) 9.3.8;
+- [AUCTeX](https://www.gnu.org/software/auctex/) 12.3;
+- [org](https://orgmode.org/) 9.4;
 - [Tabbar](https://github.com/dholm/tabbar) 2.2, a minor mode that
   displays a tab bar at the top of the Emacs window, similar to the
   idea of web browsers tabs;
@@ -29,9 +29,9 @@ The additions to stock Emacs are the following:
   Andre Colomb's and Koji Nakamaru's
   [combined patches](https://mail-archives.apache.org/mod_mbox//subversion-dev/201208.mbox/raw/%3c503B958F.6010906@schickhardt.org%3e/1/4)
   to support Subversion 1.7;
-- [default.el](https://gitlab.com/vigou3/emacs-modified-macos/blob/v27.1-1-modified-1/default.el)
+- [default.el](https://gitlab.com/vigou3/emacs-modified-macos/blob/v27.2-2-modified-1/default.el)
   and
-  [site-start.el](https://gitlab.com/vigou3/emacs-modified-macos/blob/v27.1-1-modified-1/site-start.el),
+  [site-start.el](https://gitlab.com/vigou3/emacs-modified-macos/blob/v27.2-2-modified-1/site-start.el),
   configuration files to make everything work.
 
 The distribution is based on the latest stable release of GNU Emacs
@@ -40,8 +40,8 @@ compiled by David Caldwell and distributed on
 
 ## Latest release
 
-Version 27.1-1-modified-1
-([Release notes](https://gitlab.com/vigou3/emacs-modified-macos/tags/v27.1-1-modified-1/))
+Version 27.2-2-modified-1
+([Release notes](https://gitlab.com/vigou3/emacs-modified-macos/tags/v27.2-2-modified-1/))
 
 ## System requirements
 
