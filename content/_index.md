@@ -6,8 +6,8 @@ description: GNU Emacs. Ready for R and LaTeX.
 # Presentation
 
 Emacs Modified for macOS is a distribution
-of [GNU Emacs](https://www.gnu.org/software/emacs/) **27.1** (released
-August 10, 2020) bundled with a few select packages for R developers
+of [GNU Emacs](https://www.gnu.org/software/emacs/) **27.2** (released
+March 25, 2021) bundled with a few select packages for R developers
 and LaTeX users.
 
 The additions to stock Emacs are the following:
