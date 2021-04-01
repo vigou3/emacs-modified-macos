@@ -61,7 +61,7 @@ recommend to install [Hunspell](https://hunspell.github.io) using
 The Hunspell installation does not include any dictionaries.
 Therefore, this distributions of Emacs ships with the following [Libre
 Office dictionaries](https://extensions.libreoffice.org/extensions?getCategories=Dictionary&getCompatibility=any) suitable for use with Hunspell:
-[English](https://extensions.libreoffice.org/extensions/english-dictionaries/) (version 2020.08.01);
+[English](https://extensions.libreoffice.org/extensions/english-dictionaries/) (version 2021.02.01);
 [French](https://extensions.libreoffice.org/extensions/dictionnaires-francais/) (version 5.7);
 [German](https://extensions.libreoffice.org/extensions/german-de-de-frami-dictionaries) (version 2017.01.12);
 [Spanish](https://extensions.libreoffice.org/extensions/spanish-dictionaries) (version 2.5).
